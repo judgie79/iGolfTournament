@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Golf.Tournament.Models.Hole>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+
+    <tr>
+        <th>Hole</th>
+        @foreach (var item in Model)
+        {
+
+            <th>@item.Number</th>
+        }
+    </tr>
+    <tr>
+        <th>Par</th>
+        @foreach (var item in Model)
+        {
+
+            <td>@item.Par</td>
+        }
+    </tr>
+    <tr>
+        <th>Hcp</th>
+        @foreach (var item in Model)
+        {
+
+            <td>@item.Hcp</td>
+        }
+    </tr>
+    <tr>
+        <th>Distance</th>
+        @foreach (var item in Model)
+        {
+
+            <td>@item.Distance</td>
+        }
+    </tr>
+</table>

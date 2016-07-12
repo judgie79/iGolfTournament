@@ -10,7 +10,7 @@ module.exports = {
     connectToServer: function (callback) {
 
         // Connection URL 
-        var url = 'mongodb://localhost:27017/Golf';
+        var url = 'mongodb://localhost:27017/GolfTournament';
         // Use connect method to connect to the Server 
         MongoClient.connect(url, function (err, db) {
             assert.equal(null, err);

@@ -1,0 +1,57 @@
+﻿@model Golf.Tournament.Models.Course
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+
+        @foreach (var item in Model.TeeBoxes)
+        {
+            <dt>
+               Teebox
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => item.Name)
+
+                <dl style="background-color: @item.Color";>
+                    @Html.DisplayFor(model => item)
+                </dl>
+            </dd>
+            
+        }
+    </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>

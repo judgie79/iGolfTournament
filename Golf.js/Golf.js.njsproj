@@ -36,6 +36,8 @@
     <Compile Include="db\clubRepository.js" />
     <Compile Include="db\crudRepository.js" />
     <Compile Include="db\mongoUtil.js" />
+    <Compile Include="db\userRepository.js" />
+    <Compile Include="routes\users.js" />
     <Compile Include="schemas\course.js" />
     <Compile Include="schemas\player.js" />
     <Compile Include="schemas\club.js" />

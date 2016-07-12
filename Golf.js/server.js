@@ -10,6 +10,8 @@ var clubRouter = require('./routes/clubs');
 var courseRouter = require('./routes/courses');
 var playerRouter = require('./routes/players');
 var userRouter = require('./routes/users');
+var tournamentRouter = require('./routes/tournaments');
+
 var passport = require('passport');
 
 
@@ -25,7 +27,7 @@ app.use(passport.session()); // persistent login sessions
 app.use('/api/clubs', clubRouter);
 app.use('/api/courses', courseRouter);
 app.use('/api/players', playerRouter);
-
+app.use('/api/tournaments', tournamentRouter);
 app.use('/api/users', userRouter)
 
 mongoUtil.connectToServer(function (err) {
