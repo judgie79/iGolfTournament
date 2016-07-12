@@ -8,10 +8,6 @@
         "course": {},
         "flights": [
             {
-                "_id": "",
-                "player": {
-                    
-                }
             }
         ],
     }
