@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Golf.Tournament.Models.Course>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "Course", new { }, new { })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ClubId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClubId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", "Course", new { id=item.Id }, new { }) |
+            @Html.ActionLink("Details", "Details", "Course", new { id=item.Id }, new { }) |
+            @Html.ActionLink("Delete", "Delete", "Course", new { id=item.Id }, new { })
+        </td>
+    </tr>
+}
+
+</table>

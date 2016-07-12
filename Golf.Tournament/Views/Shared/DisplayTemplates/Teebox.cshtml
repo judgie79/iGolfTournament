@@ -1,0 +1,41 @@
+﻿@model Golf.Tournament.Models.TeeBox
+
+<div style="background-color: @Model.Color;">
+    <h4>@Html.DisplayFor(model => model.Name)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Distance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Distance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Par)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Par)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SlopeRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SlopeRating)
+        </dd>
+
+    </dl>
+</div>

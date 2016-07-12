@@ -1,0 +1,2 @@
+e:\documents\visual studio 2015\Projects\Golf.js\Golf.js\obj\Debug\Golf.js.njsprojResolveAssemblyReference.cache
+e:\documents\visual studio 2015\Projects\Golf.js\Golf.js\bin\Microsoft.NodejsTools.WebRole.dll

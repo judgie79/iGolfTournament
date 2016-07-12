@@ -1,0 +1,155 @@
+﻿[
+  {
+    "_id": "577e6b9ab77d5fe65d2b39ee",
+    "clubId": "577e64a802447c7deb4f3d6d",
+    "name": "A",
+    "teeboxes": [
+      {
+        "color": "#FFFF00",
+        "name": "Herren Gelb",
+        "distance": 2646.0,
+        "par": 35.0,
+        "courseRating": 69.0,
+        "slopeRating": 128.0,
+        "holes": [
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39c8",
+            "number": 1.0,
+            "distance": 257.0,
+            "par": 4.0,
+            "hcp": 5.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39c9",
+            "number": 2.0,
+            "distance": 298.0,
+            "par": 4.0,
+            "hcp": 6.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39ca",
+            "number": 3.0,
+            "distance": 492.0,
+            "par": 5.0,
+            "hcp": 7.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39cb",
+            "number": 4.0,
+            "distance": 164.0,
+            "par": 3.0,
+            "hcp": 2.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39cc",
+            "number": 5.0,
+            "distance": 346.0,
+            "par": 4.0,
+            "hcp": 1.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39cd",
+            "number": 6.0,
+            "distance": 140.0,
+            "par": 3.0,
+            "hcp": 9.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39ce",
+            "number": 7.0,
+            "distance": 476.0,
+            "par": 5.0,
+            "hcp": 3.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39cf",
+            "number": 8.0,
+            "distance": 158.0,
+            "par": 3.0,
+            "hcp": 4.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39d0",
+            "number": 9.0,
+            "distance": 315.0,
+            "par": 4.0,
+            "hcp": 8.0
+          }
+        ]
+      },
+      {
+        "color": "#FFFF00",
+        "name": "Damen Rot",
+        "distance": 2208.0,
+        "par": 35.0,
+        "courseRating": 68.1,
+        "slopeRating": 119.0,
+        "holes": [
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39c8",
+            "number": 1.0,
+            "distance": 231.0,
+            "par": 4.0,
+            "hcp": 5.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39c9",
+            "number": 2.0,
+            "distance": 257.0,
+            "par": 4.0,
+            "hcp": 6.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39ca",
+            "number": 3.0,
+            "distance": 420.0,
+            "par": 5.0,
+            "hcp": 7.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39cb",
+            "number": 4.0,
+            "distance": 148.0,
+            "par": 3.0,
+            "hcp": 2.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39cc",
+            "number": 5.0,
+            "distance": 298.0,
+            "par": 4.0,
+            "hcp": 1.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39cd",
+            "number": 6.0,
+            "distance": 121.0,
+            "par": 3.0,
+            "hcp": 9.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39ce",
+            "number": 7.0,
+            "distance": 392.0,
+            "par": 5.0,
+            "hcp": 3.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39cf",
+            "number": 8.0,
+            "distance": 109.0,
+            "par": 3.0,
+            "hcp": 4.0
+          },
+          {
+            "holeId": "577e6ae2b77d5fe65d2b39d0",
+            "number": 9.0,
+            "distance": 232.0,
+            "par": 4.0,
+            "hcp": 8.0
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "name": "golf.js",
+  "version": "0.0.0",
+  "description": "Golf.js",
+  "main": "server.js",
+  "author": {
+    "name": "Michael.Richter"
+  },
+  "dependencies": {
+    "express": "^4.0.0",
+    "body-parser": "^1.0.2",
+    "mongodb": "^2.1.18",
+    "bcryptjs": "^2.3.0"
+  },
+  "devDependencies": {
+    "jayschema": "^0.3.1"
+  }
+}

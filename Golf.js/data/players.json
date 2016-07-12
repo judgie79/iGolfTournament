@@ -1,0 +1,36 @@
+﻿[
+  {
+    "_id": "577e7460b77d5fe65d2b39f4",
+    "firstname": "Michael",
+    "lastname": "Richter",
+    "address": {
+      "street": "Bismarckstraße",
+      "houseNo": "47",
+      "zip": "67161",
+      "city": "Gönnheim",
+      "country": "DE"
+    },
+    "homeClub": {
+      "name": "Golfgarten Deutsche Weinstraße",
+      "clubId": "577e64a802447c7deb4f3d6d"
+    },
+    "hcp": -32.2
+  },
+  {
+    "_id" : "577e74aeb77d5fe65d2b39f5",
+    "firstname" : "Brigitte",
+    "lastname" : "Richter",
+    "address": {
+      "street": "Am Hüttenwingert",
+      "houseNo": "16",
+      "zip": "67157",
+      "city": "Wachenheim",
+      "country": "DE"
+    },
+    "homeClub": {
+      "name": "Golfgarten Deutsche Weinstraße",
+      "clubId": "577e64a802447c7deb4f3d6d"
+    },
+    "hcp" : -29.0
+}
+]

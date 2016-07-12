@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Golf.Tournament.Models.Course>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@Html.Partial("CourseListPart", Model)

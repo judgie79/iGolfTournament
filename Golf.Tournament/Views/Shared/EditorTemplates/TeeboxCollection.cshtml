@@ -1,0 +1,12 @@
+﻿@model Golf.Tournament.Models.TeeboxCollection
+
+@{
+    var count = Model.Count;
+    int columns = 12 / count;
+}
+@foreach (var Teebox in Model)
+{
+    <div class="col-md-@columns">
+        @Html.EditorFor(model => Teebox)
+    </div>
+}
