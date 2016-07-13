@@ -25,11 +25,6 @@ router.post("/", function (req, res) {
 
     var newtournament = req.body;
     
-
-    if (!(req.body.firstname || req.body.lastname)) {
-        handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
-    }
-
     tournamentRepository.create(newtournament, function (err, tournament) {
         if (err) {
             handleError(res, err.message, "Failed to create new tournament.");

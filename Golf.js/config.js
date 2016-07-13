@@ -9,6 +9,10 @@ var config = {
             users: "users",
             tournaments: "tournaments",
         }
+    },
+    rest: {
+        port: 8080,
+        apiPrefix: "api"
     }
 };
 

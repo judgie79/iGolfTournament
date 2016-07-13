@@ -21,7 +21,33 @@ module.exports.findById = function (id, callback) {
 
 module.exports.create = function (newtournament, callback) {
 
-    crudRepository.create(newtournament, callback);
+    // var isValid = crudRepository.validate(newTournament, clubSchema);
+
+    // if (isValid.length == 0)
+    //     crudRepository.create(newTournament, callback);
+    // else
+    //     callback(isValid, null);
+
+    var db = mongoUtil.getDb();
+
+    db.collection(config.db.collections.courses).findOne({ _id: new ObjectID(newTournament.course._id) }, function (err, course) {
+
+
+        newTournament.course.name = course.name;
+        newTournament.course.teeboxes = course.teeboxes;
+
+        db.collection(config.db.collections.clubs).findOne({ _id: new ObjectID(newTournament.club._id) }, function (err, club) {
+
+            newTournament.club.name = club.name
+            newTournament.club.address = club.address;
+
+            newTournament.course._id = new ObjectID(newTournament.course._id);
+            newTournament.course.clubId = new ObjectID(newTournament.club._id);
+            newTournament.club._id = new ObjectID(newTournament.club._id);
+
+            crudRepository.create(newTournament, callBack);
+        });
+    });
 }
 
 module.exports.update = function (id, updateTournament, callback) {
@@ -60,25 +86,6 @@ module.exports.deleteParticipant = function (participantId, callback) {
 module.exports.registerParticipant = function (tournamentId, participant, callback) {
     var db = mongoUtil.getDb();
 
-
-    //"player": {
-    //     "_id" : "577e7460b77d5fe65d2b39f4",
-    //     "firstname" : "Michael",
-    //     "lastname" : "Richter",
-    //     "address" : {
-    //         "street" : "Bismarckstraße",
-    //         "houseNo" : "47",
-    //         "zip" : "67161",
-    //         "city" : "Gönnheim",
-    //         "country" : "DE"
-    //     },
-    //     "homeClub" : {
-    //         "_id" : "577e64a802447c7deb4f3d6d",
-    //         "name" : "Golfgarten Deutsche Weinstraße"
-    //     },
-    //     "hcp" : -32.2
-    // },
-    //check if the player is already registered
     db.collection(config.db.collections.tournaments).findOne({"player._id": new ObjectID(participant.player._id)}, function(err, tournament) {
         if (tournament != null) {
             callback({message: "Player is already registered!"}, null);
@@ -106,7 +113,4 @@ module.exports.registerParticipant = function (tournamentId, participant, callba
             }
         });
     });
-
-
-    
 }
