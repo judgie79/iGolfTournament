@@ -52,7 +52,7 @@ namespace Golf.Tournament.Models
 
         public string Name { get; set; }
 
-        public decimal Hcp { get; set; }
+        public float Hcp { get; set; }
 
         public DateTime TeaTime { get; set; }
 

@@ -36,6 +36,6 @@ namespace Golf.Tournament.Models
 
         [JsonProperty("hcp")]
         [Required]
-        public decimal Hcp { get; set; }
+        public float Hcp { get; set; }
     }
 }

@@ -11,8 +11,7 @@ namespace Golf.Tournament.Models
     {
         [JsonProperty("color")]
         [Required]
-        [RegularExpression("^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")]
-        public string Color { get; set; }
+        public Color Color { get; set; }
 
         [JsonProperty("name")]
         [Required]
@@ -28,11 +27,11 @@ namespace Golf.Tournament.Models
 
         [JsonProperty("courseRating")]
         [Required]
-        public decimal CourseRating { get; set; }
+        public float CourseRating { get; set; }
 
         [JsonProperty("slopeRating")]
         [Required]
-        public decimal SlopeRating { get; set; }
+        public float SlopeRating { get; set; }
 
         [JsonProperty("holes")]
         public IEnumerable<Hole> Holes { get; set; }
