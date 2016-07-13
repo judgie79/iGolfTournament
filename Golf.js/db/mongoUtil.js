@@ -1,4 +1,4 @@
-﻿
+﻿var config = require("../config.js");
 
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
@@ -10,7 +10,7 @@ module.exports = {
     connectToServer: function (callback) {
 
         // Connection URL 
-        var url = 'mongodb://localhost:27017/GolfTournament';
+        var url = config.db.connectionString + config.db.name;
         // Use connect method to connect to the Server 
         MongoClient.connect(url, function (err, db) {
             assert.equal(null, err);

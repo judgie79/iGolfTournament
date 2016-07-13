@@ -1,13 +1,14 @@
-﻿var express = require('express');
+﻿var config = require("../config.js");
+
+
+var express = require('express');
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
-
-var CLUBS_COLLECTION = "clubs";
 
 var mongoUtil = require('../db/mongoUtil');
 
 var CrudRepository = require('./crudRepository.js');
-var crudRepository = new CrudRepository(CLUBS_COLLECTION);
+var crudRepository = new CrudRepository(config.db.collections.clubs);
 
 var clubSchema = require('../schemas/club.js');
 

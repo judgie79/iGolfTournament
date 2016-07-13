@@ -1,13 +1,13 @@
-﻿var express = require('express');
+﻿var config = require("../config.js");
+
+var express = require('express');
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
-
-var TOURNAMENTS_COLLECTION = "Tournaments";
 
 var mongoUtil = require('../db/mongoUtil');
 
 var CrudRepository = require('./crudRepository.js');
-var crudRepository = new CrudRepository(TOURNAMENTS_COLLECTION);
+var crudRepository = new CrudRepository(config.db.collections.tournaments);
 
 //var tournamentSchema = require('../schemas/tournament.js');
 
@@ -34,7 +34,7 @@ module.exports.delete = function (id, callback) {
 
 module.exports.deleteParticipant = function (participantId, callback) {
     var db = mongoUtil.getDb();
-    db.collection(TOURNAMENTS_COLLECTION).findOne({ "participants._id": new ObjectID(participantId) }, function (err, tournament) {
+    db.collection(config.db.collections.tournaments).findOne({ "participants._id": new ObjectID(participantId) }, function (err, tournament) {
 
         if (tournament != null) {
             var foundIndex = -1;
@@ -79,7 +79,7 @@ module.exports.registerParticipant = function (tournamentId, participant, callba
     //     "hcp" : -32.2
     // },
     //check if the player is already registered
-    db.collection(TOURNAMENTS_COLLECTION).findOne({"player._id": new ObjectID(participant.player._id)}, function(err, tournament) {
+    db.collection(config.db.collections.tournaments).findOne({"player._id": new ObjectID(participant.player._id)}, function(err, tournament) {
         if (tournament != null) {
             callback({message: "Player is already registered!"}, null);
             return;
@@ -88,7 +88,7 @@ module.exports.registerParticipant = function (tournamentId, participant, callba
         participant.player._id = new ObjectID(participant.player._id);
         participant.player.homeClub._id = new ObjectID(participant.player.homeClub._id);
 
-        db.collection(TOURNAMENTS_COLLECTION).findOne({ "_id": new ObjectID(tournamentId) }, function (err, tournament) {
+        db.collection(config.db.collections.tournaments).findOne({ "_id": new ObjectID(tournamentId) }, function (err, tournament) {
 
             if (tournament != null) {
 
@@ -97,7 +97,7 @@ module.exports.registerParticipant = function (tournamentId, participant, callba
                 
                 delete tournament._id;
 
-                db.collection(TOURNAMENTS_COLLECTION).updateOne({ "_id": new ObjectID(tournamentId) }, tournament, function (err, doc) {
+                db.collection(config.db.collections.tournaments).updateOne({ "_id": new ObjectID(tournamentId) }, tournament, function (err, doc) {
                     callback(err, tournament);
                 });
 

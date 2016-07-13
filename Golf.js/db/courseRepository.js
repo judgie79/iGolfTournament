@@ -1,13 +1,14 @@
-﻿var express = require('express');
+﻿var config = require("../config.js");
+
+var express = require('express');
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
-var COURSES_COLLECTION = "courses";
 
 var mongoUtil = require('../db/mongoUtil');
 
 var CrudRepository = require('./crudRepository.js');
-var crudRepository = new CrudRepository(COURSES_COLLECTION);
+var crudRepository = new CrudRepository(config.db.collections.courses);
 
 var courseSchema = require('../schemas/course.js');
 
@@ -17,7 +18,7 @@ module.exports.findAll = function (callBack) {
 
 module.exports.findCoursesOfClub = function (courseId, callBack) {
     var db = mongoUtil.getDb();
-    db.collection(COURSES_COLLECTION).find({ "clubId": ObjectID(courseId) }).toArray(function (err, docs) {
+    db.collection(config.db.collections.courses).find({ "clubId": ObjectID(courseId) }).toArray(function (err, docs) {
 
         callBack(err, docs);
     });

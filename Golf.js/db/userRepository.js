@@ -1,13 +1,13 @@
-﻿var express = require('express');
+﻿var config = require("../config.js");
+
+var express = require('express');
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
-
-var USER_COLLECTION = "users";
 
 var mongoUtil = require('../db/mongoUtil');
 
 var CrudRepository = require('./crudRepository.js');
-var crudRepository = new CrudRepository(USER_COLLECTION);
+var crudRepository = new CrudRepository(config.db.collections.users);
 var bcrypt = require('bcryptjs');
 
 //var userSchema = require('../schemas/user.js');

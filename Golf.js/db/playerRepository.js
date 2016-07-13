@@ -1,13 +1,13 @@
-﻿var express = require('express');
+﻿var config = require("../config.js");
+
+var express = require('express');
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
-
-var PLAYERS_COLLECTION = "players";
 
 var mongoUtil = require('../db/mongoUtil');
 
 var CrudRepository = require('./crudRepository.js');
-var crudRepository = new CrudRepository(PLAYERS_COLLECTION);
+var crudRepository = new CrudRepository(config.db.collections.players);
 
 var playerSchema = require('../schemas/player.js');
 
@@ -32,7 +32,7 @@ module.exports.create = function (newplayer, callback) {
 
             newplayer.homeClub._id;
 
-            db.collection("clubs").findOne({ "_id": ObjectID(newplayer.homeClub._id) }, function (err, doc) {
+            db.collection(config.db.collections.clubs).findOne({ "_id": ObjectID(newplayer.homeClub._id) }, function (err, doc) {
 
                 delete newplayer.homeClub._id;
                 newplayer.homeClub._id = ObjectID(doc._id);
@@ -64,7 +64,7 @@ module.exports.delete = function (id, callback) {
 
 module.exports.findMembersOfClub = function (clubId, callback) {
     var db = mongoUtil.getDb();
-    db.collection(PLAYERS_COLLECTION).find({ "home.clubId": ObjectID(clubId) }).toArray(function (err, players) {
+    db.collection(config.db.collections.players).find({ "home.clubId": ObjectID(clubId) }).toArray(function (err, players) {
 
         callback(err, players);
     });
