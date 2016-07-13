@@ -2,7 +2,7 @@
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
-var COURSES_COLLECTION = "Courses";
+var COURSES_COLLECTION = "courses";
 
 var mongoUtil = require('../db/mongoUtil');
 

@@ -2,7 +2,7 @@
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
-var USER_COLLECTION = "Users";
+var USER_COLLECTION = "users";
 
 var mongoUtil = require('../db/mongoUtil');
 

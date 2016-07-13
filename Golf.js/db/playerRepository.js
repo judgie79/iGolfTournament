@@ -2,7 +2,7 @@
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
-var PLAYERS_COLLECTION = "Players";
+var PLAYERS_COLLECTION = "players";
 
 var mongoUtil = require('../db/mongoUtil');
 
@@ -32,7 +32,7 @@ module.exports.create = function (newplayer, callback) {
 
             newplayer.homeClub._id;
 
-            db.collection("Clubs").findOne({ "_id": ObjectID(newplayer.homeClub._id) }, function (err, doc) {
+            db.collection("clubs").findOne({ "_id": ObjectID(newplayer.homeClub._id) }, function (err, doc) {
 
                 delete newplayer.homeClub._id;
                 newplayer.homeClub._id = ObjectID(doc._id);
