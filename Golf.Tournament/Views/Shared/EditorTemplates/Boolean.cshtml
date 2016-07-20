@@ -9,14 +9,10 @@
     }
 }
 
-
-<div class="form-group@(Html.ValidationErrorFor(m => m, " has-error"))">
-    @Html.LabelFor(m => m, new { @class = "" })
-    <div class="controls">
-        @Html.CheckBox(
+<div class="controls">
+    @Html.CheckBox(
             "",
             Model.HasValue && Model.Value,
             htmlAttributes)
-        @Html.ValidationMessageFor(m => m, null, new { @class = "help-block" })
-    </div>
+    @Html.ValidationMessageFor(m => m, null, new { @class = "help-block" })
 </div>

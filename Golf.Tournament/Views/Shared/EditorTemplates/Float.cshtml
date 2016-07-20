@@ -1,10 +1,10 @@
 @using Golf.Tournament.Utility
-@model decimal?
+@model float?
 
 <div class="input-group">
-    <span class="input-group-addon">&euro;</span>@Html.TextBox(
+    @Html.TextBox(
         "",
-        Model == null ? "" : String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:F2}", ViewData.ModelMetadata.Model),
+        Model == null ? "" : String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:F1}", ViewData.ModelMetadata.Model),
         ViewBag.ClearTextField == true ? new { @class = "form-control clear-text-field input-block-level" } : new { @class = "form-control input-block-level" })
 </div>
-
+@Html.ValidationMessageFor(m => m, null, new { @class = "help-block" })

@@ -162,20 +162,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Golf\Tournament\Models\TournamentEditViewModel.cs" />
+    <Compile Include="Utility\HoleValidation.cs" />
+    <Compile Include="ViewModels\TournamentEditViewModel.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Club.cs" />
-    <Compile Include="Models\ClubDetailsViewModel.cs" />
+    <Compile Include="ViewModels\ClubDetailsViewModel.cs" />
     <Compile Include="Models\Color.cs" />
     <Compile Include="Models\Course.cs" />
-    <Compile Include="Models\CourseEditViewModel.cs" />
+    <Compile Include="ViewModels\CourseEditViewModel.cs" />
     <Compile Include="Models\Hole.cs" />
     <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\PlayerCreateViewModel.cs" />
-    <Compile Include="Models\PlayerEditViewModel.cs" />
+    <Compile Include="ViewModels\PlayerCreateViewModel.cs" />
+    <Compile Include="ViewModels\PlayerEditViewModel.cs" />
+    <Compile Include="ViewModels\ScoresheetViewModel.cs" />
     <Compile Include="Models\TeeBox.cs" />
     <Compile Include="Models\Tournament.cs" />
-    <Compile Include="Models\TournamentCreateViewModel.cs" />
+    <Compile Include="ViewModels\TournamentCreateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Utility\DateTimeExtensions.cs" />
@@ -186,6 +188,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dragndrop.table.columns.css" />
+    <Content Include="Content\dragndrop.table.columns.js" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\themes\bootstrap\bootstrap.css" />
     <Content Include="Content\themes\bootstrap\bootstrap.min.css" />
@@ -195,6 +199,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="HtmlPage1.html" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-timepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -705,6 +710,10 @@
     <Content Include="Views\Shared\EditorTemplates\Decimal.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Boolean.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Float.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Membership.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Color.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\HoleCollection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

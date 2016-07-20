@@ -82,7 +82,7 @@ namespace Golf.Tournament.Controllers
         // POST: Course/Edit/5
         [HttpPost]
         [Route("courses/{id}/edit")]
-        public ActionResult Edit(string id, CourseEditViewModel courseEditViewModel)
+        public ActionResult Edit(string id, [ModelBinder(typeof(Models.CourseEditViewModelModelBinder))] CourseEditViewModel courseEditViewModel)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace Golf.Tournament.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
                 return View(courseEditViewModel);
             }

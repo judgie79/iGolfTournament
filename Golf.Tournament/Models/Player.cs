@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Golf.Tournament.Utility;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -27,15 +28,35 @@ namespace Golf.Tournament.Models
         public string Lastname { get; set; }
 
         [JsonProperty("address")]
-        [Required]
         public Address Address { get; set; }
 
         [JsonProperty("homeClub")]
         public Club HomeClub { get; set; }
-        
+
+        [JsonProperty("membership")]
+        public Membership Membership { get; set; }
 
         [JsonProperty("hcp")]
-        [Required]
+        [MaxValue(54)]
+        [MinValue(0)]
         public float Hcp { get; set; }
+
+        [JsonProperty("isOfficialHcp")]
+        public bool IsOfficialHcp { get; set; }
+    }
+
+    public class Membership
+    {
+        [JsonProperty("clubNr")]
+        [Required]
+        public string ClubNr { get; set; }
+
+        [JsonProperty("nr")]
+        [Required]
+        public string Nr { get; set; }
+
+        [JsonProperty("serviceNr")]
+        [Required]
+        public string ServiceNr { get; set; }
     }
 }

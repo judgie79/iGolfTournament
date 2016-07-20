@@ -1,7 +1,5 @@
-@using Golf.Tournament.Utility
-@model object
-
-@{
+﻿@model Golf.Tournament.Models.Color
+@{ 
     var htmlAttributes = new RouteValueDictionary();
     if (ViewBag.@class != null)
     {
@@ -19,12 +17,11 @@
     {
         htmlAttributes.Add("placeholder", ViewBag.placeholder);
     }
+
+    htmlAttributes.Add("style", string.Format("background-color: {0};", Model.Value));
 }
 
-<div class="controls">
-    @Html.TextBox(
-            "",
-            ViewData.TemplateInfo.FormattedModelValue,
-            htmlAttributes)
-    @Html.ValidationMessageFor(m => m, null, new { @class = "help-block" })
-</div>
+    <div class="controls">
+        @Html.TextBoxFor(model => model.Value, htmlAttributes)
+        @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+    </div>

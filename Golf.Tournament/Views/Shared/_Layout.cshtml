@@ -7,7 +7,7 @@
     <title>@ViewBag.Title - Golf Tournament</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    @Scripts.Render("~/bundles/jquery")
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -38,8 +38,12 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    
     @Scripts.Render("~/bundles/bootstrap")
+
+    <link href="~/Content/dragndrop.table.columns.css" rel="stylesheet" />
+    <script src="~/Content/dragndrop.table.columns.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

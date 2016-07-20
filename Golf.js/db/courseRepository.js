@@ -31,17 +31,60 @@ module.exports.findById = function (id, callBack) {
 module.exports.create = function (newcourse, callBack) {
     var isValid = crudRepository.validate(newcourse, courseSchema);
 
+    if (newcourse.teeBoxes && newcourse.teeboxes.length > 0)
+    {
+        for (var i = 0; i < newcourse.teeboxes.length; i++)
+        {
+            var teeBox = newcourse.teeboxes[i];
+
+            if (teeBox.holes && teeBox.holes.length > 0)
+            {
+                    for (var h = 0; h < teeBox.holes.length; h++)
+                    {
+                        var hole = teeBox.holes[h];
+                        
+                        if (hole.id === "")
+                        {
+                            hole.id = new ObjectID();
+                        } else {
+                            hole.id = new ObjectId(hole.id);
+                        }
+                    }
+            }
+        }
+    }
+
     if (isValid.length == 0)
-        crudRepository.create(newplayer, callback);
+        crudRepository.create(newcourse, callback);
     else
         callback(isValid, null);
 }
 
-module.exports.update = function (id, updateCourse, callBack) {
+module.exports.update = function (id, updateCourse, callback) {
     var isValid = crudRepository.validate(updateCourse, courseSchema);
 
+    for (var i = 0; i < updateCourse.teeboxes.length; i++)
+    {
+        var teeBox = updateCourse.teeboxes[i];
+
+        if (teeBox.holes && teeBox.holes.length > 0)
+        {
+                for (var h = 0; h < teeBox.holes.length; h++)
+                {
+                    var hole = teeBox.holes[h];
+                    
+                    if (hole.holeId === "")
+                    {
+                        hole.holeId = new ObjectID();
+                    } else {
+                        hole.holeId = new ObjectID(hole.holeId);
+                    }
+                }
+        }
+    }
+
     if (isValid.length == 0)
-        crudRepository.update(id, updateCourse, callBack);
+        crudRepository.update(id, updateCourse, callback);
     else
         callback(isValid, null);
 }

@@ -4,59 +4,98 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Player</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Player.Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Player.Id, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-10">
                 @Html.DisplayFor(model => model.Player.Id, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Player.HomeClub, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Player.HomeClub.Id, Model.Clubs.Select(club => new SelectListItem() { Text = club.Name, Value = club.Id, Selected = Model.Player.HomeClub.Id == club.Id }))
+            @Html.LabelFor(model => model.Player.HomeClub, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-10">
+                @Html.DropDownListFor(model => model.Player.HomeClub.Id, Model.Clubs.Select(club => new SelectListItem() { Text = club.Name, Value = club.Id, Selected = Model.Player.HomeClub.Id == club.Id }), new { @class = "form-control" })
             </div>
         </div>
 
-
         <div class="form-group">
-            @Html.LabelFor(model => model.Player.Firstname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Player.Firstname, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-10">
                 @Html.EditorFor(model => model.Player.Firstname, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Player.Firstname, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Player.Lastname, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.Player.Lastname, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-10">
                 @Html.EditorFor(model => model.Player.Lastname, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Player.Lastname, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <h4>Address</h4>
+        <hr />
+
+        @Html.EditorFor(model => model.Player.Address)
+
+        <h4>Hcp</h4>
+        <hr />
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Player.Hcp, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Player.Hcp, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.Player.Hcp, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-2 controls">
+
+                <div class="input-group">
+                    @{
+                        var htmlAttributes = new RouteValueDictionary();
+                        if (ViewBag.ClearTextField != null)
+                        {
+                            htmlAttributes.Add("class", "form-control clear-text-field");
+                        }
+                        else
+                        {
+                            htmlAttributes.Add("class", "form-control");
+                        }
+
+                        if (Model.Player.IsOfficialHcp)
+                        {
+                            htmlAttributes.Add("disabled", "disabled");
+                        }
+                    }
+
+                    @Html.TextBoxFor(model => model.Player.Hcp, htmlAttributes)
+                    <span class="input-group-addon">
+                        @if (Model.Player.IsOfficialHcp)
+                        {
+                            <span class="glyphicon-check glyphicon" title="official"></span>
+                        }
+                        else
+                        {
+                            <span class="glyphicon-remove glyphicon" title="unofficial"></span>
+                        }
+                    </span>
+                </div>
                 @Html.ValidationMessageFor(model => model.Player.Hcp, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        @Html.EditorFor(model => model.Player.Address)
+        <h4>Membership</h4>
+        <hr />
+        @Html.EditorFor(model => model.Player.Membership)
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-sm-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
-}
+                        }
 
 <div>
     @Html.ActionLink("Back to List", "Index")

@@ -27,14 +27,10 @@
         htmlAttributes.Add("placeholder", ViewBag.placeholder);
     }
 }
-
-<div class="form-group@(Html.ValidationErrorFor(m => m, " has-error"))">
-    @Html.LabelFor(m => m, new { @class = "control-label" })
-    <div class="controls">
-        @Html.TextBox(
-            "",
-            ViewData.TemplateInfo.FormattedModelValue,
-            htmlAttributes)
-        @Html.ValidationMessageFor(m => m, null, new { @class = "help-block" })
-    </div>
+<div class="controls">
+    @Html.TextBox(
+        "",
+        ViewData.TemplateInfo.FormattedModelValue,
+        htmlAttributes)
+    @Html.ValidationMessageFor(m => m, null, new { @class = "help-block" })
 </div>

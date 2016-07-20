@@ -1,13 +1,10 @@
-﻿@model IEnumerable<Golf.Tournament.Models.Hole>
+﻿@model Golf.Tournament.Models.ScoresheetViewModel
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<table class="table scoresheet" style="background-color: @Model.TeeBox.Color">
 
     <tr>
         <th>Hole</th>
-        @foreach (var item in Model)
+        @foreach (var item in Model.TeeBox.Holes)
         {
 
             <th>@item.Number</th>
@@ -15,7 +12,7 @@
     </tr>
     <tr>
         <th>Par</th>
-        @foreach (var item in Model)
+        @foreach (var item in Model.TeeBox.Holes)
         {
 
             <td>@item.Par</td>
@@ -23,7 +20,7 @@
     </tr>
     <tr>
         <th>Hcp</th>
-        @foreach (var item in Model)
+        @foreach (var item in Model.TeeBox.Holes)
         {
 
             <td>@item.Hcp</td>
@@ -31,7 +28,7 @@
     </tr>
     <tr>
         <th>Distance</th>
-        @foreach (var item in Model)
+        @foreach (var item in Model.TeeBox.Holes)
         {
 
             <td>@item.Distance</td>

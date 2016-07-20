@@ -13,18 +13,34 @@ namespace Golf.Tournament.Models
         public string Id { get; set; }
 
         [JsonProperty("clubId")]
+        [Required]
         public string ClubId { get; set; }
 
         [JsonProperty("name")]
+        [Required]
         public string Name { get; set; }
 
+        private TeeboxCollection teeboxes = new TeeboxCollection();
         [JsonProperty("teeboxes")]
-        //public TeeboxCollection TeeBoxes { get; set; }
-        public IEnumerable<TeeBox> TeeBoxes { get; set; }
+        public TeeboxCollection TeeBoxes
+        {
+            get
+            {
+                return teeboxes;
+            }
+            set
+            {
+                teeboxes = value ?? new TeeboxCollection();
+            }
+        }
     }
 
+    [JsonArray]
     public class TeeboxCollection : List<TeeBox>
     {
-
+        public TeeboxCollection()
+        {
+           
+        }
     }
 }

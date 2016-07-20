@@ -9,6 +9,12 @@ namespace Golf.Tournament.Models
 {
     public class TeeBox
     {
+
+        public TeeBox()
+        {
+            Holes = new HoleCollection();
+        }
+
         [JsonProperty("color")]
         [Required]
         public Color Color { get; set; }
@@ -33,7 +39,19 @@ namespace Golf.Tournament.Models
         [Required]
         public float SlopeRating { get; set; }
 
+        private HoleCollection holes = new HoleCollection();
+
         [JsonProperty("holes")]
-        public IEnumerable<Hole> Holes { get; set; }
+        public HoleCollection Holes
+        {
+            get
+            {
+                return holes;
+            }
+            set
+            {
+                holes = value ?? new HoleCollection();
+            }
+        }
     }
 }

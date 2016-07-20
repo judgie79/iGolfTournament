@@ -32,4 +32,4 @@
     @Html.DisplayFor(model => model.SlopeRating)
 </dd>
 
-@Html.Partial("Scoresheet", Model.Holes)
+@Html.Partial("Scoresheet", new Golf.Tournament.Models.ScoresheetViewModel(Model))

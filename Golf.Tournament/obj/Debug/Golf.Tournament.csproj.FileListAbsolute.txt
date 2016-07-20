@@ -241,3 +241,5 @@ E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.csprojResolveAssemblyReference.cache
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.dll
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.pdb
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\MarkdownDeep.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\MarkdownDeep.pdb
