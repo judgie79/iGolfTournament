@@ -45,7 +45,7 @@ module.exports.create = function (newtournament, callback) {
             newTournament.course.clubId = new ObjectID(newTournament.club._id);
             newTournament.club._id = new ObjectID(newTournament.club._id);
 
-            crudRepository.create(newTournament, callBack);
+            crudRepository.create(newTournament, callback);
         });
     });
 }

@@ -26,11 +26,6 @@ router.get("/", function (req, res) {
 router.post("/", function (req, res) {
 
     var newclub = req.body;
-    
-
-    if (!req.body.name) {
-        handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
-    }
 
     clubRepository.create(newclub, function (err, club) {
         if (err) {
@@ -112,7 +107,7 @@ router.get("/:id/players", function (req, res) {
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
     console.log("ERROR: " + reason);
-    res.status(code || 500).json({ "error": message });
+    res.status(code || 500).json({ "error": reason });
 }
 
 module.exports = router;

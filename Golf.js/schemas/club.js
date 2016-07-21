@@ -4,29 +4,29 @@ var clubSchema = {
     "type": "object",
     "properties": {
         "_id": {
-            "type": "string"
+            "type": ["string", "null"]
         },
         "name": {
             "type": "string"
         },
         "address": {
             "title": "Address Schema",
-            "type": "object",
+            "type": ["object", "null"],
             "properties": {
                 "street": {
-                    "type": "string"
+                    "type": ["string", "null"],
                 },
                 "houseNo": {
-                    "type": "string"
+                    "type": ["string", "null"],
                 },
                 "zip": {
-                    "type": "string"
+                    "type": ["string", "null"],
                 },
                 "city": {
-                    "type": "string"
+                    "type": ["string", "null"],
                 },
                 "country": {
-                    "type": "string",
+                    "type": ["string", "null"],
                     "maxLength": 2,
                     "minLength": 2
                 }

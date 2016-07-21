@@ -3,7 +3,7 @@
     "type": "object",
     "properties": {
         "_id": {
-            "type": "string"
+            "type": ["string", "null"]
         },
         "clubId": {
             "type": "string"

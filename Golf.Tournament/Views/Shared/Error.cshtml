@@ -7,3 +7,15 @@
 <h1 class="text-danger">Error.</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
+<h3>Controller</h3>
+<div>
+    Error in: <pre>@Model.ControllerName @Model.ActionName</pre>
+</div>
+<h3>Message</h3>
+<div>
+    <pre>@Model.Exception.Message</pre>
+</div>
+<h3>StackTrace</h3>
+<div>
+    <pre>@Model.Exception.StackTrace</pre>
+</div>

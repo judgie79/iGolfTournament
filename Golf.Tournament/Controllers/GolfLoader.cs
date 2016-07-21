@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Golf.Tournament.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -37,7 +38,7 @@ namespace Golf.Tournament.Controllers
             }
             else
             {
-                throw new Exception("Api Error");
+                throw new ApiException(response);
             }
         }
 
@@ -61,7 +62,7 @@ namespace Golf.Tournament.Controllers
             }
             else
             {
-                throw new Exception("Api Error");
+                throw new ApiException(response);
             }
         }
 
@@ -85,7 +86,7 @@ namespace Golf.Tournament.Controllers
             }
             else
             {
-                throw new Exception("Api Error");
+                throw new ApiException(response);
             }
         }
 
@@ -109,7 +110,7 @@ namespace Golf.Tournament.Controllers
             }
             else
             {
-                throw new Exception("Api Error");
+                throw new ApiException(response);
             }
         }
     }

@@ -6,14 +6,25 @@ using System.Web.Mvc;
 
 namespace Golf.Tournament.Models
 {
-    public class CourseEditViewModel
+    public abstract class CourseViewModel
     {
         public Course Course { get; set; }
 
         public IEnumerable<Club> Clubs { get; set; }
     }
 
-    public class CourseEditViewModelModelBinder : IModelBinder
+    public class CourseEditViewModel : CourseViewModel
+    {
+
+    }
+
+    public class CourseCreateViewModel : CourseViewModel
+    {
+
+    }
+
+    public class CourseViewModelModelBinder<TCourseViewModel> : IModelBinder
+        where TCourseViewModel : CourseViewModel, new()
     {
         public object BindModel(ControllerContext controllerContext,
                                 ModelBindingContext bindingContext)
@@ -97,17 +108,12 @@ namespace Golf.Tournament.Models
                 
             }
 
-            return new CourseEditViewModel()
+            return new TCourseViewModel()
             {
                 Course = Course
             };
         }
     }
 
-    public class CourseCreateViewModel
-    {
-        public Course Course { get; set; }
-
-        public IEnumerable<Club> Clubs { get; set; }
-    }
+    
 }

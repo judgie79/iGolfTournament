@@ -1,4 +1,5 @@
 ﻿using Golf.Tournament.Models;
+using Golf.Tournament.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Golf.Tournament.Controllers
 {
-    public class ClubController : Controller
+    public class ClubController : BaseController
     {
         GolfLoader loader;
 
@@ -51,18 +52,17 @@ namespace Golf.Tournament.Controllers
         // POST: Club/Create
         [HttpPost]
         [Route("clubs/create")]
-        public ActionResult Create(Club club)
+        public ActionResult Create(ClubCreateViewModel clubCreateViewModel)
         {
-            try
-            {
-                club = loader.Post<Club>("clubs/", club);
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View(club);
-            }
+            if (ModelState.IsValid)
+                {
+                    clubCreateViewModel.Club = loader.Post<Club>("clubs/", clubCreateViewModel.Club);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(clubCreateViewModel.Club);
+                }
         }
 
         // GET: Club/Edit/5
@@ -77,17 +77,17 @@ namespace Golf.Tournament.Controllers
         // POST: Club/Edit/5
         [HttpPost]
         [Route("clubs/{id}/edit")]
-        public ActionResult Edit(string id, Club club)
+        public ActionResult Edit(string id, ClubEditViewModel clubEditViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                club = loader.Put<Club>("clubs/" + id, club);
+                clubEditViewModel.Club = loader.Put<Club>("clubs/" + id, clubEditViewModel.Club);
 
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View(club);
+                return View(clubEditViewModel.Club);
             }
         }
 
@@ -96,16 +96,9 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{id}/delete")]
         public ActionResult Delete(string id)
         {
-            try
-            {
-                loader.Delete<Club>("clubs/" + id);
+            loader.Delete<Club>("clubs/" + id);
 
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }

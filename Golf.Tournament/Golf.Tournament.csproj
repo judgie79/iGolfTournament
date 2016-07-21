@@ -153,6 +153,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\GolfLoader.cs" />
@@ -162,7 +163,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApiException.cs" />
+    <Compile Include="Models\Error.cs" />
     <Compile Include="Utility\HoleValidation.cs" />
+    <Compile Include="Utility\SectionHelper.cs" />
+    <Compile Include="ViewModels\ClubCreateViewModel.cs" />
     <Compile Include="ViewModels\TournamentEditViewModel.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Club.cs" />
@@ -188,9 +193,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\dragndrop.table.columns.css" />
-    <Content Include="Content\dragndrop.table.columns.js" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Site.js" />
     <Content Include="Content\themes\bootstrap\bootstrap.css" />
     <Content Include="Content\themes\bootstrap\bootstrap.min.css" />
     <Content Include="Content\themes\bootstrap\variables.css" />
@@ -645,7 +649,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -714,9 +717,11 @@
     <Content Include="Views\Shared\EditorTemplates\Membership.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Color.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\HoleCollection.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

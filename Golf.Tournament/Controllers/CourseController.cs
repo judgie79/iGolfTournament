@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Golf.Tournament.Controllers
 {
-    public class CourseController : Controller
+    public class CourseController : BaseController
     {
         GolfLoader loader;
 
@@ -15,8 +15,8 @@ namespace Golf.Tournament.Controllers
         {
             loader = new GolfLoader("http://localhost:8080/api/");
         }
-        
-        
+
+
         // GET: Course
         [Route("courses")]
         public ActionResult Index()
@@ -47,23 +47,29 @@ namespace Golf.Tournament.Controllers
         [Route("courses/create")]
         public ActionResult Create()
         {
-            return View();
+            CourseCreateViewModel courseCreateViewModel = new CourseCreateViewModel();
+
+            courseCreateViewModel.Course = new Course();
+            courseCreateViewModel.Clubs = loader.Load<IEnumerable<Club>>("clubs");
+
+            return View(courseCreateViewModel);
         }
 
         // POST: Course/Create
         [HttpPost]
         [Route("courses/create")]
-        public ActionResult Create(Course course)
+        public ActionResult Create([ModelBinder(typeof(Models.CourseViewModelModelBinder<CourseCreateViewModel>))] CourseCreateViewModel courseCreateViewModel)
         {
-            try
+            if(ModelState.IsValid)
             {
-                course = loader.Post<Course>("Courses/", course);
+                courseCreateViewModel.Clubs = loader.Load<IEnumerable<Club>>("clubs");
+                courseCreateViewModel.Course = loader.Post<Course>("Courses/", courseCreateViewModel.Course);
 
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View(course);
+                return View(courseCreateViewModel);
             }
         }
 
@@ -82,16 +88,16 @@ namespace Golf.Tournament.Controllers
         // POST: Course/Edit/5
         [HttpPost]
         [Route("courses/{id}/edit")]
-        public ActionResult Edit(string id, [ModelBinder(typeof(Models.CourseEditViewModelModelBinder))] CourseEditViewModel courseEditViewModel)
+        public ActionResult Edit(string id, [ModelBinder(typeof(Models.CourseViewModelModelBinder<CourseCreateViewModel>))] CourseEditViewModel courseEditViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
                 courseEditViewModel.Clubs = loader.Load<IEnumerable<Club>>("clubs");
                 courseEditViewModel.Course = loader.Put<Course>("courses/" + id, courseEditViewModel.Course);
 
                 return RedirectToAction("Index");
             }
-            catch (Exception ex)
+            else
             {
                 return View(courseEditViewModel);
             }
@@ -102,16 +108,11 @@ namespace Golf.Tournament.Controllers
         [Route("courses/{id}/delete")]
         public ActionResult Delete(string id)
         {
-            try
-            {
-                loader.Delete<Course>("courses/" + id);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            loader.Delete<Course>("courses/" + id);
+
+            return RedirectToAction("Index");
+
         }
     }
 }

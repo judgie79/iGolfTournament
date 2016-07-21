@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Golf.Tournament.Utility
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -38,12 +39,12 @@
         </footer>
     </div>
 
+    @Html.WriteContent("bottom")
     
     @Scripts.Render("~/bundles/bootstrap")
-
-    <link href="~/Content/dragndrop.table.columns.css" rel="stylesheet" />
-    <script src="~/Content/dragndrop.table.columns.js"></script>
-
+    <script src="~/Content/Site.js"></script>
     @RenderSection("scripts", required: false)
+
+    @Html.PageScripts("end")
 </body>
 </html>

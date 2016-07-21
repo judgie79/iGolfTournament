@@ -12,23 +12,23 @@ var crudRepository = new CrudRepository(config.db.collections.courses);
 
 var courseSchema = require('../schemas/course.js');
 
-module.exports.findAll = function (callBack) {
-    crudRepository.findAll(callBack);
+module.exports.findAll = function (callback) {
+    crudRepository.findAll(callback);
 }
 
-module.exports.findCoursesOfClub = function (courseId, callBack) {
+module.exports.findCoursesOfClub = function (courseId, callback) {
     var db = mongoUtil.getDb();
     db.collection(config.db.collections.courses).find({ "clubId": ObjectID(courseId) }).toArray(function (err, docs) {
 
-        callBack(err, docs);
+        callback(err, docs);
     });
 }
 
-module.exports.findById = function (id, callBack) {
-    crudRepository.findById(id, callBack);
+module.exports.findById = function (id, callback) {
+    crudRepository.findById(id, callback);
 }
 
-module.exports.create = function (newcourse, callBack) {
+module.exports.create = function (newcourse, callback) {
     var isValid = crudRepository.validate(newcourse, courseSchema);
 
     if (newcourse.teeBoxes && newcourse.teeboxes.length > 0)

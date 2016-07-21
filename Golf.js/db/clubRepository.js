@@ -12,25 +12,25 @@ var crudRepository = new CrudRepository(config.db.collections.clubs);
 
 var clubSchema = require('../schemas/club.js');
 
-module.exports.findAll = function (callBack) {
-    crudRepository.findAll(callBack);
+module.exports.findAll = function (callback) {
+    crudRepository.findAll(callback);
 }
 
-module.exports.findById = function (id, callBack) {
-    crudRepository.findById(id, callBack);
+module.exports.findById = function (id, callback) {
+    crudRepository.findById(id, callback);
 }
 
-module.exports.create = function (newclub, callBack) {
+module.exports.create = function (newclub, callback) {
 
     var isValid = crudRepository.validate(newclub, clubSchema);
 
     if (isValid.length == 0)
-        crudRepository.create(newplayer, callback);
+        crudRepository.create(newclub, callback);
     else
         callback(isValid, null);
 }
 
-module.exports.update = function (id, updateClub, callBack) {
+module.exports.update = function (id, updateClub, callback) {
     var isValid = crudRepository.validate(updateClub, clubSchema);
 
     if (isValid.length == 0)

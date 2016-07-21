@@ -24,11 +24,6 @@ router.get("/", function (req, res) {
 router.post("/", function (req, res) {
 
     var newcourse = req.body;
-    
-
-    if (!(req.body.firstName || req.body.lastName)) {
-        handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
-    }
 
     courseRepository.create(newcourse, function (err, course) {
         if (err) {
@@ -83,7 +78,7 @@ router.delete("/:id", function (req, res) {
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
     console.log("ERROR: " + reason);
-    res.status(code || 500).json({ "error": message });
+    res.status(code || 500).json({ "error": reason });
 }
 
 module.exports = router;

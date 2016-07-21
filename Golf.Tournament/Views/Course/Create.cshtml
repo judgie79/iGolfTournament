@@ -1,4 +1,4 @@
-﻿@model Golf.Tournament.Models.Course
+﻿@model Golf.Tournament.Models.CourseCreateViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -7,28 +7,32 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Course</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
-            @Html.LabelFor(model => model.ClubId, htmlAttributes: new { @class = "control-label col-sm-2" })
+            @Html.LabelFor(model => model.Course.ClubId, htmlAttributes: new { @class = "control-label col-sm-2" })
             <div class="col-sm-10">
-                @Html.EditorFor(model => model.ClubId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ClubId, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Course.ClubId, Model.Clubs.Select(club => new SelectListItem() { Text = club.Name, Value = club.Id }), new { @class = "form-control" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-sm-2" })
+            @Html.LabelFor(model => model.Course.Name, htmlAttributes: new { @class = "control-label col-sm-2" })
             <div class="col-sm-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Course.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Course.Name, "", new { @class = "text-danger" })
             </div>
+        </div>
+
+        <div class="row">
+            @Html.EditorFor(model => model.Course.TeeBoxes)
         </div>
 
         <div class="form-group">

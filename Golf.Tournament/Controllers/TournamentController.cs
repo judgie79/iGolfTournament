@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Golf.Tournament.Controllers
 {
-    public class TournamentController : Controller
+    public class TournamentController : BaseController
     {
         GolfLoader loader;
 

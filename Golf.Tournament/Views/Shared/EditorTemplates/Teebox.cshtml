@@ -1,4 +1,5 @@
-﻿@model Golf.Tournament.Models.TeeBox
+﻿@using Golf.Tournament.Utility
+@model Golf.Tournament.Models.TeeBox
 @{
     string teeName = "";
     if (Model.Name != null)
@@ -67,7 +68,9 @@
     Show Holes
 </button>
 
-<!-- Modal -->
+@*@using (Html.BeginContent("bottom"))
+{*@
+ <!-- Modal @teeName -->
 <div class="modal fade" id="myModal_@teeName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -85,3 +88,5 @@
         </div>
     </div>
 </div>
+ <!-- Modal @teeName -->
+@*}*@
