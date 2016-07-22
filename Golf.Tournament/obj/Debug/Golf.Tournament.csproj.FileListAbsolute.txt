@@ -242,3 +242,5 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\de\Microsoft.Owin.Sec
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\de\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.pdb
+E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\bin\Golf.Models.dll
+E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\bin\Golf.Models.pdb

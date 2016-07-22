@@ -53,6 +53,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -120,9 +124,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
@@ -156,32 +157,21 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
-    <Compile Include="Controllers\GolfLoader.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\TournamentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ApiException.cs" />
     <Compile Include="Models\Error.cs" />
-    <Compile Include="Utility\HoleValidation.cs" />
     <Compile Include="Utility\SectionHelper.cs" />
     <Compile Include="ViewModels\ClubCreateViewModel.cs" />
     <Compile Include="ViewModels\TournamentEditViewModel.cs" />
-    <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\Club.cs" />
     <Compile Include="ViewModels\ClubDetailsViewModel.cs" />
-    <Compile Include="Models\Color.cs" />
-    <Compile Include="Models\Course.cs" />
     <Compile Include="ViewModels\CourseEditViewModel.cs" />
-    <Compile Include="Models\Hole.cs" />
-    <Compile Include="Models\Player.cs" />
     <Compile Include="ViewModels\PlayerCreateViewModel.cs" />
     <Compile Include="ViewModels\PlayerEditViewModel.cs" />
     <Compile Include="ViewModels\ScoresheetViewModel.cs" />
-    <Compile Include="Models\TeeBox.cs" />
-    <Compile Include="Models\Tournament.cs" />
     <Compile Include="ViewModels\TournamentCreateViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -203,7 +193,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="HtmlPage1.html" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap-timepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -730,6 +719,15 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Golf.Models\Golf.Models.csproj">
+      <Project>{eb4818b6-d9b8-44eb-8a8e-cbf4b85d4fc4}</Project>
+      <Name>Golf.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
