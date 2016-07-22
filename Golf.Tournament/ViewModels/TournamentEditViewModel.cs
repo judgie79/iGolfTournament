@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Golf.Tournament.ViewModels;
+using System.Collections.Generic;
 
 namespace Golf.Tournament.Models
 {
@@ -6,10 +7,8 @@ namespace Golf.Tournament.Models
     {
         public TournamentEditViewModel()
         {
+            Tournament = new Tournament();
         }
-
-        public IEnumerable<Club> Clubs { get; set; }
-        public IEnumerable<Course> Courses { get; set; }
 
         public Tournament Tournament { get; set; }
     }

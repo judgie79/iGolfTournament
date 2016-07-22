@@ -1,4 +1,5 @@
-﻿@model Golf.Tournament.Models.TournamentEditViewModel
+﻿@using Golf.Tournament.Utility
+@model Golf.Tournament.Models.TournamentEditViewModel
 
 
 @using (Html.BeginForm())
@@ -15,13 +16,11 @@
             <div class="col-sm-10">
                 @Html.DisplayFor(model => model.Tournament.Club)
                 @Html.HiddenFor(model => model.Tournament.Club.Id)
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.Label("Course", htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.DisplayFor(model => model.Tournament.Course)
                 @Html.HiddenFor(model => model.Tournament.Course.Id)
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal_ShowCourseDetails">
+                    Show Holes
+                </button>
             </div>
         </div>
 
@@ -45,6 +44,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-sm-10">
                 <input type="submit" value="Save" class="btn btn-default" />
+                @Html.ActionLink("Show Participants", "Index", "Participant", new { tournamentId = Model.Tournament.Id }, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
@@ -56,4 +56,27 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}
+
+@using (Html.BeginContent("bottom"))
+ {
+    <!-- Modal ShowCourseDetails -->
+    <div class="modal fade" id="myModal_ShowCourseDetails" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">@Model.Tournament.Title - Course</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.DisplayFor(model => model.Tournament.Course)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal ShowCourseDetails -->
 }

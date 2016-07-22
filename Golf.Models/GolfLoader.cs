@@ -66,6 +66,30 @@ namespace Golf.Tournament.Controllers
             }
         }
 
+        public TResultModel Post<TModel, TResultModel>(string requestUri, TModel model)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(ApiUrl);
+
+            // Add an Accept header for JSON format.
+            client.DefaultRequestHeaders.Accept.Add(
+                new MediaTypeWithQualityHeaderValue("application/json"));
+
+            // List data response.
+            HttpResponseMessage response = client.PostAsJsonAsync(requestUri, model).Result;  // Blocking call!
+            if (response.IsSuccessStatusCode)
+            {
+                // Parse the response body. Blocking!
+                var dataObjects = response.Content.ReadAsAsync<TResultModel>().Result;
+
+                return dataObjects;
+            }
+            else
+            {
+                throw new ApiException(response);
+            }
+        }
+
         public TModel Put<TModel>(string requestUri, TModel model)
         {
             HttpClient client = new HttpClient();
@@ -90,7 +114,7 @@ namespace Golf.Tournament.Controllers
             }
         }
 
-        public TModel Delete<TModel>(string requestUri)
+        public bool Delete<TModel>(string requestUri)
         {
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(ApiUrl);
@@ -103,10 +127,7 @@ namespace Golf.Tournament.Controllers
             HttpResponseMessage response = client.DeleteAsync(requestUri).Result;  // Blocking call!
             if (response.IsSuccessStatusCode)
             {
-                // Parse the response body. Blocking!
-                var dataObjects = response.Content.ReadAsAsync<TModel>().Result;
-
-                return dataObjects;
+                return true;
             }
             else
             {

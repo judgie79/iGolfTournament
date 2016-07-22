@@ -10,7 +10,7 @@ namespace Golf.Tournament.Models
 {
     public class Hole
     {
-        [JsonProperty("holeId")]
+        [JsonProperty("_id")]
         public string HoleId { get; set; }
 
         [JsonProperty("number")]

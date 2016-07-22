@@ -58,21 +58,26 @@ module.exports.delete = function (id, callback) {
     crudRepository.delete(id, callback);
 }
 
-module.exports.deleteParticipant = function (participantId, callback) {
+module.exports.deleteParticipant = function (tournamentId, participantId, callback) {
     var db = mongoUtil.getDb();
-    db.collection(config.db.collections.tournaments).findOne({ "participants._id": new ObjectID(participantId) }, function (err, tournament) {
+    db.collection(config.db.collections.tournaments).findOne({ 
+       "participants._id": new ObjectID(participantId) }, function (err, tournament) {
 
         if (tournament != null) {
             var foundIndex = -1;
-            for(var i = tournament.participants - 1; i >= 0; i--) {
+            for(var i = tournament.participants.length - 1; i >= 0; i--) {
                 var participant = tournament.participants[i];
-                if (participant._id === participantId) {
+                if (participant._id.toString() === participantId) {
                     foundIndex = i;
+                    break;
                 }
             }
 
             if (foundIndex > -1) {
                 delete tournament.participants[foundIndex];
+                module.exports.update(tournamentId, tournament, function(err, result) {
+                    callback(err);
+                });
             }
            
 
@@ -94,17 +99,22 @@ module.exports.registerParticipant = function (tournamentId, participant, callba
 
         participant.player._id = new ObjectID(participant.player._id);
         participant.player.homeClub._id = new ObjectID(participant.player.homeClub._id);
+        participant.teeBoxId = new ObjectID(participant.teeBoxId);
 
         db.collection(config.db.collections.tournaments).findOne({ "_id": new ObjectID(tournamentId) }, function (err, tournament) {
 
             if (tournament != null) {
 
                 participant._id = new ObjectID();
+                if (!tournament.participants)
+                    tournament.participants = [];
+
                 tournament.participants.push(participant);
                 
                 delete tournament._id;
+                tournament._id = new ObjectID(tournamentId);
 
-                db.collection(config.db.collections.tournaments).updateOne({ "_id": new ObjectID(tournamentId) }, tournament, function (err, doc) {
+                db.collection(config.db.collections.tournaments).updateOne({ "_id": tournament._id }, tournament, function (err, doc) {
                     callback(err, tournament);
                 });
 

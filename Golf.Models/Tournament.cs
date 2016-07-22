@@ -40,6 +40,9 @@ namespace Golf.Tournament.Models
         [JsonProperty("player")]
         public Player Player { get; set; }
 
+        [JsonProperty("teeBoxId")]
+        public string TeebBoxId { get; set; }
+
         [JsonProperty("teaTime")]
         public DateTime TeaTime { get; set; }
     }

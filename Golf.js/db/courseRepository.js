@@ -36,18 +36,24 @@ module.exports.create = function (newcourse, callback) {
         for (var i = 0; i < newcourse.teeboxes.length; i++)
         {
             var teeBox = newcourse.teeboxes[i];
-
+            if (teeBox._id === "")
+            {
+                teeBox._id = new ObjectID();
+            } else {
+                teeBox._id = new ObjectId(hole._id);
+            }
+            
             if (teeBox.holes && teeBox.holes.length > 0)
             {
                     for (var h = 0; h < teeBox.holes.length; h++)
                     {
                         var hole = teeBox.holes[h];
                         
-                        if (hole.id === "")
+                        if (hole._id === "")
                         {
-                            hole.id = new ObjectID();
+                            hole._id = new ObjectID();
                         } else {
-                            hole.id = new ObjectId(hole.id);
+                            hole._id = new ObjectId(hole._id);
                         }
                     }
             }

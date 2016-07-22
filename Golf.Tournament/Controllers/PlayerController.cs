@@ -9,12 +9,6 @@ namespace Golf.Tournament.Controllers
 {
     public class PlayerController : BaseController
     {
-        GolfLoader loader;
-
-        public PlayerController()
-        {
-            loader = new GolfLoader("http://localhost:8080/api/");
-        }
 
         // GET: Player
         [Route("players")]

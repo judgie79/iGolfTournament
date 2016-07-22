@@ -59,4 +59,20 @@ namespace Golf.Tournament.Models
         [Required]
         public string ServiceNr { get; set; }
     }
+
+    [JsonArray]
+    public class PlayerCollection : List<Player>
+    {
+        public PlayerCollection()
+            : base()
+        {
+
+        }
+
+        public PlayerCollection(IEnumerable<Player> players)
+            : base(players)
+        {
+
+        }
+    }
 }

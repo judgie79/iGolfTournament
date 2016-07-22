@@ -22,3 +22,16 @@ HoleCollectionController.prototype.removeLastHole = function () {
     $("#scoreSheetEditorTableRowDistance_" + this.teeName).children().last().remove();
     this.holeCount--;
 }
+
+
+////////////////////
+
+var ParticipantCollectionController = function (participantCount) {
+
+    this.participantCount = participantCount;
+};
+
+HoleCollectionController.prototype.addParticipant = function () {
+    $("#tableEditParticipants").append("<tr><td></td><td></td><td></td><td></td><td></td></tr>");
+    this.participantCount++;
+};

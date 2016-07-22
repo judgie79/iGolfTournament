@@ -1,7 +1,7 @@
 var config = {
     db: {
         connectionString: "mongodb://localhost:27017/",
-        name: "Golf",
+        name: "GolfTournament",
         collections: {
             clubs: "clubs",
             courses: "courses",

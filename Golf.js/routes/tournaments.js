@@ -85,14 +85,14 @@ router.post("/:id/participants", function (req, res) {
         if (err) {
             handleError(res, err.message, "Failed to add participant");
         } else {
-            res.status(201).end();
+            res.status(201).json(result);
         }
     });
 });
 
 router.delete("/:id/participants/:participantId", function (req, res) {
     
-    tournamentRepository.deleteParticipant(req.params.id, req.params.participantId, function (err, result) {
+    tournamentRepository.deleteParticipant(req.params.id, req.params.participantId, function (err) {
         if (err) {
             handleError(res, err.message, "Failed to add participant");
         } else {

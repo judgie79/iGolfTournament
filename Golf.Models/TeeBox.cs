@@ -15,6 +15,9 @@ namespace Golf.Tournament.Models
             Holes = new HoleCollection();
         }
 
+        [JsonProperty("_id")]
+        public string Id { get; set; }
+
         [JsonProperty("color")]
         [Required]
         public Color Color { get; set; }

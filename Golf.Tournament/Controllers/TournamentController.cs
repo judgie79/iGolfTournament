@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Golf.Tournament.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,12 +9,6 @@ namespace Golf.Tournament.Controllers
 {
     public class TournamentController : BaseController
     {
-        GolfLoader loader;
-
-        public TournamentController()
-        {
-            loader = new GolfLoader("http://localhost:8080/api/");
-        }
 
         // GET: Tournament
         [Route("tournaments")]
@@ -21,7 +16,7 @@ namespace Golf.Tournament.Controllers
         {
             var tournaments = loader.Load<IEnumerable<Models.Tournament>>("tournaments");
 
-            return View(tournaments);
+            return View(new TournamentListViewModel(tournaments));
         }
 
         // GET: Tournament/Details/5
@@ -58,16 +53,14 @@ namespace Golf.Tournament.Controllers
             tournament.Clubs = loader.Load<IEnumerable<Models.Club>>("clubs");
             tournament.Courses = loader.Load<IEnumerable<Models.Course>>("courses");
 
-            try
+            if (ModelState.IsValid)
             {
+
                 loader.Post<Models.Tournament>("tournaments/", tournament.Tournament);
 
                 return RedirectToAction("Index");
-            }
-            catch
+            } else
             {
-                
-
                 return View(tournament);
             }
         }
@@ -80,9 +73,6 @@ namespace Golf.Tournament.Controllers
 
             var viewModel = new Models.TournamentEditViewModel()
             {
-                Clubs = loader.Load<IEnumerable<Models.Club>>("clubs"),
-                Courses = loader.Load<IEnumerable<Models.Course>>("courses"),
-               
                 Tournament = tournament
             };
 
@@ -92,17 +82,18 @@ namespace Golf.Tournament.Controllers
         // POST: Tournament/Edit/5
         [HttpPost]
         [Route("tournaments/{id}/edit")]
-        public ActionResult Edit(string id, FormCollection collection)
+        public ActionResult Edit(string id, [ModelBinder(typeof(Models.TournamentEditViewModelBinder))]Models.TournamentEditViewModel tournamentViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+
+                loader.Post<Models.Tournament>("tournaments/", tournamentViewModel.Tournament);
 
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                return View(tournamentViewModel);
             }
         }
 

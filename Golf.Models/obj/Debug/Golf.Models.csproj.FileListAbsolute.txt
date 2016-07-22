@@ -8,3 +8,12 @@ E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Models\bin
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Models\bin\Debug\System.Net.Http.Formatting.dll
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Models\bin\Debug\System.Net.Http.Formatting.xml
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Models\obj\Debug\Golf.Models.csprojResolveAssemblyReference.cache
+D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\Golf.Models.dll.config
+D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\Golf.Models.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\Golf.Models.pdb
+D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\Newtonsoft.Json.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\System.Net.Http.Formatting.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\Newtonsoft.Json.xml
+D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\System.Net.Http.Formatting.xml
+D:\theju\Documents\Git\iGolfTournament\Golf.Models\obj\Debug\Golf.Models.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Models\obj\Debug\Golf.Models.pdb

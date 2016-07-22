@@ -172,6 +172,9 @@ E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.csprojResolveAssemblyReference.cache
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.dll
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.pdb
+E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\bin\Golf.Models.dll
+E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\bin\Golf.Models.pdb
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.csprojResolveAssemblyReference.cache
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\ApplicationInsights.config
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\roslyn\csc.exe
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -189,6 +192,7 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Golf.Tournament.dll.c
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Golf.Tournament.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Golf.Tournament.pdb
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Antlr3.Runtime.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Golf.Models.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\MarkdownDeep.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Microsoft.Owin.dll
@@ -210,8 +214,10 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\System.Web.WebPages.D
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\System.Web.WebPages.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\System.Web.WebPages.Razor.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\WebGrease.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Golf.Models.pdb
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\MarkdownDeep.pdb
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Newtonsoft.Json.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\System.Net.Http.Formatting.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\System.Web.Helpers.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\System.Web.Mvc.xml
@@ -221,7 +227,6 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\System.Web.WebPages.x
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\System.Web.WebPages.Deployment.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\System.Web.WebPages.Razor.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Antlr3.Runtime.pdb
-D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Newtonsoft.Json.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Microsoft.Owin.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Microsoft.Owin.Host.SystemWeb.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Microsoft.Owin.Security.xml
@@ -242,5 +247,3 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\de\Microsoft.Owin.Sec
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\de\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.pdb
-E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\bin\Golf.Models.dll
-E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\bin\Golf.Models.pdb

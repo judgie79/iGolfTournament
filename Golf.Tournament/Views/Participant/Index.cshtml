@@ -1,0 +1,75 @@
+﻿@using Golf.Tournament.Utility
+@model Golf.Tournament.ViewModels.TournamentParticipantListViewModel
+
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>View</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LabelModel.TeebBoxId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LabelModel.TeaTime)
+        </th>
+        <th>@Html.DisplayNameFor(model => model.LabelModel.Id)</th>
+        <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Id)</th>
+        <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Lastname)</th>
+        <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Firstname)</th>
+        <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Hcp)</th>
+    </tr>
+
+    @foreach (var item in Model.Participants)
+            {
+        <tr>
+            <td>@Html.DisplayFor(model => item.TeebBoxId)</td>
+            <td>@Html.DisplayFor(model => item.TeaTime)</td>
+            <td>@Html.DisplayFor(model => item.Id)</td>
+            <td>@Html.DisplayFor(model => item.Player.Id)</td>
+            <td>@Html.DisplayFor(model => item.Player.Lastname)</td>
+            <td>@Html.DisplayFor(model => item.Player.Firstname)</td>
+            <td>@Html.DisplayFor(model => item.Player.Hcp)</td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal_AddParticipant">
+    Add Participant
+</button>
+
+@using (Html.BeginContent("bottom"))
+{
+    <!-- Modal Add Participant -->
+    <div class="modal fade" id="myModal_AddParticipant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Add Participant</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("Create", Model.ParticipantCreateViewModel)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Add Participant -->
+}

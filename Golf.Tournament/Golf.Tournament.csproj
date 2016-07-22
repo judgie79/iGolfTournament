@@ -158,6 +158,7 @@
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ParticipantController.cs" />
     <Compile Include="Controllers\PlayerController.cs" />
     <Compile Include="Controllers\TournamentController.cs" />
     <Compile Include="Global.asax.cs">
@@ -179,6 +180,9 @@
     <Compile Include="Utility\LocalizationHelper.cs" />
     <Compile Include="Utility\MarkdownHelper.cs" />
     <Compile Include="Utility\Validation.cs" />
+    <Compile Include="ViewModels\TournamentParticipantCreateViewModel.cs" />
+    <Compile Include="ViewModels\TournamentParticipantDeleteViewModel.cs" />
+    <Compile Include="ViewModels\TournamentParticipantListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -707,6 +711,10 @@
     <Content Include="Views\Shared\EditorTemplates\Color.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\HoleCollection.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Participant\Index.cshtml" />
+    <Content Include="Views\Participant\View.cshtml" />
+    <Content Include="Views\Participant\Create.cshtml" />
+    <Content Include="Views\Participant\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
