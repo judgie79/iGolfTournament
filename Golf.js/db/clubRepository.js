@@ -34,11 +34,21 @@ module.exports.update = function (id, updateClub, callback) {
     var isValid = crudRepository.validate(updateClub, clubSchema);
 
     if (isValid.length == 0)
-        crudRepository.update(newplayer, callback);
+        crudRepository.update(id, updateClub, callback);
     else
         callback(isValid, null);
 }
 
 module.exports.delete = function (id, callback) {
-    crudRepository.delete(id, callback);
+    
+    var db = mongoUtil.getDb();
+    db.collection(config.db.collections.courses).deleteMany({ "clubId": new ObjectID(id) }, function (err, doc) {
+
+        if (err){
+            callback(err, null);
+        }
+        crudRepository.delete(id, callback);
+    });
+    
+    
 }

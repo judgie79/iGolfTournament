@@ -2,7 +2,13 @@
 
 @{
     var count = Model.Count;
-    int columns = 12 / count;
+    int columns = 0;
+
+    if (count > 0)
+    {
+        columns = Math.Abs( 12 / count );
+    }
+
 }
 @foreach (var teebox in Model)
 {

@@ -155,6 +155,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\TeeboxController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -167,6 +168,9 @@
     <Compile Include="Models\Error.cs" />
     <Compile Include="Utility\SectionHelper.cs" />
     <Compile Include="ViewModels\ClubCreateViewModel.cs" />
+    <Compile Include="ViewModels\TeeboxCreateViewModel.cs" />
+    <Compile Include="ViewModels\TeeboxDetailsViewModel.cs" />
+    <Compile Include="ViewModels\TeeboxListViewModel.cs" />
     <Compile Include="ViewModels\TournamentEditViewModel.cs" />
     <Compile Include="ViewModels\ClubDetailsViewModel.cs" />
     <Compile Include="ViewModels\CourseEditViewModel.cs" />
@@ -187,6 +191,15 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\colorpicker\css\bootstrap-colorpicker.css" />
+    <Content Include="Content\colorpicker\css\bootstrap-colorpicker.min.css" />
+    <Content Include="Content\colorpicker\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Content\colorpicker\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Content\colorpicker\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Content\colorpicker\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="Content\colorpicker\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Scripts\bootstrap-colorpicker.js" />
+    <Content Include="Scripts\bootstrap-colorpicker.min.js" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Site.js" />
     <Content Include="Content\themes\bootstrap\bootstrap.css" />
@@ -253,6 +266,8 @@
     <Content Include="Content\themes\bootstrap\bootstrap.less" />
     <Content Include="Content\themes\bootstrap\bootstrap.css.map" />
     <Content Include="Content\themes\bootstrap\bootstrap-filebutton.less" />
+    <Content Include="Content\colorpicker\css\bootstrap-colorpicker.css.map" />
+    <Content Include="Content\colorpicker\css\bootstrap-colorpicker.min.css.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\filebutton.js" />
     <Content Include="Scripts\globalize-datepicker.js" />
@@ -715,6 +730,14 @@
     <Content Include="Views\Participant\View.cshtml" />
     <Content Include="Views\Participant\Create.cshtml" />
     <Content Include="Views\Participant\Delete.cshtml" />
+    <Content Include="Views\Player\Delete.cshtml" />
+    <Content Include="Views\Course\Delete.cshtml" />
+    <Content Include="Views\Club\Delete.cshtml" />
+    <Content Include="Views\Teebox\Index.cshtml" />
+    <Content Include="Views\Teebox\Details.cshtml" />
+    <Content Include="Views\Teebox\Create.cshtml" />
+    <Content Include="Views\Teebox\Edit.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\HoleCollection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

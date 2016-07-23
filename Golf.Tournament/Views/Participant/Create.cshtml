@@ -13,6 +13,7 @@
             <div class="col-md-10">
                 @Html.DropDownListFor(model => model.PlayerId, Model.Players.Select(club => new SelectListItem() { Text = club.Lastname + ", " + club.Firstname + "; Hcp " + club.Hcp, Value = club.Id }), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PlayerId, "", new { @class = "text-danger" })
+                
             </div>
         </div>
 

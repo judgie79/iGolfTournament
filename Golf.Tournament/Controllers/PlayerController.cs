@@ -34,7 +34,7 @@ namespace Golf.Tournament.Controllers
         {
             var playerCreateViewModel = new PlayerCreateViewModel();
 
-            playerCreateViewModel.Clubs = loader.Load<IEnumerable<Club>>("clubs");
+            playerCreateViewModel.Clubs = loader.Load<IEnumerable<HomeClub>>("clubs");
 
             return View(playerCreateViewModel);
         }
@@ -44,7 +44,7 @@ namespace Golf.Tournament.Controllers
         [HttpPost]
         public ActionResult Create(PlayerCreateViewModel playerCreateViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
 
 
@@ -52,11 +52,9 @@ namespace Golf.Tournament.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                playerCreateViewModel.Clubs = loader.Load<IEnumerable<Club>>("clubs");
-                return View(playerCreateViewModel);
-            }
+
+            playerCreateViewModel.Clubs = loader.Load<IEnumerable<HomeClub>>("clubs");
+            return View(playerCreateViewModel);
         }
 
         // GET: Player/Edit/5
@@ -88,10 +86,18 @@ namespace Golf.Tournament.Controllers
             }
         }
 
+        // GET: Participant/Delete/5
+        [Route("players/{id}/delete")]
+        public ActionResult Delete(string id)
+        {
+            var player = loader.Load<Player>("players/" + id);
+            return View(player);
+        }
+
         // POST: Player/Delete/5
         [HttpPost]
         [Route("players/{id}/delete")]
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string id, FormCollection form)
         {
             try
             {

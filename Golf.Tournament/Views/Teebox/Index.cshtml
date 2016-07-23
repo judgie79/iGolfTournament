@@ -1,0 +1,66 @@
+﻿@model Golf.Tournament.ViewModels.TeeboxListViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Teeboxes</h2>
+
+<h3>Club</h3>
+@Html.DisplayFor(model => model.Club)
+
+<h3>Course</h3>
+@Html.DisplayFor(model => model.Course)
+
+<hr />
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => Model.ViewModel.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model.ViewModel.Distance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model.ViewModel.Par)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model.ViewModel.CourseRating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => Model.ViewModel.SlopeRating)
+        </th>
+        <th></th>
+    </tr>
+
+@for (int i = 0; i < Model.Teeboxes.Count; i++)
+{
+    var item = Model.Teeboxes[i];
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Distance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Par)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseRating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SlopeRating)
+        </td>
+        <td>    
+            @Html.ActionLink("Edit", "Edit", "Teebox", new { clubId = Model.Club.Id, courseId = Model.Course.Id, id = item.Id }, new { }) |
+            @Html.ActionLink("Details", "Details", "Teebox", new { clubId = Model.Club.Id, courseId = Model.Course.Id, id = item.Id }, new { }) |
+            @Html.ActionLink("Delete", "Delete", "Teebox", new { clubId = Model.Club.Id, courseId = Model.Course.Id, id = item.Id }, new { })
+        </td>
+    </tr>
+}
+
+</table>

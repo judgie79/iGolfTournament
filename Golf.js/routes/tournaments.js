@@ -65,6 +65,19 @@ router.put("/:id", function (req, res) {
     });
 });
 
+router.post("/:id/start", function (req, res) {
+
+    var updateTournament = req.body;
+
+    tournamentRepository.update(req.params.id, updateTournament, function (err, tournament) {
+        if (err) {
+            handleError(res, err.message, "Failed to update tournament");
+        } else {
+            res.status(204).json(tournament);
+        }
+    });
+});
+
 router.delete("/:id", function (req, res) {
     tournamentRepository.delete(req.params.id, function (err, result) {
         if (err) {

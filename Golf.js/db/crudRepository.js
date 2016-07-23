@@ -48,7 +48,7 @@ CrudRepository.prototype.update = function (id, updatedoc, callback) {
 
     delete updatedoc._id;
 
-    db.collection(this.collection).updateOne({ "_id": new ObjectID(id) }, updatedoc, function (err, doc) {
+    db.collection(this.collection).updateOne({ _id:  new ObjectID(id)}, updatedoc, function (err, doc) {
         callback(err, doc);
     });
 }

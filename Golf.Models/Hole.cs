@@ -15,23 +15,23 @@ namespace Golf.Tournament.Models
 
         [JsonProperty("number")]
         [Required]
-        [MinValue(1)]
+        [MinIntValue(1)]
         public int Number { get; set; }
 
         [JsonProperty("distance")]
         [Required]
-        [MinValue(0)]
+        [MinIntValue(0)]
         public int Distance { get; set; }
 
         [JsonProperty("par")]
         [Required]
-        [MinValue(3)]
-        [MaxValue(5)]
+        [MinIntValue(3)]
+        [MaxIntValue(5)]
         public int Par { get; set; }
 
         [JsonProperty("hcp")]
         [Required]
-        [MinValue(1)]
+        [MinIntValue(1)]
         public int Hcp { get; set; }
     }
 

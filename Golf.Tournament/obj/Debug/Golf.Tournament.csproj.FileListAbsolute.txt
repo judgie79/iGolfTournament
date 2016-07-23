@@ -174,7 +174,6 @@ E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.pdb
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\bin\Golf.Models.dll
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament\bin\Golf.Models.pdb
-D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.csprojResolveAssemblyReference.cache
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\ApplicationInsights.config
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\roslyn\csc.exe
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -245,5 +244,6 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\de\Microsoft.Owin.res
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\de\Microsoft.Owin.Host.SystemWeb.resources.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\de\Microsoft.Owin.Security.Twitter.resources.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\de\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.csprojResolveAssemblyReference.cache
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.pdb

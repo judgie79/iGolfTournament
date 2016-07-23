@@ -18,4 +18,9 @@ namespace Golf.Tournament.ViewModels
 
         public TeeboxCollection Teeboxes { get; set; }
     }
+
+    public class TournamentParticipantEditViewModel
+    {
+        public TournamentParticipant Participant { get; set; }
+    }
 }

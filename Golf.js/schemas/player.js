@@ -17,19 +17,19 @@ var playerSchema = {
             "type": ["object", "null"],
             "properties": {
                 "street": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "houseNo": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "zip": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "city": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "country": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 }
             }
         },
@@ -48,7 +48,8 @@ var playerSchema = {
         },
         "hcp": {
             "type": ["number", "integer"],
-            "minimum": -54
+            "minimum": 0,
+            "maximum": 54
         }
     },
     "required": ["firstname", "lastname", "homeClub", "hcp"]

@@ -20,11 +20,13 @@ namespace Golf.Tournament
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap.min.js",
+                      "~/Scripts/bootstrap-colorpicker.min.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/colorpicker/css/bootstrap-colorpicker.min.css",
                       "~/Content/site.css"));
         }
     }

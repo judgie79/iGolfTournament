@@ -13,7 +13,7 @@ namespace Golf.Tournament.Models
         public Player()
         {
             Address = new Address();
-            HomeClub = new Club();
+            HomeClub = new HomeClub();
         }
 
         [JsonProperty("_id")]
@@ -31,14 +31,15 @@ namespace Golf.Tournament.Models
         public Address Address { get; set; }
 
         [JsonProperty("homeClub")]
-        public Club HomeClub { get; set; }
+        public HomeClub HomeClub { get; set; }
 
         [JsonProperty("membership")]
         public Membership Membership { get; set; }
 
         [JsonProperty("hcp")]
-        [MaxValue(54)]
-        [MinValue(0)]
+        [MaxFloatValue(54)]
+        [MinFloatValue(0)]
+        [Required]
         public float Hcp { get; set; }
 
         [JsonProperty("isOfficialHcp")]
@@ -48,15 +49,12 @@ namespace Golf.Tournament.Models
     public class Membership
     {
         [JsonProperty("clubNr")]
-        [Required]
         public string ClubNr { get; set; }
 
         [JsonProperty("nr")]
-        [Required]
         public string Nr { get; set; }
 
         [JsonProperty("serviceNr")]
-        [Required]
         public string ServiceNr { get; set; }
     }
 

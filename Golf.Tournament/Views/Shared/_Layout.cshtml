@@ -46,5 +46,11 @@
     @RenderSection("scripts", required: false)
 
     @Html.PageScripts("end")
+
+    <script>
+        $(function () {
+            $('.edit_colorpicker').colorpicker();
+        });
+    </script>
 </body>
 </html>

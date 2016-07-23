@@ -63,7 +63,13 @@ namespace Golf.Tournament.Controllers
         {
             var club = loader.Load<Club>("clubs/" + id);
 
-            return View(club);
+            var courses = loader.Load<IEnumerable<Course>>("clubs/" + id + "/courses");
+
+            return View(new ClubEditViewModel()
+            {
+                Club = club,
+                Courses = courses
+            });
         }
 
         // POST: Club/Edit/5
@@ -83,14 +89,23 @@ namespace Golf.Tournament.Controllers
             }
         }
 
-        // GET: Club/Delete/5
-        [HttpPost]
+        // GET: Club/Edit/5
         [Route("clubs/{id}/delete")]
         public ActionResult Delete(string id)
         {
+            var club = loader.Load<Club>("clubs/" + id);
+
+            return View(club);
+        }
+
+        // GET: Club/Delete/5
+        [HttpPost]
+        [Route("clubs/{id}/delete")]
+        public ActionResult Delete(string id, FormCollection form)
+        {
             loader.Delete<Club>("clubs/" + id);
 
-                return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model Golf.Tournament.Models.Course
+﻿@model Golf.Tournament.ViewModels.CourseDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -7,31 +7,33 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Course</h4>
+    <h1>Course</h1>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.ClubId)
+            @Html.DisplayNameFor(model => model.Course.ClubId)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ClubId)
+            @Html.DisplayFor(model => model.Course.ClubId)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Course.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Course.Name)
         </dd>
     </dl>
 
+    <h2>Teeboxes</h2>
+
     <div class="row">
-        @Html.DisplayFor(model => model.TeeBoxes)
+        @Html.DisplayFor(model => model.Course.TeeBoxes)
     </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Course.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

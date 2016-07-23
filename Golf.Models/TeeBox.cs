@@ -13,6 +13,7 @@ namespace Golf.Tournament.Models
         public TeeBox()
         {
             Holes = new HoleCollection();
+            Color = new Color("#ffffff");
         }
 
         [JsonProperty("_id")]

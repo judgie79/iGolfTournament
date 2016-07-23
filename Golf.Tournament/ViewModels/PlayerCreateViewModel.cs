@@ -14,6 +14,6 @@ namespace Golf.Tournament.Models
 
         public Player Player { get; set; }
 
-        public IEnumerable<Club> Clubs { get; set; }
+        public IEnumerable<HomeClub> Clubs { get; set; }
     }
 }

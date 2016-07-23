@@ -30,13 +30,19 @@ module.exports.create = function (newplayer, callback) {
                 newplayer.isOfficialHcp = false;
                 newplayer.hcp = Number(newplayer.hcp);
             }
+
+        	createPlayer(newplayer, callback);
         });
     }
     else {
         newplayer.hcp = Number(newplayer.hcp);
         newplayer.isOfficialHcp = false;
-    }
 
+        createPlayer(newplayer, callback);
+    }
+}
+
+var createPlayer = function(newplayer, callback) {
     var isValid = crudRepository.validate(newplayer, playerSchema);
 
     if (isValid.length == 0) {
@@ -133,6 +139,11 @@ module.exports.findMembersOfClub = function (clubId, callback) {
 
 module.exports.getHcp = function (player, callback) {
 
+    if(player.membership.clubNr === "" || player.membership.nr === "" || player.membership.serviceNr === "")
+    {
+        callback(false);
+    }
+    
     var hcpServer = "http://www.golf.de/publish/turnierkalender/handicap-abfrage/abfrage";
     var request = require('request');
 

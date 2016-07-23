@@ -1,4 +1,5 @@
-﻿@model Golf.Tournament.Models.Color
+﻿@using Golf.Tournament.Utility
+@model Golf.Tournament.Models.Color
 @{ 
     var htmlAttributes = new RouteValueDictionary();
     if (ViewBag.@class != null)
@@ -21,7 +22,9 @@
     htmlAttributes.Add("style", string.Format("background-color: {0};", Model.Value));
 }
 
-    <div class="controls">
-        @Html.TextBoxFor(model => model.Value, htmlAttributes)
-        @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
-    </div>
+<div class="edit_colorpicker input-group colorpicker-component">
+    @Html.TextBoxFor(model => model.Value, htmlAttributes)
+    <span class="input-group-addon"><i></i></span>
+    @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+</div>
+

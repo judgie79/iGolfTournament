@@ -29,7 +29,7 @@ namespace Golf.Tournament.Controllers
 
         // GET: Participant/Create
         [Route("tournaments/{tournamentId}/participants/create")]
-        public ActionResult Create()
+        public ActionResult Create(string tournamentId)
         {
             return View();
         }
@@ -63,25 +63,29 @@ namespace Golf.Tournament.Controllers
         }
 
         // GET: Participant/Edit/5
-        public ActionResult Edit(int id)
+        [Route("tournaments/{tournamentId}/participants/{id}/edit")]
+        public ActionResult Edit(string tournamentId, string id)
         {
             return View();
         }
 
         // POST: Participant/Edit/5
         [HttpPost]
-        public ActionResult Edit(string id, FormCollection collection)
+        [Route("tournaments/{tournamentId}/participants/{id}/edit")]
+        public ActionResult Edit(string tournamentId, string id, TournamentParticipantEditViewModel editViewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                Models.Tournament tournamentResult = loader.Put<Models.TournamentParticipant, Models.Tournament>("tournaments/" + tournamentId + "/participants", editViewModel.Participant);
 
-                return RedirectToAction("Index");
+                RedirectToAction("Index", "Participant", new { tournamentId = tournamentResult.Id });
             }
-            catch
-            {
-                return View();
-            }
+
+
+            var tournament = loader.Load<Models.Tournament>("tournaments/" + tournamentId);
+            var players = loader.Load<Models.PlayerCollection>("players");
+
+            return View(editViewModel);
         }
 
         // GET: Participant/Delete/5
@@ -113,7 +117,7 @@ namespace Golf.Tournament.Controllers
             }
             catch
             {
-                return View();
+                return View(deleteViewModel);
             }
         }
     }

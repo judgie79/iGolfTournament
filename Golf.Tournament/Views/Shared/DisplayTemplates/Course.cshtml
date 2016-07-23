@@ -17,23 +17,6 @@
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-
-
-        @foreach (var item in Model.TeeBoxes)
-        {
-            <dt>
-               Teebox
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => item.Name)
-
-                <dl>
-                    @Html.DisplayFor(model => item)
-                </dl>
-            </dd>
-            
-        }
     </dl>
 
 

@@ -1,0 +1,19 @@
+﻿@model Golf.Tournament.ViewModels.TeeboxDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h3>@Html.DisplayFor(model => Model.Club.Name)</h3>
+    <h3>@Html.DisplayFor(model => Model.Course.Name)</h3>
+    <h4>TeeboxDetailsViewModel</h4>
+    <hr />
+    @Html.DisplayFor(model => Model.Teebox)
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Teebox.Id, clubId = Model.Club.Id, courseId = Model.Course.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

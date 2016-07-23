@@ -16,9 +16,9 @@ module.exports.findAll = function (callback) {
     crudRepository.findAll(callback);
 }
 
-module.exports.findCoursesOfClub = function (courseId, callback) {
+module.exports.findCoursesOfClub = function (clubId, callback) {
     var db = mongoUtil.getDb();
-    db.collection(config.db.collections.courses).find({ "clubId": ObjectID(courseId) }).toArray(function (err, docs) {
+    db.collection(config.db.collections.courses).find({ "clubId": new ObjectID(clubId) }).toArray(function (err, docs) {
 
         callback(err, docs);
     });
@@ -30,6 +30,8 @@ module.exports.findById = function (id, callback) {
 
 module.exports.create = function (newcourse, callback) {
     var isValid = crudRepository.validate(newcourse, courseSchema);
+
+    newcourse.clubId = new ObjectID(newcourse.clubId);
 
     if (newcourse.teeBoxes && newcourse.teeboxes.length > 0)
     {
@@ -69,10 +71,18 @@ module.exports.create = function (newcourse, callback) {
 module.exports.update = function (id, updateCourse, callback) {
     var isValid = crudRepository.validate(updateCourse, courseSchema);
 
+    updateCourse.clubId = new ObjectID(updateCourse.clubId);
     for (var i = 0; i < updateCourse.teeboxes.length; i++)
     {
         var teeBox = updateCourse.teeboxes[i];
 
+        if (teeBox._id == null || teeBox._id === "")
+        {
+            teeBox._id = new ObjectID();
+        } else {
+            teeBox._id = new ObjectID(teeBox._id);
+        }
+        
         if (teeBox.holes && teeBox.holes.length > 0)
         {
                 for (var h = 0; h < teeBox.holes.length; h++)

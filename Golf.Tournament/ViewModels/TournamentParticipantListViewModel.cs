@@ -24,7 +24,10 @@ namespace Golf.Tournament.ViewModels
             Participants = tournament.Participants;
             Tournament = tournament;
            
+            this.Teeboxes = tournament.Course.TeeBoxes.ToDictionary(t => t.Id, t => t);
         }
+
+        public Dictionary<string, TeeBox> Teeboxes { get; private set; }
 
         public TournamentParticipantCreateViewModel ParticipantCreateViewModel { get; set; }
 

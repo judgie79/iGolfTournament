@@ -1,4 +1,4 @@
-﻿@model Golf.Tournament.Models.ClubDetailsViewModel
+﻿@model Golf.Tournament.ViewModels.ClubDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -28,6 +28,9 @@
 
     <h4>Courses</h4>
     <hr />
+    <p>
+        @Html.ActionLink("Create New", "Create", "Course", new { clubId = Model.Club.Id }, new { })
+    </p>
     @Html.Partial("CourseListPart", Model.Courses)
 
 </div>

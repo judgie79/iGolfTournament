@@ -1,24 +1,23 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Contact";
 }
-
 <div class="jumbotron">
     <h1>Golf Tournament</h1>
 </div>
 
 <div class="row">
     <div class="col-md-4">
-        <h2></h2>
+        <h2>@Html.ActionLink("Clubs", "Index", "Club", new { }, new { @class = "btn btn-default" })</h2>
         <p>
         </p>
     </div>
     <div class="col-md-4">
-        <h2></h2>
+        <h2>@Html.ActionLink("Players", "Index", "Player", new { }, new { @class = "btn btn-default" })</h2>
         <p>
         </p>
     </div>
     <div class="col-md-4">
-        <h2></h2>
+        <h2>@Html.ActionLink("Tournaments", "Index", "Tournament", new { }, new { @class = "btn btn-default" })</h2>
         <p>
         </p>
     </div>

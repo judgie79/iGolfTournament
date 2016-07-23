@@ -1,19 +1,26 @@
-﻿using System;
+﻿using Golf.Tournament.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Golf.Tournament.Models
+namespace Golf.Tournament.ViewModels
 {
     public abstract class CourseViewModel
     {
         public Course Course { get; set; }
-
-        public IEnumerable<Club> Clubs { get; set; }
     }
 
+
+
     public class CourseEditViewModel : CourseViewModel
+    {
+
+        public Club Club { get; set; }
+    }
+
+    public class CourseDetailsViewModel : CourseViewModel
     {
 
     }
@@ -21,6 +28,7 @@ namespace Golf.Tournament.Models
     public class CourseCreateViewModel : CourseViewModel
     {
 
+        public IEnumerable<Club> Clubs { get; set; }
     }
 
     public class CourseViewModelModelBinder<TCourseViewModel> : IModelBinder
@@ -35,7 +43,7 @@ namespace Golf.Tournament.Models
 
             var Course = new Course()
             {
-                ClubId = form.Get("Course.ClubId"),
+                ClubId = form.Get("Club.Id"),
                 Id = form.Get("Course.Id"),
                 Name = form.Get("Course.Name"),
                 TeeBoxes = new TeeboxCollection()
