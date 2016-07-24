@@ -32,10 +32,10 @@
         <h2>Teeboxes</h2>
 
         <p>
-            @Html.ActionLink("Create New", "Create", "Teebox", new { clubId = Model.Course.ClubId, courseId = Model.Course.Id }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Edit Teeboxes", "Index", "Teebox", new { clubId = Model.Course.ClubId, courseId = Model.Course.Id }, new { @class = "btn btn-default" })
         </p>
         <div class="row">
-            @Html.EditorFor(model => model.Course.TeeBoxes)
+            @Html.DisplayFor(model => model.Course.TeeBoxes)
         </div>
 
 

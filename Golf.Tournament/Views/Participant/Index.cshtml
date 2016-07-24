@@ -5,10 +5,15 @@
     ViewBag.Title = "View";
 }
 
-<h2>View</h2>
+<h2>@Model.Tournament.Title - Participants</h2>
+
+@Html.DisplayFor(model => model.Tournament)
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-sm btn-primary btn-lg" data-toggle="modal" data-target="#myModal_AddParticipant">
+        Register Participant
+    </button>
 </p>
 <table class="table">
     <tr>
@@ -27,7 +32,7 @@
     @foreach (var item in Model.Participants)
             {
         <tr>
-            <td>@Html.DisplayFor(model => Model.Teeboxes.First(m => m.Key == item.TeebBoxId).Value.Name)</td>
+            <td>@Html.DisplayFor(model => Model.Teeboxes.FirstOrDefault(m => m.Key == item.TeebBoxId).Value.Name)</td>
             <td>@Html.DisplayFor(model => item.TeaTime)</td>
             <td>@Html.DisplayFor(model => item.Player.Lastname)</td>
             <td>@Html.DisplayFor(model => item.Player.Firstname)</td>
@@ -44,30 +49,41 @@
 
 </table>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal_AddParticipant">
-    Add Participant
-</button>
 
+
+<p>
+    @Html.ActionLink("Back to Tournament", "Details", "Tournament", new { id = Model.Tournament.Id }, new { @class = "btn btn-default" })
+</p>
 @using (Html.BeginContent("bottom"))
 {
-    <!-- Modal Add Participant -->
-    <div class="modal fade" id="myModal_AddParticipant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+<!-- Modal Add Participant -->
+<div class="modal fade" id="myModal_AddParticipant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <form method="post" action="@Url.Action("Create", "Participant", new { tournamentId = Model.Tournament.Id })">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Add Participant</h4>
                 </div>
                 <div class="modal-body">
-                    @Html.Partial("Create", Model.ParticipantCreateViewModel)
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.Partial("Create", Model.ParticipantCreateViewModel)
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-primary">Register Player</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-    <!-- Modal Add Participant -->
+</div>
+<!-- Modal Add Participant -->
 }

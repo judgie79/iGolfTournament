@@ -15,5 +15,6 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\Newtonsoft.Json.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\System.Net.Http.Formatting.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\Newtonsoft.Json.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\System.Net.Http.Formatting.xml
+D:\theju\Documents\Git\iGolfTournament\Golf.Models\obj\Debug\Golf.Models.csprojResolveAssemblyReference.cache
 D:\theju\Documents\Git\iGolfTournament\Golf.Models\obj\Debug\Golf.Models.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Models\obj\Debug\Golf.Models.pdb

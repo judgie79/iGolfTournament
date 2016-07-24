@@ -1,0 +1,44 @@
+﻿@model Golf.Tournament.ViewModels.TournamentDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tournament</h4>
+    <hr />
+
+    <h3>Club</h3>
+    @Html.DisplayFor(model => model.Tournament.Club)
+
+    <h3>Course</h3>
+    @Html.DisplayFor(model => model.Tournament.Course)
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tournament.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tournament.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tournament.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tournament.Date)
+        </dd>
+
+    </dl>
+
+    <hr />
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Tournament.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

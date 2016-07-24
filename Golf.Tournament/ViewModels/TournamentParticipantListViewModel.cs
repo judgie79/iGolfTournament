@@ -17,7 +17,7 @@ namespace Golf.Tournament.ViewModels
         {
             ParticipantCreateViewModel = new TournamentParticipantCreateViewModel()
             {
-                Players = players,
+                Players = new PlayerCollection(players.Where(o => !tournament.Participants.Any(p => p.Player.Id == o.Id))),
                 TournamentId = tournament.Id,
                 Teeboxes = tournament.Course.TeeBoxes
             };

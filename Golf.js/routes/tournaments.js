@@ -103,6 +103,20 @@ router.post("/:id/participants", function (req, res) {
     });
 });
 
+router.put("/:tournamentId/participants/:id", function (req, res) {
+    
+    var participant = req.body;
+    
+
+    tournamentRepository.updateParticipant(req.params.tournamentId, req.params.id, participant, function (err, result) {
+        if (err) {
+            handleError(res, err.message, "Failed to add participant");
+        } else {
+            res.status(201).json(result);
+        }
+    });
+});
+
 router.delete("/:id/participants/:participantId", function (req, res) {
     
     tournamentRepository.deleteParticipant(req.params.id, req.params.participantId, function (err) {

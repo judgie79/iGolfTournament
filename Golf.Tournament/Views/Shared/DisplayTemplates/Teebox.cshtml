@@ -12,7 +12,34 @@
     {
         teeIndex = ViewBag.teeIndex;
     }
+
+    var fontColor = "#ffffff";
+
+    if (Model.Color.Value.ToLower() == "#ffffff")
+    {
+        fontColor = "#000000";
+    }
+
+    bool showPopup = false;
+    if (ViewBag.ShowHolesWithPopup != null && ViewBag.ShowHolesWithPopup == true)
+    {
+        showPopup = true;
+    }
+
+    bool showHoles = false;
+    if (ViewBag.ShowHoles != null && ViewBag.ShowHoles == true)
+    {
+        showHoles = true;
+    }
 }
+<dt>
+    @Html.DisplayNameFor(model => model.Name)
+</dt>
+
+<dd>
+    <span class="label label-default" style="background-color: @Model.Color.Value; color: @fontColor; border: 1px solid @fontColor;">@Model.Name</span>
+</dd>
+
 <dt>
     @Html.DisplayNameFor(model => model.Distance)
 </dt>
@@ -45,14 +72,13 @@
     @Html.DisplayFor(model => model.SlopeRating)
 </dd>
 
+@if (showPopup)
+{
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal_@teeName">
     Show Holes
 </button>
 
-@*@using (Html.BeginContent("bottom"))
-    {*@
-<!-- Modal @teeName -->
 <div class="modal fade" id="myModal_@teeName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -69,5 +95,11 @@
         </div>
     </div>
 </div>
-<!-- Modal @teeName -->
-@*}*@
+}
+else
+{
+    if (showHoles)
+    {
+        <div>@Html.DisplayFor(model => model.Holes, new { teeName = Model.Name })</div>
+    }
+}

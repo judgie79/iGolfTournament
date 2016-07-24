@@ -21,9 +21,16 @@ namespace Golf.Tournament.Controllers
 
         // GET: Tournament/Details/5
         [Route("tournaments/{id}")]
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            var tournament = loader.Load<Models.Tournament>("tournaments/" + id);
+
+            var viewModel = new ViewModels.TournamentDetailsViewModel()
+            {
+                Tournament = tournament
+            }; 
+
+            return View(viewModel);
         }
 
         // GET: Tournament/Create
@@ -84,10 +91,21 @@ namespace Golf.Tournament.Controllers
         [Route("tournaments/{id}/edit")]
         public ActionResult Edit(string id, [ModelBinder(typeof(Models.TournamentEditViewModelBinder))]Models.TournamentEditViewModel tournamentViewModel)
         {
+            var tournament = loader.Load<Models.Tournament>("tournaments/" + id);
+            tournamentViewModel.Tournament.Participants = tournament.Participants;
+            tournamentViewModel.Tournament.Club = tournament.Club;
+            tournamentViewModel.Tournament.Course = tournament.Course;
+
+            ModelState.Clear();
+            TryValidateModel(tournamentViewModel.Tournament);
+
             if (ModelState.IsValid)
             {
+                
 
-                loader.Post<Models.Tournament>("tournaments/", tournamentViewModel.Tournament);
+                
+
+                loader.Put<Models.Tournament>("tournaments/" + id, tournamentViewModel.Tournament);
 
                 return RedirectToAction("Index");
             }

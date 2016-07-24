@@ -1,16 +1,9 @@
 ﻿@model Golf.Tournament.ViewModels.TournamentParticipantCreateViewModel
 
-@using (Html.BeginForm("Create", "Participant", new { tournamentId = Model.TournamentId }, FormMethod.Post, new { } ))
-{
-    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>TournamentParticipantCreateViewModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.PlayerId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.PlayerId, htmlAttributes: new { @class = "control-label col-sm-3" })
+            <div class="col-sm-9">
                 @Html.DropDownListFor(model => model.PlayerId, Model.Players.Select(club => new SelectListItem() { Text = club.Lastname + ", " + club.Firstname + "; Hcp " + club.Hcp, Value = club.Id }), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PlayerId, "", new { @class = "text-danger" })
                 
@@ -18,17 +11,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TeeboxId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(model => model.TeeboxId, htmlAttributes: new { @class = "control-label col-sm-3" })
+            <div class="col-sm-9">
                 @Html.DropDownListFor(model => model.TeeboxId, Model.Teeboxes.Select(club => new SelectListItem() { Text = club.Name, Value = club.Id }), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TeeboxId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
+        

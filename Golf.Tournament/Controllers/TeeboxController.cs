@@ -55,6 +55,12 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/create")]
         public ActionResult Create(string clubId, string courseId, TeeboxCreateViewModel teeboxCreateViewModel)
         {
+            teeboxCreateViewModel.Course = loader.Load<Course>("courses/" + courseId);
+            teeboxCreateViewModel.Club = loader.Load<Club>("clubs/" + clubId);
+
+            ModelState.Clear();
+            TryValidateModel(teeboxCreateViewModel.Teebox);
+
             if (ModelState.IsValid)
             {
 
@@ -94,26 +100,29 @@ namespace Golf.Tournament.Controllers
         // POST: Club/Edit/5
         [HttpPost]
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{id}/edit")]
-        public ActionResult Edit(string clubId, string courseId, string id, TeeboxEditViewModel teeboxEditViewModel)
+        public ActionResult Edit(string clubId, string courseId, string id, [ModelBinder(typeof(TeeboxEditViewModelBinder))]TeeboxEditViewModel teeboxEditViewModel)
         {
+            teeboxEditViewModel.Course = loader.Load<Course>("courses/" + courseId);
+            teeboxEditViewModel.Club = loader.Load<Club>("clubs/" + clubId);
+
+            ModelState.Clear();
+            TryValidateModel(teeboxEditViewModel.Teebox);
+
             if (ModelState.IsValid)
             {
-                teeboxEditViewModel.Course = loader.Load<Course>("courses/" + courseId);
+                
                 var teebox = teeboxEditViewModel.Course.TeeBoxes.SingleOrDefault(t => t.Id == id);
 
 
                 teeboxEditViewModel.Course.TeeBoxes[teeboxEditViewModel.Course.TeeBoxes.IndexOf(teebox)] = teeboxEditViewModel.Teebox;
 
-                teeboxEditViewModel.Course = loader.Post<Course>("clubs/", teeboxEditViewModel.Course);
+                teeboxEditViewModel.Course = loader.Put<Course>("courses/" + courseId, teeboxEditViewModel.Course);
                 return RedirectToAction("Index");
             }
             else
             {
-                var club = loader.Load<Club>("clubs/" + clubId);
-                var course = loader.Load<Course>("courses/" + courseId);
-                teeboxEditViewModel.Club = club;
-                teeboxEditViewModel.Course = course;
-
+                
+                
                 return View(teeboxEditViewModel);
             }
         }
@@ -122,9 +131,7 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{id}/delete")]
         public ActionResult Delete(string clubId, string courseId, string id)
         {
-            var club = loader.Load<Club>("clubs/" + id);
-
-            return View(club);
+            throw new NotImplementedException();
         }
 
         // GET: Club/Delete/5
@@ -132,9 +139,7 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{id}/delete")]
         public ActionResult Delete(string clubId, string courseId, string id, FormCollection form)
         {
-            loader.Delete<Club>("clubs/" + id);
-
-            return RedirectToAction("Index");
+            throw new NotImplementedException();
         }
     }
 }

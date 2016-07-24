@@ -39,7 +39,9 @@ namespace Golf.Tournament.Controllers
         [Route("tournaments/{tournamentId}/participants/create")]
         public ActionResult Create(string tournamentId, TournamentParticipantCreateViewModel createViewModel)
         {
-            
+            ModelState.Clear();
+            TryValidateModel(createViewModel.PlayerId);
+            TryValidateModel(createViewModel.TeeboxId);
 
             if (ModelState.IsValid)
             {
@@ -50,7 +52,7 @@ namespace Golf.Tournament.Controllers
                     TeebBoxId = createViewModel.TeeboxId
                 });
 
-                RedirectToAction("Index", "Participant", new { tournamentId = tournamentResult.Id });
+                return RedirectToAction("Index");
             }
 
 
@@ -66,26 +68,40 @@ namespace Golf.Tournament.Controllers
         [Route("tournaments/{tournamentId}/participants/{id}/edit")]
         public ActionResult Edit(string tournamentId, string id)
         {
-            return View();
+            var tournament = loader.Load<Models.Tournament>("tournaments/" + tournamentId);
+
+            return View(new TournamentParticipantEditViewModel()
+            {
+                Tournament = tournament,
+                Participant = tournament.Participants.SingleOrDefault(p => p.Id == id),
+                Teeboxes = tournament.Course.TeeBoxes,
+                Course = tournament.Course
+            });
         }
 
         // POST: Participant/Edit/5
         [HttpPost]
         [Route("tournaments/{tournamentId}/participants/{id}/edit")]
-        public ActionResult Edit(string tournamentId, string id, TournamentParticipantEditViewModel editViewModel)
+        public ActionResult Edit(string tournamentId, string id, [ModelBinder(typeof(TournamentParticipantEditViewModelBinder))]TournamentParticipantEditViewModel editViewModel)
         {
+            ModelState.Clear();
+            TryValidateModel(editViewModel.Participant);
+
             if (ModelState.IsValid)
             {
-                Models.Tournament tournamentResult = loader.Put<Models.TournamentParticipant, Models.Tournament>("tournaments/" + tournamentId + "/participants", editViewModel.Participant);
+                var player = loader.Load<Models.Player>("players/" + editViewModel.Participant.Player.Id);
+                var tournamentResult = loader.Put<Models.TournamentParticipant, Models.Tournament>("tournaments/" + tournamentId + "/" + "participants/" + editViewModel.Participant.Id, editViewModel.Participant);
 
-                RedirectToAction("Index", "Participant", new { tournamentId = tournamentResult.Id });
+                return RedirectToAction("Index");
             }
-
-
-            var tournament = loader.Load<Models.Tournament>("tournaments/" + tournamentId);
-            var players = loader.Load<Models.PlayerCollection>("players");
-
-            return View(editViewModel);
+            else
+            {
+                var tournament = loader.Load<Models.Tournament>("tournaments/" + tournamentId);
+                editViewModel.Tournament = tournament;
+                editViewModel.Course = tournament.Course;
+                editViewModel.Teeboxes = tournament.Course.TeeBoxes;
+                return View(editViewModel);
+            }
         }
 
         // GET: Participant/Delete/5

@@ -80,12 +80,12 @@ router.delete("/:id", function (req, res) {
 
 router.get("/:id/courses", function (req, res) {
 
-    courseRepository.findCoursesOfClub(req.params.id, function (err, club) {
+    courseRepository.findCoursesOfClub(req.params.id, function (err, courses) {
 
         if (err) {
             handleError(res, err.message, "Failed to get courses");
         } else {
-            res.status(200).json(club);
+            res.status(200).json(courses);
         }
     });
 });

@@ -1,0 +1,45 @@
+﻿@model Golf.Tournament.Models.Player
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hcp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hcp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsOfficialHcp)
+        </dt>
+
+        <dd>
+            @if (Model.IsOfficialHcp)
+            {
+                <span class="glyphicon-check glyphicon" title="official"></span>
+            }
+            else
+            {
+                <span class="glyphicon-remove glyphicon" title="unofficial"></span>
+            }
+        </dd>
+
+    </dl>
+</div>
