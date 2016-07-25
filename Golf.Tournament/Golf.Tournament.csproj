@@ -168,9 +168,18 @@
     <Compile Include="Models\Error.cs" />
     <Compile Include="Utility\SectionHelper.cs" />
     <Compile Include="ViewModels\ClubCreateViewModel.cs" />
+    <Compile Include="ViewModels\ClubEditViewModel.cs" />
+    <Compile Include="ViewModels\CourseCreateViewModel.cs" />
+    <Compile Include="ViewModels\CourseDetailsViewModel.cs" />
+    <Compile Include="ViewModels\CourseViewModel.cs" />
+    <Compile Include="ViewModels\CourseViewModelModelBinder.cs" />
+    <Compile Include="ViewModels\ScoresheetEditModel.cs" />
     <Compile Include="ViewModels\TeeboxCreateViewModel.cs" />
     <Compile Include="ViewModels\TeeboxDetailsViewModel.cs" />
+    <Compile Include="ViewModels\TeeboxEditViewModel.cs" />
+    <Compile Include="ViewModels\TeeboxEditViewModelBinder.cs" />
     <Compile Include="ViewModels\TeeboxListViewModel.cs" />
+    <Compile Include="ViewModels\TournamentCreateViewModelBinder.cs" />
     <Compile Include="ViewModels\TournamentDetailsViewModel.cs" />
     <Compile Include="ViewModels\TournamentEditViewModel.cs" />
     <Compile Include="ViewModels\ClubDetailsViewModel.cs" />
@@ -185,9 +194,12 @@
     <Compile Include="Utility\LocalizationHelper.cs" />
     <Compile Include="Utility\MarkdownHelper.cs" />
     <Compile Include="Utility\Validation.cs" />
+    <Compile Include="ViewModels\TournamentEditViewModelBinder.cs" />
+    <Compile Include="ViewModels\TournamentListViewModel.cs" />
     <Compile Include="ViewModels\TournamentParticipantCreateViewModel.cs" />
     <Compile Include="ViewModels\TournamentParticipantDeleteViewModel.cs" />
-    <Compile Include="ViewModels\TournamentParticipantListViewModel.cs" />
+    <Compile Include="ViewModels\TournamentParticipantEditViewModel.cs" />
+    <Compile Include="ViewModels\TournamentParticipantEditViewModelBinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />

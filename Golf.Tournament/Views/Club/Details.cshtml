@@ -7,31 +7,40 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Club</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Club.Name)
-        </dt>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Club</h3>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Club.Name)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Club.Name)
-        </dd>
-    </dl>
+                <dd>
+                    @Html.DisplayFor(model => model.Club.Name)
+                </dd>
+            </dl>
+            <h5>Address</h5>
+            <hr />
+            @Html.DisplayFor(model => model.Club.Address)
+        </div>
+        <div class="panel-footer">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Club.Id }, new { @class = "btn btn-sm btn-default" })
+            @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-sm btn-default" })
+        </div>
+    </div>
 
-    @Html.DisplayFor(model => model.Club.Address)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Courses</h4>
+        </div>
+        <div class="panel-body">
+            @Html.Partial("CourseListPart", Model.Courses)
+        </div>
+        <div class="panel-footer">@Html.ActionLink("Create New", "Create", "Course", new { clubId = Model.Club.Id }, new { @class = "btn btn-sm btn-default" })</div>
+    </div>
 
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Club.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-
-    <h4>Courses</h4>
-    <hr />
-    <p>
-        @Html.ActionLink("Create New", "Create", "Course", new { clubId = Model.Club.Id }, new { })
-    </p>
-    @Html.Partial("CourseListPart", Model.Courses)
 
 </div>
 

@@ -15,7 +15,7 @@
     }
 }
 
-<table id="scoreSheetEditorTable_@teeName" class="">
+<table id="scoreSheetEditorTable_@teeName" class="table table-hover table-condensed">
     @{
         var labelModel = new Golf.Tournament.Models.Hole();
 
@@ -29,7 +29,7 @@
         }
     </colgroup>
         
-    <tr id="scoreSheetEditorTableRowNumber_@teeName">
+    <tr id="scoreSheetEditorTableRowNumber_@teeName" class="warning">
         <th>@Html.LabelFor(model => labelModel.Number, htmlAttributes: new { @class = "control-label col-sm-2" })</th>
         @for (int i = 0; i < Model.Count(); i++)
         {

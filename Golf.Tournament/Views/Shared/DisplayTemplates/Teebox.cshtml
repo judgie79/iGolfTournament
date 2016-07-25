@@ -32,69 +32,72 @@
         showHoles = true;
     }
 }
-<dt>
-    @Html.DisplayNameFor(model => model.Name)
-</dt>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
 
-<dd>
-    <span class="label label-default" style="background-color: @Model.Color.Value; color: @fontColor; border: 1px solid @fontColor;">@Model.Name</span>
-</dd>
+        <dd>
+            <span class="label label-default" style="background-color: @Model.Color.Value; color: @fontColor; border: 1px solid @fontColor;">@Model.Name</span>
+        </dd>
 
-<dt>
-    @Html.DisplayNameFor(model => model.Distance)
-</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Distance)
+        </dt>
 
-<dd>
-    @Html.DisplayFor(model => model.Distance)
-</dd>
+        <dd>
+            @Html.DisplayFor(model => model.Distance)
+        </dd>
 
-<dt>
-    @Html.DisplayNameFor(model => model.Par)
-</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.Par)
+        </dt>
 
-<dd>
-    @Html.DisplayFor(model => model.Par)
-</dd>
+        <dd>
+            @Html.DisplayFor(model => model.Par)
+        </dd>
 
-<dt>
-    @Html.DisplayNameFor(model => model.CourseRating)
-</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseRating)
+        </dt>
 
-<dd>
-    @Html.DisplayFor(model => model.CourseRating)
-</dd>
+        <dd>
+            @Html.DisplayFor(model => model.CourseRating)
+        </dd>
 
-<dt>
-    @Html.DisplayNameFor(model => model.SlopeRating)
-</dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.SlopeRating)
+        </dt>
 
-<dd>
-    @Html.DisplayFor(model => model.SlopeRating)
-</dd>
-
+        <dd>
+            @Html.DisplayFor(model => model.SlopeRating)
+        </dd>
+    </dl>
+</div>
 @if (showPopup)
 {
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal_@teeName">
-    Show Holes
-</button>
+            <!-- Button trigger modal -->
+    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal_@teeName">
+        Show Holes
+    </button>
 
-<div class="modal fade" id="myModal_@teeName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">@Model.Name - Holes</h4>
+            <div class="modal fade" id="myModal_@teeName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">@Model.Name - Holes</h4>
+                        </div>
+                        <div class="modal-body">
+                            @Html.DisplayFor(model => model.Holes, new { teeName = Model.Name })
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                @Html.DisplayFor(model => model.Holes, new { teeName = Model.Name })
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
 }
 else
 {

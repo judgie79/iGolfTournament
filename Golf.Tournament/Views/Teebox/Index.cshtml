@@ -14,9 +14,9 @@
 
 <hr />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-sm btn-default" })
 </p>
-<table class="table">
+<table class="table table-hover table-condensed">
     <tr>
         <th>
             @Html.DisplayNameFor(model => Model.ViewModel.Name)
@@ -56,9 +56,9 @@
             @Html.DisplayFor(modelItem => item.SlopeRating)
         </td>
         <td>    
-            @Html.ActionLink("Edit", "Edit", "Teebox", new { clubId = Model.Club.Id, courseId = Model.Course.Id, id = item.Id }, new { }) |
-            @Html.ActionLink("Details", "Details", "Teebox", new { clubId = Model.Club.Id, courseId = Model.Course.Id, id = item.Id }, new { }) |
-            @Html.ActionLink("Delete", "Delete", "Teebox", new { clubId = Model.Club.Id, courseId = Model.Course.Id, id = item.Id }, new { })
+            @Html.ActionLink("Edit", "Edit", "Teebox", new { clubId = Model.Club.Id, courseId = Model.Course.Id, id = item.Id }, new { @class = "btn btn-xs btn-default" })
+            @Html.ActionLink("Details", "Details", "Teebox", new { clubId = Model.Club.Id, courseId = Model.Course.Id, id = item.Id }, new { @class = "btn btn-xs btn-default" })
+            @Html.ActionLink("Delete", "Delete", "Teebox", new { clubId = Model.Club.Id, courseId = Model.Course.Id, id = item.Id }, new { @class = "btn btn-xs btn-danger" })
         </td>
     </tr>
 }

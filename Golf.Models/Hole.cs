@@ -34,27 +34,4 @@ namespace Golf.Tournament.Models
         [MinIntValue(1)]
         public int Hcp { get; set; }
     }
-
-    [JsonArray]
-    public class HoleCollection: List<Hole>
-    {
-        public HoleCollection()
-            : base()
-        {
-        }
-
-        public HoleCollection(IEnumerable<Hole> holeCollection)
-            : base(holeCollection)
-        {
-
-        }
-    }
-
-    public static class HoleCollectionExtensions
-    {
-        public static HoleCollection ToHoleCollection(this IEnumerable<Hole> holes)
-        {
-            return new HoleCollection(holes);
-        }
-    }
 }

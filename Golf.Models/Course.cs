@@ -34,13 +34,4 @@ namespace Golf.Tournament.Models
             }
         }
     }
-
-    [JsonArray]
-    public class TeeboxCollection : List<TeeBox>
-    {
-        public TeeboxCollection()
-        {
-           
-        }
-    }
 }

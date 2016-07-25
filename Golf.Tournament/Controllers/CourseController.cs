@@ -32,10 +32,11 @@ namespace Golf.Tournament.Controllers
         public ActionResult Details(string id)
         {
             var course = loader.Load<Course>("courses/" + id);
-
+            var club = loader.Load<Club>("clubs/" + course.ClubId);
             return View(new CourseDetailsViewModel()
             {
-                Course = course
+                Course = course,
+                Club = club
             });
         }
 

@@ -40,9 +40,9 @@
             <td>@Html.DisplayFor(model => item.Player.HomeClub.Name)</td>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new { tournamentId = Model.Tournament.Id, id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { tournamentId = Model.Tournament.Id, id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { tournamentId = Model.Tournament.Id, id = item.Id })
+                @Html.ActionLink("Edit", "Edit", new { tournamentId = Model.Tournament.Id, id = item.Id }, new { @class = "btn btn-xs btn-default" })
+                @Html.ActionLink("Details", "Details", new { tournamentId = Model.Tournament.Id, id = item.Id }, new { @class = "btn btn-xs btn-default" })
+                @Html.ActionLink("Delete", "Delete", new { tournamentId = Model.Tournament.Id, id = item.Id }, new { @class = "btn btn-xs btn-danger" })
             </td>
         </tr>
     }

@@ -19,14 +19,4 @@ namespace Golf.Tournament.Models
         [JsonProperty("address")]
         public Address Address { get; set; }
     }
-
-    public class HomeClub
-    {
-        [JsonProperty("_id")]
-        [Required]
-        public string Id { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-    }
 }

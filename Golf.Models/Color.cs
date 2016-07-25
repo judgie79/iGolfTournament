@@ -29,7 +29,6 @@ namespace Golf.Tournament.Models
         {
             get
             {
-                
                 return _color.R;
             }
         }
@@ -38,7 +37,6 @@ namespace Golf.Tournament.Models
         {
             get
             {
-
                 return _color.G;
             }
         }
@@ -47,7 +45,6 @@ namespace Golf.Tournament.Models
         {
             get
             {
-
                 return _color.B;
             }
         }
@@ -110,24 +107,5 @@ namespace Golf.Tournament.Models
             info.AddValue("Value", Value);
         }
 
-    }
-
-    public class ColorSerializer : JsonConverter
-    {
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            var color = value as Color;
-            writer.WriteValue(color.Value);
-        }
-
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-        {
-            return new Color(reader.Value.ToString());
-        }
-
-        public override bool CanConvert(Type objectType)
-        {
-            return typeof(Color).IsAssignableFrom(objectType);
-        }
     }
 }

@@ -45,32 +45,4 @@ namespace Golf.Tournament.Models
         [JsonProperty("isOfficialHcp")]
         public bool IsOfficialHcp { get; set; }
     }
-
-    public class Membership
-    {
-        [JsonProperty("clubNr")]
-        public string ClubNr { get; set; }
-
-        [JsonProperty("nr")]
-        public string Nr { get; set; }
-
-        [JsonProperty("serviceNr")]
-        public string ServiceNr { get; set; }
-    }
-
-    [JsonArray]
-    public class PlayerCollection : List<Player>
-    {
-        public PlayerCollection()
-            : base()
-        {
-
-        }
-
-        public PlayerCollection(IEnumerable<Player> players)
-            : base(players)
-        {
-
-        }
-    }
 }

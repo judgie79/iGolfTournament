@@ -14,14 +14,4 @@ namespace Golf.Tournament.Models
 
         public TeeBox TeeBox { get; private set; }
     }
-
-    public class ScoresheetEditModel
-    {
-        public ScoresheetEditModel(TeeBox teeBox)
-        {
-            this.TeeBox = teeBox;
-        }
-
-        public TeeBox TeeBox { get; private set; }
-    }
 }

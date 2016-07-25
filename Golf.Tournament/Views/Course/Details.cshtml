@@ -4,39 +4,51 @@
     ViewBag.Title = "Details";
 
     ViewBag.ShowHolesWithPopup = true;
-    
+
 }
 
-<h2>Details</h2>
+<h2>Course @Model.Course.Name</h2>
 
 <div>
-    <h1>Course</h1>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Course.ClubId)
-        </dt>
+    <h3>Club</h3>
+    @Html.DisplayFor(model => model.Club)
 
-        <dd>
-            @Html.DisplayFor(model => model.Course.ClubId)
-        </dd>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Course</h4>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Course.ClubId)
+                </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Course.Name)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Course.ClubId)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Course.Name)
-        </dd>
-    </dl>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Course.Name)
+                </dt>
 
-    <h2>Teeboxes</h2>
+                <dd>
+                    @Html.DisplayFor(model => model.Course.Name)
+                </dd>
+            </dl>
+        </div>
+        <div class="panel-footer">
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Course.Id }, new { @class = "btn btn-sm btn-default" })
+            @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-sm btn-default" })
+        </div>
+    </div>
 
-    <div class="row">
-        @Html.DisplayFor(model => model.Course.TeeBoxes)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Teeboxes</h4>
+        </div>
+        <div class="panel-body">
+            @Html.DisplayFor(model => model.Course.TeeBoxes)
+        </div>
+        <div class="panel-footer"></div>
     </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Course.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

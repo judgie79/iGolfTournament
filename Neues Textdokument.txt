@@ -1,0 +1,22 @@
+
+Material Design for Bootstrap
+http://fezvrasta.github.io/bootstrap-material-design/bootstrap-elements.html
+
+Bootstrap Toggle
+http://www.bootstraptoggle.com/
+
+Text Editor
+http://summernote.org/deep-dive/
+
+Sortable Table
+https://github.com/drvic10k/bootstrap-sortable
+
+http://www.jasny.net/bootstrap/css/
+
+http://getfuelux.com/javascript.html
+
+http://vitalets.github.io/x-editable/
+
+http://jschr.github.io/bootstrap-modal/
+
+http://startbootstrap.com/bootstrap-resources/

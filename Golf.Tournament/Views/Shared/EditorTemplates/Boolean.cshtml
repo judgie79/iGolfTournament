@@ -6,7 +6,10 @@
     if (ViewBag.@class != null)
     {
         htmlAttributes.Add("class", ViewBag.@class);
+
     }
+
+    htmlAttributes.Add("data-toggle", "toggle");
 }
 
 <div class="controls">
@@ -14,5 +17,4 @@
             "",
             Model.HasValue && Model.Value,
             htmlAttributes)
-    @Html.ValidationMessageFor(m => m, null, new { @class = "help-block" })
 </div>
