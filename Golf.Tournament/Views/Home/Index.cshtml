@@ -1,4 +1,6 @@
-﻿@{
+﻿@using System.Collections;
+@model Golf.Tournament.ViewModels.HomeViewModel
+@{
     ViewBag.Title = "Contact";
 }
 <div class="jumbotron">
@@ -7,18 +9,91 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>@Html.ActionLink("Clubs", "Index", "Club", new { }, new { @class = "btn btn-default" })</h2>
-        <p>
-        </p>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-comments fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@Model.Clubs.Count()</div>
+                        <div>Clubs</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <span class="pull-left">@Html.ActionLink("Clubs", "Index", "Club", new { }, new { @class = "btn btn-xs btn-default" })</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
     </div>
+
     <div class="col-md-4">
-        <h2>@Html.ActionLink("Players", "Index", "Player", new { }, new { @class = "btn btn-default" })</h2>
-        <p>
-        </p>
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-comments fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@Model.Players.Count()</div>
+                        <div>Players</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <span class="pull-left">@Html.ActionLink("Players", "Index", "Player", new { }, new { @class = "btn btn-xs btn-default" })</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
     </div>
+
     <div class="col-md-4">
-        <h2>@Html.ActionLink("Tournaments", "Index", "Tournament", new { }, new { @class = "btn btn-default" })</h2>
-        <p>
-        </p>
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-comments fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@Model.Tournaments.Count()</div>
+                        <div>Tournaments</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <span class="pull-left">@Html.ActionLink("Tournaments", "Index", "Tournament", new { @class = "btn btn-xs btn-default" })</span>
+                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
     </div>
+</div>
+
+<div class="row">
+    @Html.Partial("DashboardListPanel", new Golf.Tournament.ViewModels.DashboardListPanelViewModel<Golf.Tournament.Models.Tournament>(Model.Tournaments.Where(t => t.HasStarted == false))
+{
+    Info = model => model.Date.ToShortDateString(),
+    Key = model => model.Id,
+    Title = model => model.Title,
+    Link = Html.ActionLink("View All Open Tournaments", "Index", "Tournament", new { }, new { @class = "btn btn-default btn-block" }),
+    ListIcon = "fa-trophy",
+    ListTitle = "Open Tournaments",
+    ListTitleIcon = "fa-trophy"
+})
+</div>
+
+<div class="row">
+    @Html.Partial("DashboardListPanel", new Golf.Tournament.ViewModels.DashboardListPanelViewModel<Golf.Tournament.Models.Player>(Model.Players.Where(t => t.IsOfficialHcp))
+{
+    Info = model => model.Hcp.ToString(),
+    Key = model => model.Id,
+    Title = model => string.Format("{0}, {1} - {2}", model.Lastname, model.Firstname, model.HomeClub.Name),
+    Link = Html.ActionLink("View All Players", "Index", "Player", new { }, new { @class = "btn btn-default btn-block" }),
+    ListIcon = "fa-user",
+    ListTitle = "Validated Players",
+    ListTitleIcon = "fa-user"
+})
 </div>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Golf.Tournament.Models;
+using Golf.Tournament.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +12,15 @@ namespace Golf.Tournament.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var clubs = loader.Load<IEnumerable<Club>>("clubs");
+            var players = loader.Load<PlayerCollection>("players");
+            var tournaments = loader.Load<IEnumerable<Models.Tournament>>("tournaments");
+
+            return View(new HomeViewModel() {
+                    Clubs = clubs,
+                    Players = players,
+                    Tournaments = tournaments
+            });
         }
 
         public ActionResult About()

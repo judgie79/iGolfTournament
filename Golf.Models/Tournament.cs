@@ -30,5 +30,11 @@ namespace Golf.Tournament.Models
         [JsonProperty("date")]
         [DataType(DataType.DateTime)]
         public DateTime Date { get; set; }
+
+        [JsonProperty("hasStarted")]
+        public bool HasStarted { get; set; }
+
+        [JsonProperty("hasFinished")]
+        public bool HasFinished { get; set; }
     }
 }

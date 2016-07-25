@@ -1,0 +1,23 @@
+﻿@model Golf.Tournament.ViewModels.DashboardListPanelViewModel
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <i class="fa @Model.ListTitleIcon fa-fw"></i> @Model.ListTitle
+    </div>
+    <!-- /.panel-heading -->
+    <div class="panel-body">
+        <div class="list-group">
+            @foreach (var item in Model.DataModel)
+            {
+                <a href="@Url.Action("Details", "Tournament", new { id = Model.GetValue(item, Model.Key) })" class="list-group-item">
+                    <i class="fa @Model.ListIcon fa-fw"></i> @Model.GetValue(item, Model.Title)
+                    <span class="pull-right text-muted small">
+                        <em>@Model.GetValue(item, Model.Info)</em>
+                    </span>
+                </a>
+            }
+        </div>
+        <!-- /.list-group -->
+        @Html.Raw(Model.Link.ToHtmlString())
+    </div>
+    <!-- /.panel-body -->
+</div>

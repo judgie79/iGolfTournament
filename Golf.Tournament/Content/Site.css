@@ -3,6 +3,12 @@
     padding-bottom: 20px;
 }
 
+@media (min-width: 992px) {
+  body {
+    padding-left: 300px;
+  }
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -34,4 +40,9 @@ textarea {
     min-width: 300px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.map {
+    height: 100%;
+    width: 100%;
 }

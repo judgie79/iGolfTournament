@@ -1,0 +1,45 @@
+﻿@using Golf.Tournament.Utility
+@model Golf.Tournament.ViewModels.MapViewModel
+@if (Model.ShowMap)
+{
+    <div id="map" class="map"></div>
+
+    using (Html.BeginScripts("end"))
+    {
+        <script>
+            var map;
+            var geocoder;
+
+            function initMap() {
+                geocoder = new google.maps.Geocoder();
+
+                // Create a map object and specify the DOM element for display.
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: -34.397, lng: 150.644 },
+                    scrollwheel: false,
+                    zoom: 8
+                });
+
+                codeAddress();
+            }
+
+            function codeAddress() {
+                var address = "@Html.Raw(Model.Address.Zip) @Html.Raw(Model.Address.City) @Html.Raw(Model.Address.Street) @Html.Raw(Model.Address.HouseNo)";
+                geocoder.geocode({ 'address': address }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: results[0].geometry.location
+                        });
+                    } else {
+                        alert("Geocode was not successful for the following reason: " + status);
+                    }
+                });
+            }
+
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=@Model.ApiKey&callback=initMap"
+            async defer></script>
+    }
+}
