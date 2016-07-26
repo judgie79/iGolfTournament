@@ -3,7 +3,7 @@ var router = express.Router();
 
 var tournamentRepository = require('../db/tournamentRepository.js');
 
-
+var error = new require('./error')();
 /*  "/"
  *    GET: finds all tournaments
  *    POST: creates a new tournament
@@ -13,7 +13,7 @@ router.get("/", function (req, res) {
     tournamentRepository.findAll(function (err, tournaments) {
 
         if (err) {
-            handleError(res, err.message, "Failed to get tournaments.");
+            error.handleError(res, err.message, "Failed to get tournaments.");
         } else {
             res.status(200).json(tournaments);
         }
@@ -27,7 +27,7 @@ router.post("/", function (req, res) {
     
     tournamentRepository.create(newtournament, function (err, tournament) {
         if (err) {
-            handleError(res, err.message, "Failed to create new tournament.");
+            error.handleError(res, err.message, "Failed to create new tournament.");
         } else {
             res.status(201).json(tournament.ops[0]);
         }
@@ -45,7 +45,7 @@ router.get("/:id", function (req, res) {
     tournamentRepository.findById(req.params.id, function (err, tournament) {
 
         if (err) {
-            handleError(res, err.message, "Failed to get tournament");
+            error.handleError(res, err.message, "Failed to get tournament");
         } else {
             res.status(200).json(tournament);
         }
@@ -58,7 +58,7 @@ router.put("/:id", function (req, res) {
 
     tournamentRepository.update(req.params.id, updateTournament, function (err, tournament) {
         if (err) {
-            handleError(res, err.message, "Failed to update tournament");
+            error.handleError(res, err.message, "Failed to update tournament");
         } else {
             res.status(204).json(tournament);
         }
@@ -71,7 +71,7 @@ router.post("/:id/start", function (req, res) {
 
     tournamentRepository.update(req.params.id, updateTournament, function (err, tournament) {
         if (err) {
-            handleError(res, err.message, "Failed to update tournament");
+            error.handleError(res, err.message, "Failed to update tournament");
         } else {
             res.status(204).json(tournament);
         }
@@ -81,7 +81,7 @@ router.post("/:id/start", function (req, res) {
 router.delete("/:id", function (req, res) {
     tournamentRepository.delete(req.params.id, function (err, result) {
         if (err) {
-            handleError(res, err.message, "Failed to delete tournament");
+            error.handleError(res, err.message, "Failed to delete tournament");
         } else {
             res.status(204).end();
         }
@@ -96,7 +96,7 @@ router.post("/:id/participants", function (req, res) {
 
     tournamentRepository.registerParticipant(req.params.id, participant, function (err, result) {
         if (err) {
-            handleError(res, err.message, "Failed to add participant");
+            error.handleError(res, err.message, "Failed to add participant");
         } else {
             res.status(201).json(result);
         }
@@ -110,7 +110,7 @@ router.put("/:tournamentId/participants/:id", function (req, res) {
 
     tournamentRepository.updateParticipant(req.params.tournamentId, req.params.id, participant, function (err, result) {
         if (err) {
-            handleError(res, err.message, "Failed to add participant");
+            error.handleError(res, err.message, "Failed to add participant");
         } else {
             res.status(201).json(result);
         }
@@ -121,17 +121,11 @@ router.delete("/:id/participants/:participantId", function (req, res) {
     
     tournamentRepository.deleteParticipant(req.params.id, req.params.participantId, function (err) {
         if (err) {
-            handleError(res, err.message, "Failed to add participant");
+            error.handleError(res, err.message, "Failed to add participant");
         } else {
             res.status(204).end();
         }
     });
 });
-
-// Generic error handler used by all endpoints.
-function handleError(res, reason, message, code) {
-    console.log("ERROR: " + reason);
-    res.status(code || 500).json({ "error": reason });
-}
 
 module.exports = router;

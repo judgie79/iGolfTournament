@@ -10,10 +10,20 @@ var CrudRepository = require('./crudRepository.js');
 var crudRepository = new CrudRepository(config.db.collections.users);
 var bcrypt = require('bcryptjs');
 
-//var userSchema = require('../schemas/user.js');
+var Validator = require('./userValidator');
 
 module.exports.findAll = function (callback) {
-    crudRepository.findAll(callback);
+    crudRepository.findAll(function(err, users) {
+
+        if(users && !includePW) {
+            users = users.map(function(user) {
+                delete user.password;
+                return user;
+            });
+        }
+
+        callback(err, users);
+    });
 }
 
 module.exports.findById = function (id, includePW, callback) {
@@ -23,9 +33,7 @@ module.exports.findById = function (id, includePW, callback) {
             if (!includePW)
                 delete user.password;
         }
-        
-        
-        
+
         callback(err, user);
     });
 }
@@ -44,46 +52,30 @@ module.exports.findByUsername = function (username, includePW, callback) {
 module.exports.findByEmail = function (email, callback) {
     crudRepository.findOne({ "email": email }, function(err, user) {
         
-        delete user.password;
+        if (!includePW)
+            delete user.password;
         
         callback(err, user);
     });
 }
 
 module.exports.create = function (newUser, callback) {
-    
-    //check if the username is unique
-    module.exports.findByUsername(newUser.username, function(err, user) {
-        if (err === null && user != null) {
-            //username was found
-
-            callback({message: "username was must be unique"}, null);
-
-            return;
-        }
-
-        //check if the email is unique
-        module.exports.findByEmail(newUser.email, function(err, user) {
-            if (err === null && user != null) {
-                //username was found
-
-                callback({message: "email was must be unique"}, null);
-
-                return;
-            }
-
-
-            bcrypt.genSalt(10, function(err, salt) {
-                bcrypt.hash(newUser.password, salt, function(err, hash) {
-                    // Store hash in your password DB.
-                    newUser.password = hash;
-                    delete newUser.passwordRepeat;
-                    
-                    crudRepository.create(newUser, callback);
-                });
+    var val = new Validator(newUser);
+    val.validateNewUser(newUser).then(function() {
+        bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(newUser.password, salt, function(err, hash) {
+                // Store hash in your password DB.
+                newUser.password = hash;
+                delete newUser.passwordRepeat;
+                
+                crudRepository.create(newUser, callback);
             });
         });
+    }).catch(function(err) {
+        callback(err);
     });
+
+    
 }
 
 

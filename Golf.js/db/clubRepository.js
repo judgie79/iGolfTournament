@@ -10,8 +10,8 @@ var mongoUtil = require('../db/mongoUtil');
 var CrudRepository = require('./crudRepository.js');
 var crudRepository = new CrudRepository(config.db.collections.clubs);
 
-var clubSchema = require('../schemas/club.js');
 var Validator = require('./clubValidator');
+
 
 module.exports.findAll = function (callback) {
     crudRepository.findAll(callback);

@@ -1,18 +1,24 @@
 var Promise = require('promise');
+var mongoUtil = require('../db/mongoUtil');
+var mongodb = require("mongodb");
+var ObjectID = mongodb.ObjectID;
+
+var config = require("../config.js");
 
 var Updater = function () {
 
 };
 
 Updater.prototype.updateTournament = function (tournament, update) {
+    var me = this;
 
     return new Promise(function(resolve, reject) {
         var db = mongoUtil.getDb();
 
-        this.updateCourse(db, config.db.collections.courses, tournament, update).then(function (updatedTournament) {
-            return this.updateClub(db, config.db.collections.clubs, updatedTournament, update)
+        me.updateCourse(db, config.db.collections.courses, tournament, update).then(function (updatedTournament) {
+            return me.updateClub(db, config.db.collections.clubs, updatedTournament, update)
         }).then(function (updatedTournament) {
-            return this.updatePlayers(db, config.db.collections.players, updatedTournament, update);
+            return me.updatePlayers(db, config.db.collections.players, updatedTournament, update);
         }).then(function (updatedTournament) {
             resolve(updatedTournament);
         }).catch(function (err) {
@@ -85,7 +91,7 @@ Updater.prototype.updatePlayers = function (db, collection, tournament, update) 
 
 Updater.prototype.updateClub = function (db, collection, tournament, update) {
     
-    new Promise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
         db.collection(collection).findOne({ _id: new ObjectID(tournament.club._id) }, function (err, club) {
 
             if (err) {

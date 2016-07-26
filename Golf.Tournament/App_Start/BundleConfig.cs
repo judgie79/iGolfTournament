@@ -22,6 +22,7 @@ namespace Golf.Tournament
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.min.js",
                       "~/Scripts/jasny-bootstrap.min.js",
+                      "~/Scripts/metisMenu.min.js", 
                       "~/Scripts/sb-admin-2.js",
                       "~/Scripts/moment.min.js",
                       "~/Scripts/bootstrap-colorpicker.min.js",
@@ -31,10 +32,11 @@ namespace Golf.Tournament
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",
                       "~/Content/jasny-bootstrap.min.css",
+                      "~/Content/metisMenu.min.css",
                       "~/Content/font-awesome.min.css",
                       "~/Content/sb-admin-2.css",
                       "~/Content/timeline.css",
-                      "~/Content/colorpicker/css/bootstrap-colorpicker.css",
+                      "~/Content/bootstrap-colorpicker.css",
                       "~/Content/bootstrap-datetimepicker.min.css",
                       "~/Content/Site.css"));
         }

@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 
 var userRepository = require('../db/userRepository.js');
+var error = new require('./error')();
 
 //PASSPORT
 var passport = require('passport');
@@ -74,7 +75,7 @@ router.get("/",  passport.authenticate('basic', { session: false }), function (r
     userRepository.findAll(function (err, users) {
 
         if (err) {
-            handleError(res, err.message, "Failed to get users.");
+            error.handleError(res, err.message, "Failed to get users.");
         } else {
             
              var returnUsers = users.map(function(user) {
@@ -94,25 +95,9 @@ router.post("/",  passport.authenticate('basic', { session: false }), function (
 
     var newUser = req.body;
 
-    if (!(req.body.firstname || req.body.lastname)) {
-        handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
-    }
-
-    if (!(req.body.username)) {
-        handleError(res, "Invalid user input", "Must provide a username.", 400);
-    }
-
-    if (!(passwordClean || req.body.passwordRepeat)) {
-        handleError(res, "Invalid user input", "Must provide a password and password repeat.", 400);
-    }
-
-    if (passwordClean != req.body.passwordRepeat) {
-        handleError(res, "Invalid user input", "Password and password repeat do not match.", 400);
-    }
-
     userRepository.create(newUser, function (err, user) {
         if (err) {
-            handleError(res, err.message, "Failed to create new user.");
+            error.handleError(res, err)
         } else {
             var userReturn = user.ops[0];
             
@@ -133,7 +118,7 @@ router.get("/:id",  passport.authenticate('basic', { session: false }), function
     userRepository.findById(req.params.id, false, function (err, user) {
 
         if (err) {
-            handleError(res, err.message, "Failed to get user");
+            error.handleError(res, err.message, "Failed to get user");
         } else {
             res.status(200).json(user);
         }
@@ -146,7 +131,7 @@ router.put("/:id",  passport.authenticate('basic', { session: false }), function
 
     userRepository.update(req.params.id, updateUser, function (err, user) {
         if (err) {
-            handleError(res, err.message, "Failed to update user");
+            error.handleError(res, err.message, "Failed to update user");
         } else {
             res.status(204).json(user);
         }
@@ -156,17 +141,11 @@ router.put("/:id",  passport.authenticate('basic', { session: false }), function
 router.delete("/:id",  passport.authenticate('basic', { session: false }), function (req, res) {
     userRepository.delete(req.params.id, function (err, result) {
         if (err) {
-            handleError(res, err.message, "Failed to delete user");
+            error.handleError(res, err.message, "Failed to delete user");
         } else {
             res.status(204).end();
         }
     });
 });
-
-// Generic error handler used by all endpoints.
-function handleError(res, reason, message, code) {
-    console.log("ERROR: " + reason);
-    res.status(code || 500).json({ "error": reason });
-}
 
 module.exports = router;
