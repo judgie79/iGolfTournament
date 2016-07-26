@@ -10,7 +10,7 @@ var mongoUtil = require('../db/mongoUtil');
 var CrudRepository = require('./crudRepository.js');
 var crudRepository = new CrudRepository(config.db.collections.courses);
 
-var courseSchema = require('../schemas/course.js');
+var Validator = require('./courseValidator');
 
 module.exports.findAll = function (callback) {
     crudRepository.findAll(callback);
@@ -29,80 +29,74 @@ module.exports.findById = function (id, callback) {
 }
 
 module.exports.create = function (newcourse, callback) {
-    var isValid = crudRepository.validate(newcourse, courseSchema);
+    var val = new Validator(newcourse);
 
-    newcourse.clubId = new ObjectID(newcourse.clubId);
+    var db = mongoUtil.getDb();
+    val.validateSchema().then(function () {
+        newcourse.clubId = new ObjectID(newcourse.clubId);
 
-    if (newcourse.teeBoxes && newcourse.teeboxes.length > 0)
-    {
-        for (var i = 0; i < newcourse.teeboxes.length; i++)
-        {
-            var teeBox = newcourse.teeboxes[i];
-            if (teeBox._id === "")
-            {
-                teeBox._id = new ObjectID();
-            } else {
-                teeBox._id = new ObjectId(hole._id);
-            }
-            
-            if (teeBox.holes && teeBox.holes.length > 0)
-            {
-                    for (var h = 0; h < teeBox.holes.length; h++)
-                    {
+        if (newcourse.teeBoxes && newcourse.teeboxes.length > 0) {
+            for (var i = 0; i < newcourse.teeboxes.length; i++) {
+                var teeBox = newcourse.teeboxes[i];
+                if (teeBox._id === "") {
+                    teeBox._id = new ObjectID();
+                } else {
+                    teeBox._id = new ObjectId(hole._id);
+                }
+
+                if (teeBox.holes && teeBox.holes.length > 0) {
+                    for (var h = 0; h < teeBox.holes.length; h++) {
                         var hole = teeBox.holes[h];
-                        
-                        if (hole._id === "")
-                        {
+
+                        if (hole._id === "") {
                             hole._id = new ObjectID();
                         } else {
                             hole._id = new ObjectId(hole._id);
                         }
                     }
+                }
             }
         }
-    }
 
-    if (isValid.length == 0)
         crudRepository.create(newcourse, callback);
-    else
-        callback(isValid, null);
+
+    }).catch(function (err) {
+        callback(err, newcourse);
+    });
 }
 
 module.exports.update = function (id, updateCourse, callback) {
-    var isValid = crudRepository.validate(updateCourse, courseSchema);
+    var val = new Validator(updateCourse);
 
-    updateCourse.clubId = new ObjectID(updateCourse.clubId);
-    for (var i = 0; i < updateCourse.teeboxes.length; i++)
-    {
-        var teeBox = updateCourse.teeboxes[i];
+    var db = mongoUtil.getDb();
+    val.validateSchema().then(function () {
+        updateCourse.clubId = new ObjectID(updateCourse.clubId);
+        for (var i = 0; i < updateCourse.teeboxes.length; i++) {
+            var teeBox = updateCourse.teeboxes[i];
 
-        if (teeBox._id == null || teeBox._id === "")
-        {
-            teeBox._id = new ObjectID();
-        } else {
-            teeBox._id = new ObjectID(teeBox._id);
-        }
-        
-        if (teeBox.holes && teeBox.holes.length > 0)
-        {
-                for (var h = 0; h < teeBox.holes.length; h++)
-                {
+            if (teeBox._id == null || teeBox._id === "") {
+                teeBox._id = new ObjectID();
+            } else {
+                teeBox._id = new ObjectID(teeBox._id);
+            }
+
+            if (teeBox.holes && teeBox.holes.length > 0) {
+                for (var h = 0; h < teeBox.holes.length; h++) {
                     var hole = teeBox.holes[h];
-                    
-                    if (hole.holeId === "")
-                    {
+
+                    if (hole.holeId === "") {
                         hole.holeId = new ObjectID();
                     } else {
                         hole.holeId = new ObjectID(hole.holeId);
                     }
                 }
+            }
         }
-    }
 
-    if (isValid.length == 0)
         crudRepository.update(id, updateCourse, callback);
-    else
-        callback(isValid, null);
+    }).catch(function (err) {
+        callback(err, updateCourse);
+    });
 }
 
 module.exports.delete = function (id, callback) {

@@ -8,7 +8,6 @@ var playerRepository = require('../db/playerRepository.js');
 
 /*  "/"
  *    GET: finds all clubs
- *    POST: creates a new club
  */
 router.get("/", function (req, res) {
 
@@ -23,6 +22,9 @@ router.get("/", function (req, res) {
     
 });
 
+/*  "/"
+ *    POST: create new club
+ */
 router.post("/", function (req, res) {
 
     var newclub = req.body;

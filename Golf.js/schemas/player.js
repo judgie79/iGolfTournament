@@ -1,5 +1,7 @@
 ﻿
 var playerSchema = {
+    "id": "playerSchema", //important thing not to forget
+    "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "Player Schema",
     "type": "object",
     "properties": {
@@ -13,25 +15,7 @@ var playerSchema = {
             "type": "string"
         },
         "address": {
-            "title": "Address Schema",
-            "type": ["object", "null"],
-            "properties": {
-                "street": {
-                    "type": ["string", "null"]
-                },
-                "houseNo": {
-                    "type": ["string", "null"]
-                },
-                "zip": {
-                    "type": ["string", "null"]
-                },
-                "city": {
-                    "type": ["string", "null"]
-                },
-                "country": {
-                    "type": ["string", "null"]
-                }
-            }
+            "$ref": "addressSchema"
         },
         "homeClub": {
             "title": "Home Club Schema",

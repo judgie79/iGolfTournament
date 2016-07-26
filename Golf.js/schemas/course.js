@@ -1,5 +1,7 @@
 ﻿var courseScheme = {
-    "title": "Player Schema",
+    "id": "courseSchema", //important thing not to forget
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Course Schema",
     "type": "object",
     "properties": {
         "_id": {

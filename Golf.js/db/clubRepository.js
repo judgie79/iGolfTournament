@@ -11,6 +11,7 @@ var CrudRepository = require('./crudRepository.js');
 var crudRepository = new CrudRepository(config.db.collections.clubs);
 
 var clubSchema = require('../schemas/club.js');
+var Validator = require('./clubValidator');
 
 module.exports.findAll = function (callback) {
     crudRepository.findAll(callback);
@@ -22,26 +23,32 @@ module.exports.findById = function (id, callback) {
 
 module.exports.create = function (newclub, callback) {
 
-    var isValid = crudRepository.validate(newclub, clubSchema);
+    var val = new Validator(newclub);
 
-    if (isValid.length == 0)
+    var db = mongoUtil.getDb();
+    val.validateSchema().then(function () {
         crudRepository.create(newclub, callback);
-    else
-        callback(isValid, null);
+    }).catch(function (err) {
+        callback(err, newclub);
+    });
 }
 
 module.exports.update = function (id, updateClub, callback) {
-    var isValid = crudRepository.validate(updateClub, clubSchema);
+   var val = new Validator(updateClub);
 
-    if (isValid.length == 0)
+    var db = mongoUtil.getDb();
+    val.validateSchema().then(function () {
         crudRepository.update(id, updateClub, callback);
-    else
-        callback(isValid, null);
+    }).catch(function (err) {
+        callback(err, updateClub);
+    });
 }
 
 module.exports.delete = function (id, callback) {
     
     var db = mongoUtil.getDb();
+
+    //delete all courses
     db.collection(config.db.collections.courses).deleteMany({ "clubId": new ObjectID(id) }, function (err, doc) {
 
         if (err){
