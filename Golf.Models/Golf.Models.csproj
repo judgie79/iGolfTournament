@@ -71,6 +71,7 @@
     <Compile Include="Player.cs" />
     <Compile Include="PlayerCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\ClubReport.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="TeamCollection.cs" />
     <Compile Include="TeamTournament.cs" />

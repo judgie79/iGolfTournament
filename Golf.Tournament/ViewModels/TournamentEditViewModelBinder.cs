@@ -1,10 +1,11 @@
-﻿using Golf.Tournament.ViewModels;
+﻿using Golf.Tournament.Models;
+using Golf.Tournament.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Golf.Tournament.Models
+namespace Golf.Tournament.ViewModels
 {
     public class TournamentEditViewModelBinder : IModelBinder
     {
@@ -22,7 +23,7 @@ namespace Golf.Tournament.Models
             string title = form.Get("Tournament.Title");
             DateTime date = DateTime.Parse(form.Get("Tournament.Date.Tournament.Date"));
 
-            var tournament = new Tournament()
+            var tournament = new Models.Tournament()
             {
                 Title = title,
                 Date = date.ToUniversalTime(),
@@ -46,15 +47,15 @@ namespace Golf.Tournament.Models
             //    if (!string.IsNullOrEmpty(form["Participants[" + participantCounter + "].Id"]))
             //    {
             //        string Id = form["Participants[" + participantCounter + "].Name"];
-            //        DateTime TeaTime = DateTime.Parse(form["Participants[" + participantCounter + "].TeaTime"].ToString());
-            //        string TeebBoxId = form["Participants[" + participantCounter + "].TeebBoxId"];
+            //        DateTime Teetime = DateTime.Parse(form["Participants[" + participantCounter + "].Teetime"].ToString());
+            //        string TeeboxId = form["Participants[" + participantCounter + "].TeeboxId"];
             //        string PlayerId = form["Participants[" + participantCounter + "].PlayerId"];
 
             //        var participant = new TournamentParticipant()
             //        {
             //            Id = Id,
-            //            TeaTime = TeaTime,
-            //            TeebBoxId = TeebBoxId,
+            //            Teetime = Teetime,
+            //            TeeboxId = TeeboxId,
             //            Player = new Player()
             //            {
             //                Id = PlayerId
@@ -73,7 +74,7 @@ namespace Golf.Tournament.Models
 
             //}
 
-            return new TournamentEditViewModel
+            return new TournamentEditViewModel<Models.Tournament>
             {
                 Tournament = tournament
             };

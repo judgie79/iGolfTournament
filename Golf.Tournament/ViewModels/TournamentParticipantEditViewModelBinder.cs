@@ -20,14 +20,14 @@ namespace Golf.Tournament.ViewModels
             string id = form.Get("Participant.Id");
             string playerId = form.Get("Participant.Player.Id");
 
-            string teeboxId = form.Get("Participant.TeebBoxId");
-            DateTime TeaTime = DateTime.Parse(form.Get("Participant.TeaTime.Participant.TeaTime"));
+            string teeboxId = form.Get("Participant.TeeboxId");
+            DateTime Teetime = DateTime.Parse(form.Get("Participant.Teetime.Participant.Teetime"));
 
             var participant = new TournamentParticipant()
             {
                 Id = id,
-                TeaTime = TeaTime,
-                TeebBoxId = teeboxId,
+                Teetime = Teetime,
+                TeeboxId = teeboxId,
                 Player = new Player()
                 {
                     Id = playerId,

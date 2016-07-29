@@ -25,11 +25,11 @@ router.post("/:courseId/teeboxes", function (req, res) {
 
     var newteebox = req.body;
 
-    teeboxRepository.create(req.params.courseId, newteebox, function (err, teebox) {
+    teeboxRepository.create(req.params.courseId, newteebox, function (err, course) {
         if (err) {
             error.handleError(res, err.message, "Failed to create new teebox.");
         } else {
-            res.status(201).json(teebox.ops[0]);
+            res.status(201).json(course);
         }
     });
 });

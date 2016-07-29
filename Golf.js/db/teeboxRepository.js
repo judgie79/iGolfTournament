@@ -36,16 +36,45 @@ module.exports.create = function (courseId, newTeebox, callback) {
 
     newTeebox._id = new ObjectID();
 
+    var frontLength = 0;
+    var frontPar = 0;
+
+    if (newTeebox.holes && newTeebox.holes.front && newTeebox.holes.front.length > 0) {
+        for (var h = 0; h < newTeebox.holes.front.length; h++) {
+            var hole = newTeebox.holes.front[h];
+            hole._id = new ObjectID();
+            frontLength = frontLength + hole.distance;
+            frontPar = frontPar + hole.par;
+        }
+    }
+
+    var backLength = 0;
+    var backPar = 0;
+
+    if (newTeebox.holes && newTeebox.holes.back && newTeebox.holes.back.length > 0) {
+        for (var h = 0; h < newTeebox.holes.back.length; h++) {
+            var hole = newTeebox.holes.back[h];
+            hole._id = new ObjectID();
+            backLength = backLength + hole.distance;
+            backPar = backPar + hole.par;
+        }
+
+
+    }
+
+    newTeebox.distance = backLength + frontLength;
+    newTeebox.par = backPar + frontPar;
+
     val.validateSchema().then(function() {
         db.collection(config.db.collections.courses).update(
         {
             "_id": new ObjectID(courseId)
         },
         {
-            "$push": { "teeboxes": updateTeebox }
+            "$push": { "teeboxes": newTeebox }
         },
         function (err, part) {
-            db.collection(config.db.collections.tournaments).findOne(
+            db.collection(config.db.collections.courses).findOne(
                 { "_id": new ObjectID(courseId) },
                 function (err, course) {
                     callback(err, course);

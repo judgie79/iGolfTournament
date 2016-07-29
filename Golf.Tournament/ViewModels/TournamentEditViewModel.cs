@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Golf.Tournament.Models
+namespace Golf.Tournament.ViewModels
 {
-    public class TournamentEditViewModel
+    public class TournamentEditViewModel<TTournament>
+         where TTournament : Models.Tournament, new()
     {
         public TournamentEditViewModel()
         {
-            Tournament = new Tournament();
+            Tournament = new TTournament();
         }
 
-        public Tournament Tournament { get; set; }
+        public TTournament Tournament { get; set; }
     }
 }

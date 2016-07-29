@@ -9,7 +9,7 @@ var mongoUtil = require('./db/mongoUtil');
 //- include routing modules -//
 var clubRouter = require('./routes/clubs');
 var courseRouter = require('./routes/courses');
-var courseRouter = require('./routes/teeboxes');
+var teeboxRouter = require('./routes/teeboxes');
 var playerRouter = require('./routes/players');
 var userRouter = require('./routes/users');
 var tournamentRouter = require('./routes/tournaments');

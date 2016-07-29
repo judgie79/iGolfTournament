@@ -36,7 +36,7 @@ namespace Golf.Tournament.ViewModels
                 Participants = new TournamentParticipantCollection()
             };
 
-            return new TournamentEditViewModel
+            return new TournamentEditViewModel<Models.Tournament>
             {
                 Tournament = tournament
             };

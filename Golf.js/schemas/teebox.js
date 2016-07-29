@@ -1,4 +1,7 @@
 var teeboxSchema = { 
+    "id": "teeboxSchema", //important thing not to forget
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Teebox Schema",
     "type": "object",
         "properties": {
             "color": {
@@ -26,32 +29,20 @@ var teeboxSchema = {
                 "minimum": 1
             },
             "holes": {
-                "type": ["array", "null"],
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "holeId": {
-                            "type": "string"
-                        },
-                        "number": {
-                            "type": "number",
-                            "minimum": 1
-                        },
-                        "distance": {
-                            "type": "number",
-                            "minimum": 1
-                        },
-                        "par": {
-                            "type": "number",
-                            "minimum": 3,
-                            "maximum": 5
-                        },
-                        "hcp": {
-                            "type": "number",
-                            "minimum": 1
+                "type": ["object", "null"],
+                "properties" : {
+                    "front" : {
+                        "type": ["array", "null"],
+                        "items": {
+                            "$ref" : "holeSchema"
                         }
                     },
-                    "required": ["number", "distance", "par", "hcp"]
+                    "back" : {
+                        "type": ["array", "null"],
+                        "items": {
+                            "$ref" : "holeSchema"
+                        }
+                    }
                 }
             },
             "required": ["color", "name", "distance", "par", "courseRating", "slopeRating"]

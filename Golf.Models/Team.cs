@@ -18,8 +18,11 @@ namespace Golf.Tournament.Models
         [JsonProperty("hcp")]
         public float Hcp { get; set; }
 
-        [JsonProperty("teatime")]
-        public DateTime TeaTime { get; set; }
+        [JsonProperty("teeBoxId")]
+        public string TeeboxId { get; set; }
+
+        [JsonProperty("Teetime")]
+        public DateTime Teetime { get; set; }
 
         [JsonProperty("members")]
         public TournamentParticipantCollection Members { get; set; }

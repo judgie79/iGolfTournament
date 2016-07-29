@@ -108,6 +108,7 @@ E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament.Tests\obj\Debug\Golf.Tournament.Tests.pdb
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Models.dll
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Models.pdb
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Template.xlsx
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\ApplicationInsights.config
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\roslyn\csc.exe
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -137,8 +138,9 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\System.We
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Microsoft.Owin.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\System.Web.Optimization.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Owin.dll
-D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Models.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\MarkdownDeep.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Models.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Excel.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\System.Net.Http.Formatting.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Tournament.pdb
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Newtonsoft.Json.xml
@@ -150,8 +152,9 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\System.We
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\System.Web.WebPages.Razor.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Microsoft.Owin.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\System.Web.Optimization.xml
-D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Models.pdb
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\MarkdownDeep.pdb
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Models.pdb
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Excel.pdb
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\System.Net.Http.Formatting.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\de\System.Web.Helpers.resources.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\de\System.Web.Mvc.resources.dll
@@ -164,6 +167,3 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\de\System
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\obj\Debug\Golf.Tournament.Tests.csprojResolveAssemblyReference.cache
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\obj\Debug\Golf.Tournament.Tests.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\obj\Debug\Golf.Tournament.Tests.pdb
-D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Excel.dll
-D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Excel.pdb
-D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Template.xlsx

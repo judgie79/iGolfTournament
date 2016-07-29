@@ -73,27 +73,18 @@
 </div>
 
 <div class="row">
-    @Html.Partial("DashboardListPanel", new Golf.Tournament.ViewModels.DashboardListPanelViewModel<Golf.Tournament.Models.Tournament>(Model.Tournaments.Where(t => t.HasStarted == false))
-{
-    Info = model => model.Date.ToShortDateString(),
-    Key = model => model.Id,
-    Title = model => model.Title,
-    Link = Html.ActionLink("View All Open Tournaments", "Index", "Tournament", new { }, new { @class = "btn btn-default btn-block" }),
-    ListIcon = "fa-trophy",
-    ListTitle = "Open Tournaments",
-    ListTitleIcon = "fa-trophy"
-})
-</div>
-
-<div class="row">
-    @Html.Partial("DashboardListPanel", new Golf.Tournament.ViewModels.DashboardListPanelViewModel<Golf.Tournament.Models.Player>(Model.Players.Where(t => t.IsOfficialHcp))
-{
-    Info = model => model.Hcp.ToString(),
-    Key = model => model.Id,
-    Title = model => string.Format("{0}, {1} - {2}", model.Lastname, model.Firstname, model.HomeClub.Name),
-    Link = Html.ActionLink("View All Players", "Index", "Player", new { }, new { @class = "btn btn-default btn-block" }),
-    ListIcon = "fa-user",
-    ListTitle = "Validated Players",
-    ListTitleIcon = "fa-user"
-})
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Club Report
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.Partial("ClubReport", Model.ClubReports)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

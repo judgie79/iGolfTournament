@@ -53,7 +53,7 @@ namespace Golf.Tournament.Controllers
                 Models.Tournament tournamentResult = await loader.Post<Models.TournamentParticipant, Models.Tournament>("tournaments/" + tournamentId + "/participants", new Models.TournamentParticipant()
                 {
                     Player = player,
-                    TeebBoxId = createViewModel.TeeboxId
+                    TeeboxId = createViewModel.TeeboxId
                 });
 
                 return RedirectToAction("Index");

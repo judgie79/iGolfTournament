@@ -165,7 +165,7 @@ namespace Golf.Excel
             //participantsSheet.Range["A2:K2"].End[MSExcel.XlDirection.xlDown].Clear();
 
             participantsSheet.Range["A1"].Value = "Id";
-            participantsSheet.Range["B1"].Value = "TeaTime";
+            participantsSheet.Range["B1"].Value = "Teetime";
             participantsSheet.Range["C1"].Value = "Lastname";
             participantsSheet.Range["D1"].Value = "Firstname";
             participantsSheet.Range["E1"].Value = "Hcp";
@@ -183,7 +183,7 @@ namespace Golf.Excel
             foreach (var participant in participants)
             {
                 participantsSheet.Range["A" + rowIndex].Value = participant.Id;
-                participantsSheet.Range["B" + rowIndex].Value = participant.TeaTime;
+                participantsSheet.Range["B" + rowIndex].Value = participant.Teetime;
                 participantsSheet.Range["C" + rowIndex].Value = participant.Player.Lastname;
                 participantsSheet.Range["D" + rowIndex].Value = participant.Player.Firstname;
                 participantsSheet.Range["E" + rowIndex].FormulaLocal = string.Format("=RUNDEN({0};1)", participant.Player.Hcp.ToString().Replace(".", ","));

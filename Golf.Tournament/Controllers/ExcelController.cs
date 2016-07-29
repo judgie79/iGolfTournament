@@ -47,12 +47,12 @@ namespace Golf.Tournament.Controllers
 
                 foreach (var teebox in tournament.Course.TeeBoxes)
                 {
-                    wb.SetParticipants(new Models.TournamentParticipantCollection(tournament.Participants.Where(t => t.TeebBoxId == teebox.Id)), teebox);
+                    wb.SetParticipants(new Models.TournamentParticipantCollection(tournament.Participants.Where(t => t.TeeboxId == teebox.Id)), teebox);
                 }
                 
                 foreach (var participant in tournament.Participants)
                 {
-                    wb.SetScoresheet(participant, tournament.Course.TeeBoxes.FirstOrDefault(p => p.Id == participant.TeebBoxId));
+                    wb.SetScoresheet(participant, tournament.Course.TeeBoxes.FirstOrDefault(p => p.Id == participant.TeeboxId));
                 }
                 
                 wb.SaveAs(spreadsheetSaveLocation);

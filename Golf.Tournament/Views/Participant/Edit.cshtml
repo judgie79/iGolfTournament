@@ -29,18 +29,18 @@
                                 @Html.HiddenFor(model => model.Tournament.Id)
                                 @Html.HiddenFor(model => model.Participant.Id)
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Participant.TeebBoxId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.Participant.TeeboxId, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-4">
-                                        @Html.DropDownListFor(model => model.Participant.TeebBoxId, Model.Teeboxes.Select(teebox => new SelectListItem() { Text = teebox.Name, Value = teebox.Id, Selected = teebox.Id == Model.Participant.TeebBoxId }), new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Participant.TeebBoxId, "", new { @class = "text-danger" })
+                                        @Html.DropDownListFor(model => model.Participant.TeeboxId, Model.Teeboxes.Select(teebox => new SelectListItem() { Text = teebox.Name, Value = teebox.Id, Selected = teebox.Id == Model.Participant.TeeboxId }), new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Participant.TeeboxId, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Participant.TeaTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.Participant.Teetime, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-4">
-                                        @Html.EditorFor(model => model.Participant.TeaTime, new { @class = "form-control" })
-                                        @Html.ValidationMessageFor(model => model.Participant.TeaTime, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Participant.Teetime, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Participant.Teetime, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Golf.Models.Reports.ClubReport>
+
+<div class="list-group">
+    @foreach (var clubReport in Model)
+    {
+    <a href="@Url.Action("Details", "Club", new { id = clubReport.Club.Id })" class="list-group-item" style="min-height: 55px;">
+        <i class="fa fa-comment fa-fw"></i> @clubReport.Club.Name
+        <span class="pull-right text-muted small">
+            <em>@clubReport.Reason</em>
+        </span>
+    </a>
+    }
+</div>

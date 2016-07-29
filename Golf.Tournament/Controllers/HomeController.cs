@@ -1,4 +1,5 @@
-﻿using Golf.Tournament.Models;
+﻿using Golf.Models.Reports;
+using Golf.Tournament.Models;
 using Golf.Tournament.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -16,13 +17,15 @@ namespace Golf.Tournament.Controllers
             var clubs = loader.Load<IEnumerable<Club>>("clubs");
             var players = loader.Load<PlayerCollection>("players");
             var tournaments = loader.Load<IEnumerable<Models.Tournament>>("tournaments");
+            var clubReports =  loader.Load<IEnumerable<ClubReport>>("clubs/report");
 
-            await Task.WhenAll(clubs, players, tournaments);
+            await Task.WhenAll(clubs, players, tournaments, clubReports);
 
             return View(new HomeViewModel() {
-                    Clubs = clubs.Result,
-                    Players = players.Result,
-                    Tournaments = tournaments.Result
+                ClubReports = clubReports.Result,
+                Clubs = clubs.Result,
+                Players = players.Result,
+                Tournaments = tournaments.Result
             });
         }
 

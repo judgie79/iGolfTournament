@@ -156,6 +156,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ExcelController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\TeeboxController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
@@ -200,9 +202,13 @@
     <Compile Include="Utility\Validation.cs" />
     <Compile Include="ViewModels\TournamentEditViewModelBinder.cs" />
     <Compile Include="ViewModels\TournamentListViewModel.cs" />
+    <Compile Include="ViewModels\TeamCreateViewModel.cs" />
     <Compile Include="ViewModels\TournamentParticipantCreateViewModel.cs" />
+    <Compile Include="ViewModels\TeamDeleteViewModel.cs" />
     <Compile Include="ViewModels\TournamentParticipantDeleteViewModel.cs" />
+    <Compile Include="ViewModels\TeamEditViewModel.cs" />
     <Compile Include="ViewModels\TournamentParticipantEditViewModel.cs" />
+    <Compile Include="ViewModels\TeamEditViewModelBinder.cs" />
     <Compile Include="ViewModels\TournamentParticipantEditViewModelBinder.cs" />
     <Compile Include="ViewModels\TournamentStartViewModelBinder.cs" />
   </ItemGroup>
@@ -841,12 +847,15 @@
     <Content Include="Views\Shared\DisplayTemplates\CourseHoles.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\CourseHoles.cshtml" />
     <Content Include="Views\Teebox\Delete.cshtml" />
+    <Content Include="Views\Shared\ClubReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="scorecards\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Excel\" />
+    <Folder Include="Views\Report\" />
+    <Folder Include="Views\Team\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

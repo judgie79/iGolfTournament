@@ -4,8 +4,20 @@ var router = express.Router();
 var clubRepository = require('../db/clubRepository.js');
 var courseRepository = require('../db/courseRepository.js');
 var playerRepository = require('../db/playerRepository.js');
+var reportRepository = require('../db/reportRepository.js');
 
 var error = new require('./error')();
+
+router.get("/report", function (req, res) {
+    reportRepository.clubReport(function(err, reports) {
+        if (err) {
+            error.handleError(res, err.message, "Failed clubreport");
+        } else {
+            res.status(200).json(reports);
+        }
+    });
+});
+
 /*  "/"
  *    GET: finds all clubs
  */
@@ -103,5 +115,7 @@ router.get("/:id/players", function (req, res) {
         }
     });
 });
+
+
 
 module.exports = router;
