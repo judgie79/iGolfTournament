@@ -4,6 +4,7 @@ var JaySchema = require('jayschema');
 var js = new JaySchema();
 
 var courseSchema = require('../schemas/course.js');
+var holeSchema = require('../schemas/hole.js');
 
 var Validator = function (course) {
     this.course = course;
@@ -13,9 +14,9 @@ Validator.prototype.validateSchema = function(){
     var me = this;
     return new Promise(function (resolve, reject) {
 
-        //js.register(addressSchema);
+        js.register(holeSchema);
 
-        var isValid = js.validate(me.course, clubSchema);
+        var isValid = js.validate(me.course, courseSchema);
 
         if (isValid.length == 0) {
             resolve();

@@ -155,6 +155,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ExcelController.cs" />
     <Compile Include="Controllers\TeeboxController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="ViewModels\TournamentParticipantDeleteViewModel.cs" />
     <Compile Include="ViewModels\TournamentParticipantEditViewModel.cs" />
     <Compile Include="ViewModels\TournamentParticipantEditViewModelBinder.cs" />
+    <Compile Include="ViewModels\TournamentStartViewModelBinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datetimepicker.css" />
@@ -831,10 +833,20 @@
     <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Shared\Club_Panel.cshtml" />
     <Content Include="Views\Shared\Course_Panel.cshtml" />
+    <Content Include="Views\Shared\Course_Panel_Display.cshtml" />
+    <Content Include="Views\Shared\Teeboxes_Table_Edit.cshtml" />
+    <Content Include="Views\Shared\Holes_Table_Popup.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Tournament\Start.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CourseHoles.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CourseHoles.cshtml" />
+    <Content Include="Views\Teebox\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="scorecards\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Excel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -845,6 +857,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Golf.Excel\Golf.Excel\Golf.Excel.csproj">
+      <Project>{66251614-2c63-4b51-95d6-06d031a5d8e4}</Project>
+      <Name>Golf.Excel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Golf.Models\Golf.Models.csproj">
       <Project>{eb4818b6-d9b8-44eb-8a8e-cbf4b85d4fc4}</Project>
       <Name>Golf.Models</Name>

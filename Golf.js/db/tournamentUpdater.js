@@ -41,7 +41,9 @@ Updater.prototype.updateCourse = function (db, collection, tournament, update) {
             tournament.course = course;
             if (update)
                 tournament.course._id = new ObjectID(course._id);
+            else if (tournament.course._id) {
 
+            }
             resolve(tournament);
         });
     });
@@ -50,7 +52,13 @@ Updater.prototype.updateCourse = function (db, collection, tournament, update) {
 Updater.prototype.updatePlayers = function (db, collection, tournament, update) {
 
     return new Promise(function (resolve, reject) {
-        
+        if (tournament.participants == null || tournament.participants.length == 0)
+        {
+             tournament.participants = [];
+             resolve(tournament);
+        }
+
+
         var playIds = tournament.participants.map(function (participant) {
             return new ObjectID(participant.player._id);
         });
@@ -61,7 +69,7 @@ Updater.prototype.updatePlayers = function (db, collection, tournament, update) 
             players = docs;
 
             if (err) {
-                reject(err);
+                resolve(tournament);
             }
 
             tournament.participants = tournament.participants.map(function (participant) {

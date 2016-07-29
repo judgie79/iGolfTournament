@@ -6,42 +6,56 @@
 
 <h2>Edit</h2>
 
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="row">
+    <div class="col-md-3">
         @Html.DisplayFor(model => model.Participant.Player)
-        @Html.HiddenFor(model => model.Course.Id)
-        @Html.HiddenFor(model => model.Participant.Player.Id)
-        @Html.HiddenFor(model => model.Tournament.Id)
-        @Html.HiddenFor(model => model.Participant.Id)
-        <div class="form-group">
-            @Html.LabelFor(model => model.Participant.TeebBoxId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-3">
-                @Html.DropDownListFor(model => model.Participant.TeebBoxId, Model.Teeboxes.Select(teebox => new SelectListItem() { Text = teebox.Name, Value = teebox.Id, Selected = teebox.Id == Model.Participant.TeebBoxId }), new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Participant.TeebBoxId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Participant.TeaTime, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-3">
-                @Html.EditorFor(model => model.Participant.TeaTime, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Participant.TeaTime, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
     </div>
-}
+    <div class="col-md-8">
+        @using (Html.BeginForm())
+        {<div class="panel panel-default">
+            <div class="panel-heading">
+                @Model.Participant.Player.Fullname
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.Course.Id)
+                                @Html.HiddenFor(model => model.Participant.Player.Id)
+                                @Html.HiddenFor(model => model.Tournament.Id)
+                                @Html.HiddenFor(model => model.Participant.Id)
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Participant.TeebBoxId, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.DropDownListFor(model => model.Participant.TeebBoxId, Model.Teeboxes.Select(teebox => new SelectListItem() { Text = teebox.Name, Value = teebox.Id, Selected = teebox.Id == Model.Participant.TeebBoxId }), new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Participant.TeebBoxId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Participant.TeaTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-4">
+                                        @Html.EditorFor(model => model.Participant.TeaTime, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Participant.TeaTime, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")

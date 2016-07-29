@@ -1,0 +1,7 @@
+﻿@model Golf.Tournament.Models.CourseHoles
+
+Front
+@Html.EditorFor(model => model.Front, new { teeName = ViewBag.teeName, holeGroup = "Front" })
+
+back
+@Html.EditorFor(model => model.Back, new { teeName = ViewBag.teeName, holeGroup = "Back", countOffset = Model.Front.Count })

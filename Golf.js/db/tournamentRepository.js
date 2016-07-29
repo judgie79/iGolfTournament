@@ -34,11 +34,15 @@ module.exports.create = function (newtournament, callback) {
 
     var db = mongoUtil.getDb();
     var updater = new Updater();
-
-    val.validateSchema().then(function() {
-        return updater.updateTournament(newtournament, true);
-    }).then(function (updatedTournament) {
-        crudRepository.create(updatedTournament, callback);
+    
+    updater.updateTournament(newtournament, false).then(function (updatedTournament) {
+        val.validateSchema().then(function () {
+            return val.tournamentNotStarted();
+        }).then(function () {
+            crudRepository.create(updatedTournament, callback);
+        }).catch(function (err) {
+            callback(err, newtournament);
+        });
     }).catch(function (err) {
         callback(err, newtournament);
     });
@@ -50,32 +54,34 @@ module.exports.update = function (id, updateTournament, callback) {
 
     var db = mongoUtil.getDb();
 
-    val.validateSchema().then(function() {
-        return val.tournamentNotStarted();
-    }).then(function() {
-        var updater = new Updater();
-        updater.updateTournament(tournament, false).then(function (updatedTournament) {
-            crudRepository.update(updatedTournament, callback);
+    var updater = new Updater();
+    updater.updateTournament(updateTournament, false).then(function (updatedTournament) {
+        val.validateSchema().then(function () {
+            return val.tournamentNotStarted();
+        }).then(function () {
+            crudRepository.update(id, updatedTournament, callback);
         }).catch(function (err) {
-            callback(err, tournament);
+            callback(err, updateTournament);
         });
-    }).catch(function(err) {
+    }).catch(function (err) {
         callback(err, updateTournament);
     });
+
+
 };
 
-module.exports.start = function (tournament) {
+module.exports.start = function (id, tournament, callback) {
     var val = new Validator(tournament);
 
-    val.validateSchema().then(function() {
+    val.validateSchema().then(function () {
         return val.tournamentNotStarted();
-    }).then(function() {
+    }).then(function () {
         var updater = new Updater();
         updater.updateTournament(tournament, false).then(function (updatedTournament) {
             tournament.hasStarted = true;
             tournament.startDate = new Date();
 
-            crudRepository.update(updatedTournament, callback);
+            crudRepository.update(id, updatedTournament, callback);
         }).catch(function (err) {
             callback(err, tournament);
         });

@@ -5,10 +5,10 @@
     "type": "object",
     "properties": {
         "_id": {
-            "type": ["string", "null"]
+            "type": ["string", "null", "object"]
         },
         "clubId": {
-            "type": "string"
+            "type": ["string", "object"]
         },
         "name": {
             "type": "string"
@@ -18,6 +18,9 @@
             "items": {
                 "type": "object",
                 "properties": {
+                    "_id": {
+                        "type": ["string", "object", "null"]
+                    },
                     "color": {
                         "type": "string",
                         "pattern": "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
@@ -28,11 +31,11 @@
                     },
                     "distance": {
                         "type": "number",
-                        "minimum": 1
+                        "minimum": 0
                     },
                     "par": {
                         "type": "number",
-                        "minimum": 1
+                        "minimum": 0
                     },
                     "courseRating": {
                         "type": "number",
@@ -43,32 +46,20 @@
                         "minimum": 1
                     },
                     "holes": {
-                        "type": ["array", "null"],
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "holeId": {
-                                    "type": "string"
-                                },
-                                "number": {
-                                    "type": "number",
-                                    "minimum": 1
-                                },
-                                "distance": {
-                                    "type": "number",
-                                    "minimum": 1
-                                },
-                                "par": {
-                                    "type": "number",
-                                    "minimum": 3,
-                                    "maximum": 5
-                                },
-                                "hcp": {
-                                    "type": "number",
-                                    "minimum": 1
+                        "type": ["object", "null"],
+                        "properties" : {
+                            "front" : {
+                                "type": ["array", "null"],
+                                "items": {
+                                    "$ref" : "holeSchema"
                                 }
                             },
-                            "required": ["number", "distance", "par", "hcp"]
+                            "back" : {
+                                "type": ["array", "null"],
+                                "items": {
+                                    "$ref" : "holeSchema"
+                                }
+                            }
                         }
                     },
                     "required": ["color", "name", "distance", "par", "courseRating", "slopeRating"]

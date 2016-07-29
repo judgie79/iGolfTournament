@@ -1,0 +1,93 @@
+﻿@using Golf.Tournament.Utility
+@model Golf.Tournament.Models.TournamentEditViewModel
+@{
+    ViewBag.ShowHoles = true;
+}
+
+<div class="row">
+    <div class="col-md-4">
+        @Html.Partial("Club_Panel", Model.Tournament.Club)
+    </div>
+    <div class="col-md-8">
+        @Html.Partial("Course_Panel_Display", Model.Tournament.Course)
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>TournamentEditViewModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tournament.Title, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-3">
+                @Html.HiddenFor(model => model.Tournament.Club.Id)
+                @Html.HiddenFor(model => model.Tournament.Course.Id)
+                @Html.HiddenFor(model => model.Tournament.Id)
+                @Html.DisplayFor(model => model.Tournament.Title, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tournament.Date, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-3">
+                @Html.DisplayFor(model => model.Tournament.Date, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.Label("Teebox")
+                </th>
+                <th>
+                    @Html.Label("TeaTime")
+                </th>
+                <th>@Html.Label("Lastname")</th>
+                <th>@Html.Label("Firstname")</th>
+                <th>@Html.Label("Hcp")</th>
+                <th>@Html.Label("Homeclub")</th>
+            </tr>
+
+            @foreach (var item in Model.Tournament.Participants)
+            {
+                var teeBox = Model.Tournament.Course.TeeBoxes.FirstOrDefault(m => m.Id == item.TeebBoxId);
+                var fontColor = "#ffffff";
+
+                if (teeBox.Color.Value.ToLower() == "#ffffff")
+                {
+                    fontColor = "#000000";
+                }
+                <tr>
+                    <td><span style="background-color: @teeBox.Color.ToHtml(); width: 30px; height: 10px; display: inline-block; vertival-align: middle;">&nbsp;</span> @Html.DisplayFor(model => teeBox.Name)</td>
+                    <td>@Html.DisplayFor(model => item.TeaTime)</td>
+                    <td>@Html.DisplayFor(model => item.Player.Lastname)</td>
+                    <td>@Html.DisplayFor(model => item.Player.Firstname)</td>
+                    <td>@Html.DisplayFor(model => item.Player.Hcp)</td>
+                    <td>@Html.DisplayFor(model => item.Player.HomeClub.Name)</td>
+                </tr>
+            }
+
+        </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-sm-10">
+                <input type="submit" value="Start" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -28,4 +28,26 @@ namespace Golf.Tournament.ViewModels
 
         public TeeBox Teebox { get; set; }
     }
+
+    public class TeeboxDeleteViewModel
+    {
+        public TeeboxDeleteViewModel()
+        {
+
+        }
+
+        public TeeboxDeleteViewModel(Club club, Course course, TeeBox teebox)
+            : this()
+        {
+            this.Course = course;
+            this.Club = club;
+            this.Teebox = teebox;
+        }
+
+        public Club Club { get; set; }
+
+        public Course Course { get; set; }
+
+        public TeeBox Teebox { get; set; }
+    }
 }

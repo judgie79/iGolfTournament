@@ -1,11 +1,33 @@
 ﻿@using Golf.Tournament.Utility
 @model Golf.Tournament.Models.HoleCollection
 @{
+    string holeGroup = "";
+    if(ViewBag.holeGroup != null)
+    {
+        holeGroup = ViewBag.holeGroup;
+    }
+
+    int countOffset = 0;
+    if (ViewBag.countOffset != null)
+    {
+        countOffset = ViewBag.countOffset;
+    }
+
     string teeName = "";
     if (ViewBag.teeName != null)
     {
         teeName = ViewBag.teeName;
         teeName = teeName.Replace(" ", "_");
+
+        if (!string.IsNullOrWhiteSpace(holeGroup))
+        {
+            teeName += "_";
+        }
+    }
+
+    if (!string.IsNullOrWhiteSpace(holeGroup))
+    {
+        teeName += holeGroup;
     }
 
     int teeIndex = 0;
@@ -79,7 +101,7 @@
 
     $(function() {
 
-        var holeCollectionController@(teeName) = new HoleCollectionController("@(teeName)", @teeIndex, @(Model.Count));
+        var holeCollectionController@(teeName) = new HoleCollectionController("@(teeName)", "@(holeGroup)", @teeIndex, @(Model.Count), @(countOffset));
 
         $("#btnAddHole_@teeName").click(function (evt) {
             evt.preventDefault();

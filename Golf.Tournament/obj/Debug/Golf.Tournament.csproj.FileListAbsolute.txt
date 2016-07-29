@@ -247,3 +247,6 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\de\Microsoft.Owin.Sec
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.csprojResolveAssemblyReference.cache
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\obj\Debug\Golf.Tournament.pdb
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Template.xlsx
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Golf.Excel.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament\bin\Golf.Excel.pdb

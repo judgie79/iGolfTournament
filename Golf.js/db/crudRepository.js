@@ -47,8 +47,8 @@ CrudRepository.prototype.update = function (id, updatedoc, callback) {
     var db = mongoUtil.getDb();
 
     delete updatedoc._id;
-
-    db.collection(this.collection).updateOne({ _id:  new ObjectID(id)}, updatedoc, function (err, doc) {
+    updatedoc._id = new ObjectID(id);
+    db.collection(this.collection).updateOne({ _id:  updatedoc._id}, updatedoc, function (err, doc) {
         callback(err, doc);
     });
 }

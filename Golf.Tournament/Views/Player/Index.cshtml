@@ -35,7 +35,16 @@
             @Html.DisplayFor(modelItem => item.Lastname)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Hcp)
+            @Html.DisplayFor(modelItem => item.Hcp) 
+                @if (item.IsOfficialHcp)
+                {
+                    <span class="glyphicon-check glyphicon" title="official"></span>
+                }
+                else
+                {
+                    <span class="glyphicon-remove glyphicon" title="unofficial"></span>
+                }
+
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.HomeClub.Name)

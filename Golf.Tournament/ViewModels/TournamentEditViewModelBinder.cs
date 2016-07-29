@@ -20,12 +20,12 @@ namespace Golf.Tournament.Models
             string clubId = form.Get("Tournament.Club.Id");
 
             string title = form.Get("Tournament.Title");
-            DateTime date = DateTime.Parse(form.Get("Tournament.Date"));
+            DateTime date = DateTime.Parse(form.Get("Tournament.Date.Tournament.Date"));
 
             var tournament = new Tournament()
             {
                 Title = title,
-                Date = date,
+                Date = date.ToUniversalTime(),
                 Club = new Club()
                 {
                     Id = clubId

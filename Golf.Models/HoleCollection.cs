@@ -22,4 +22,44 @@ namespace Golf.Tournament.Models
 
         }
     }
+
+    public class CourseHoles
+    {
+        private HoleCollection front = new HoleCollection();
+        private HoleCollection back = new HoleCollection();
+
+        [JsonProperty("front")]
+        public HoleCollection Front
+        {
+            get
+            {
+                return front;
+            }
+            set
+            {
+                front = value ?? new HoleCollection();
+            }
+        }
+
+        [JsonProperty("back")]
+        public HoleCollection Back
+        {
+            get
+            {
+                return back;
+            }
+            set
+            {
+                back = value ?? new HoleCollection();
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                return Front.Count + Back.Count;
+            }
+        }
+    }
 }

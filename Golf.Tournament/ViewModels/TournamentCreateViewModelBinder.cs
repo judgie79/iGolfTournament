@@ -17,7 +17,9 @@ namespace Golf.Tournament.Models
             string clubId = request.Form.Get("ClubId");
 
             string title = request.Form.Get("Tournament.Title");
-            DateTime date = DateTime.Parse(request.Form.Get("Tournament.Date"));
+
+            string dateKey = request.Form.Get("Tournament.Date") ?? request.Form.Get("Tournament.Date.Tournament.Date");
+            DateTime date = DateTime.Parse(dateKey);
 
             return new TournamentCreateViewModel
             {
@@ -26,7 +28,7 @@ namespace Golf.Tournament.Models
                 Tournament = new Tournament()
                 {
                     Title = title,
-                    Date = date,
+                    Date = date.ToUniversalTime(),
                     Club = new Club()
                     {
                         Id = clubId

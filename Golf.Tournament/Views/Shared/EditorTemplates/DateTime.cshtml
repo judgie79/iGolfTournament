@@ -5,7 +5,7 @@
     DateTime dt;
     if (Model.HasValue)
     {
-        dt = (DateTime)Model;
+        dt = (DateTime)Model.Value.ToLocalTime();
     }
     else
     {
@@ -14,7 +14,7 @@
 }
 
 <div class='input-group date datetimepicker'>
-    @Html.TextBoxFor(m => m, new { @class = "form-control"})
+    @Html.TextBox(Html.NameForModel().ToString(), dt.ToString(), new { @class = "form-control"})
     <span class="input-group-addon">
         <span class="glyphicon glyphicon-calendar"></span>
     </span>

@@ -1,45 +1,30 @@
 ﻿@model Golf.Tournament.Models.Player
 
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Firstname)
-        </dt>
+<div class="panel panel-green">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-3">
+                <i class="fa fa-user fa-5x"></i>
+            </div>
+            <div class="col-xs-9 text-right">
+                <div class="huge">
+                    @Html.DisplayFor(m => m.Hcp)
+                        @if (Model.IsOfficialHcp)
+                        {
+                            <span class="glyphicon-check glyphicon" style="font-size: 30%; vertical-align:text-top;" title="official"></span>
+                        }
+                        else
+                        {
+                            <span class="small glyphicon-remove glyphicon" style="font-size: 30%; vertical-align:text-top;" title="unofficial"></span>
+                        }
+                </div>
+                <div>@Html.DisplayFor(m => m.Fullname)</div>
+            </div>
+        </div>
+    </div>
+    <a href="#">
+        <div class="panel-footer">
 
-        <dd>
-            @Html.DisplayFor(model => model.Firstname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Lastname)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Lastname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Hcp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Hcp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsOfficialHcp)
-        </dt>
-
-        <dd>
-            @if (Model.IsOfficialHcp)
-            {
-                <span class="glyphicon-check glyphicon" title="official"></span>
-            }
-            else
-            {
-                <span class="glyphicon-remove glyphicon" title="unofficial"></span>
-            }
-        </dd>
-
-    </dl>
+        </div>
+    </a>
 </div>

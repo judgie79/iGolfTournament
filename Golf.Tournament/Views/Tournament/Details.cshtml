@@ -2,19 +2,23 @@
 
 @{
     ViewBag.Title = "Details";
+    ViewBag.ShowHoles = true;
 }
 
-<h2>Details</h2>
+<div class="row">
+    <div class="col-md-4">
+        @Html.Partial("Club_Panel", Model.Tournament.Club)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        @Html.Partial("Course_Panel_Display", Model.Tournament.Course)
+    </div>
+</div>
+
 
 <div>
     <h4>Tournament</h4>
-    <hr />
-
-    <h3>Club</h3>
-    @Html.DisplayFor(model => model.Tournament.Club)
-
-    <h3>Course</h3>
-    @Html.DisplayFor(model => model.Tournament.Course)
 
     <hr />
     <dl class="dl-horizontal">
@@ -39,6 +43,18 @@
     <hr />
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Tournament.Id }) |
+    @if (!Model.Tournament.HasStarted)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Tournament.Id }, new { @class = "btn btn-xs btn-primary" })
+    }
+    @if (!Model.Tournament.HasStarted && !Model.Tournament.HasFinished)
+    {
+        @Html.ActionLink("Start", "Start", new { id = Model.Tournament.Id }, new { @class = "btn btn-xs btn-success" })
+    }
+    @if (Model.Tournament.HasStarted && !Model.Tournament.HasFinished)
+    {
+        @Html.ActionLink("Scorecards", "Create", "Excel", new { id = Model.Tournament.Id }, new { @class = "btn btn-xs btn-primary" })
+    }
     @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Show Participants", "Index", "Participant", new { tournamentId = Model.Tournament.Id }, new { @class = "btn btn-default" })
 </p>

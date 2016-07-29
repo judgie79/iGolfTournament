@@ -6,7 +6,7 @@ var userSchema = {
     "type": "object",
     "properties": {
         "_id": {
-            "type": ["string", "null"]
+            "type": ["string", "null", "object"]
         },
         "username": {
             "type": "string"

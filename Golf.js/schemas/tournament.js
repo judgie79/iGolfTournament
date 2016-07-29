@@ -6,7 +6,7 @@ var tournamentSchema = {
     "type": "object",
     "properties": {
         "_id": {
-            "type": ["string", "null"]
+            "type": ["string", "null", "object"]
         },
         "title": {
             "type": "string"

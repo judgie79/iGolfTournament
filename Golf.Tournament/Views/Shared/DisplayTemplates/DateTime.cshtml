@@ -1,0 +1,19 @@
+﻿@using Golf.Tournament.Utility
+@model DateTime?
+
+@{
+    DateTime dt;
+    if (Model.HasValue)
+    {
+        dt = (DateTime)Model.Value.ToLocalTime();
+    }
+    else
+    {
+        dt = DateTime.Now;
+    }
+}
+<span>@dt.ToShortDateString()</span> <span>@dt.ToShortTimeString()</span>
+
+
+
+

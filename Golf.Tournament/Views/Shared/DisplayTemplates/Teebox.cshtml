@@ -31,6 +31,8 @@
     {
         showHoles = true;
     }
+
+    
 }
 <div>
     <dl class="dl-horizontal">
@@ -39,7 +41,7 @@
         </dt>
 
         <dd>
-            <span class="label label-default" style="background-color: @Model.Color.Value; color: @fontColor; border: 1px solid @fontColor;">@Model.Name</span>
+            <span>@Model.Name</span><span class="label label-default" style="background-color: @Model.Color.ToHtml(); display: block; width: 20px; height: 10px;">&nbsp;</span>
         </dd>
 
         <dt>
@@ -82,27 +84,29 @@
         Show Holes
     </button>
 
-            <div class="modal fade" id="myModal_@teeName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">@Model.Name - Holes</h4>
-                        </div>
-                        <div class="modal-body">
-                            @Html.DisplayFor(model => model.Holes, new { teeName = Model.Name })
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
+    <div class="modal fade" id="myModal_@teeName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">@Model.Name - Holes</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.DisplayFor(model => model.Holes, new { teeName = Model.Name })
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
+        </div>
+    </div>
 }
 else
 {
     if (showHoles)
     {
-        <div>@Html.DisplayFor(model => model.Holes, new { teeName = Model.Name })</div>
+        <div>
+            @Html.DisplayFor(model => model.Holes, new { teeName = Model.Name })
+        </div>
     }
 }

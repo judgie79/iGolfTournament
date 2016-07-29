@@ -44,14 +44,26 @@ module.exports.create = function (newcourse, callback) {
                     teeBox._id = new ObjectId(hole._id);
                 }
 
-                if (teeBox.holes && teeBox.holes.length > 0) {
-                    for (var h = 0; h < teeBox.holes.length; h++) {
-                        var hole = teeBox.holes[h];
+                if (teeBox.holes && teeBox.holes.front && teeBox.holes.front.length > 0) {
+                    for (var h = 0; h < teeBox.holes.front.length; h++) {
+                        var hole = teeBox.holes.front[h];
 
-                        if (hole._id === "") {
-                            hole._id = new ObjectID();
+                        if (hole.holeId === "") {
+                            hole.holeId = new ObjectID();
                         } else {
-                            hole._id = new ObjectId(hole._id);
+                            hole.holeId = new ObjectID(hole.holeId);
+                        }
+                    }
+                }
+
+                if (teeBox.holes && teeBox.holes.back && teeBox.holes.back.length > 0) {
+                    for (var h = 0; h < teeBox.holes.back.length; h++) {
+                        var hole = teeBox.holes.back[h];
+
+                        if (hole.holeId === "") {
+                            hole.holeId = new ObjectID();
+                        } else {
+                            hole.holeId = new ObjectID(hole.holeId);
                         }
                     }
                 }
@@ -66,9 +78,46 @@ module.exports.create = function (newcourse, callback) {
 }
 
 module.exports.update = function (id, updateCourse, callback) {
+
+    for (var i = 0; i < updateCourse.teeboxes.length; i++) {
+
+        var teeBox = updateCourse.teeboxes[i];
+
+        var frontLength = 0;
+        var frontPar = 0;
+
+        if (teeBox.holes && teeBox.holes.front && teeBox.holes.front.length > 0) {
+            for (var h = 0; h < teeBox.holes.front.length; h++) {
+                var hole = teeBox.holes.front[h];
+
+                frontLength = frontLength + hole.distance;
+                frontPar = frontPar + hole.par;
+            }
+        }
+
+        var backLength = 0;
+        var backPar = 0;
+
+        if (teeBox.holes && teeBox.holes.back && teeBox.holes.back.length > 0) {
+            for (var h = 0; h < teeBox.holes.back.length; h++) {
+                var hole = teeBox.holes.back[h];
+
+                backLength = backLength + hole.distance;
+                backPar = backPar + hole.par;
+            }
+
+
+        }
+
+        teeBox.distance = backLength + frontLength;
+        teeBox.par = backPar + frontPar;
+    }
+
+
     var val = new Validator(updateCourse);
 
     var db = mongoUtil.getDb();
+
     val.validateSchema().then(function () {
         updateCourse.clubId = new ObjectID(updateCourse.clubId);
         for (var i = 0; i < updateCourse.teeboxes.length; i++) {
@@ -80,9 +129,25 @@ module.exports.update = function (id, updateCourse, callback) {
                 teeBox._id = new ObjectID(teeBox._id);
             }
 
-            if (teeBox.holes && teeBox.holes.length > 0) {
-                for (var h = 0; h < teeBox.holes.length; h++) {
-                    var hole = teeBox.holes[h];
+            if (teeBox.holes && teeBox.holes.front && teeBox.holes.front.length > 0) {
+
+                for (var h = 0; h < teeBox.holes.front.length; h++) {
+                    var hole = teeBox.holes.front[h];
+
+                    if (hole.holeId === "") {
+                        hole.holeId = new ObjectID();
+                    } else {
+                        hole.holeId = new ObjectID(hole.holeId);
+                    }
+                }
+            }
+
+
+
+            if (teeBox.holes && teeBox.holes.back && teeBox.holes.back.length > 0) {
+
+                for (var h = 0; h < teeBox.holes.back.length; h++) {
+                    var hole = teeBox.holes.back[h];
 
                     if (hole.holeId === "") {
                         hole.holeId = new ObjectID();

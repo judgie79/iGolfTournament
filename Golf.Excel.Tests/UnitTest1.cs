@@ -2,6 +2,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Golf.Tournament.Controllers;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Golf.Excel.Tests
 {
@@ -10,32 +13,39 @@ namespace Golf.Excel.Tests
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public async Task TestMethod1()
         {
 
             GolfLoader loader = new GolfLoader("http://localhost:8080/api/");
-            Golf.Tournament.Models.Tournament tournament = loader.Load<Golf.Tournament.Models.Tournament>("tournaments/" + "57862e8001728c0018267538");
+            IEnumerable<Golf.Tournament.Models.Tournament> tournaments = await loader.Load<IEnumerable<Golf.Tournament.Models.Tournament>>("tournaments/");
+            var tournament = tournaments.First(t => t.HasStarted);
 
-            TournamentWorkbook wb = new TournamentWorkbook();
-
-            var spreadsheetLocation = Path.Combine(Directory.GetCurrentDirectory(), "Template.xlsx");
-
-            wb.Open(spreadsheetLocation);
-
-            wb.SetCourse(tournament.Course);
-            wb.SetTeeboxes(tournament.Course.TeeBoxes);
-            wb.SetScoresheet(new Tournament.Models.Player()
+            using (TournamentWorkbook wb = new TournamentWorkbook())
             {
-                Firstname = "Michael",
-                Lastname = "Richter",
-                Hcp = 32.2f,
-                
-            },
-            tournament.Course.TeeBoxes[0]);
 
-            var spreadsheetSaveLocation = Path.Combine(Directory.GetCurrentDirectory(), "Template2.xlsx");
-            wb.SaveAs(spreadsheetSaveLocation);
-            wb.CloseExcel(false);
+                var spreadsheetLocation = Path.Combine(Directory.GetCurrentDirectory(), "Template.xlsx");
+
+                wb.Open(spreadsheetLocation);
+
+                wb.SetCourse(tournament.Club, tournament.Course);
+                wb.SetTeeboxes(tournament.Course.TeeBoxes);
+                wb.SetScoresheet(
+                    new Tournament.Models.TournamentParticipant()
+                    {
+                        Player = new Tournament.Models.Player()
+                        {
+                            Firstname = "Michael",
+                            Lastname = "Richter",
+                            Hcp = 32.2f,
+
+                        }
+                    },
+                tournament.Course.TeeBoxes[0]);
+
+                var spreadsheetSaveLocation = Path.Combine(Directory.GetCurrentDirectory(), "Template2.xlsx");
+                wb.SaveAs(spreadsheetSaveLocation);
+                wb.CloseExcel(false);
+            }
         }
     }
 }

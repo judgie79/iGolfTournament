@@ -12,7 +12,7 @@ namespace Golf.Tournament.Models
 
         public TeeBox()
         {
-            Holes = new HoleCollection();
+            Holes = new CourseHoles();
             Color = new Color("#ffffff");
         }
 
@@ -42,11 +42,11 @@ namespace Golf.Tournament.Models
         [JsonProperty("slopeRating")]
         [Required]
         public float SlopeRating { get; set; }
-
-        private HoleCollection holes = new HoleCollection();
+        
+        private CourseHoles holes = new CourseHoles();
 
         [JsonProperty("holes")]
-        public HoleCollection Holes
+        public CourseHoles Holes
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Golf.Tournament.Models
             }
             set
             {
-                holes = value ?? new HoleCollection();
+                holes = value ?? new CourseHoles();
             }
         }
     }

@@ -6,7 +6,7 @@ var clubSchema = {
     "type": "object",
     "properties": {
         "_id": {
-            "type": ["string", "null"]
+            "type": ["string", "null", "object"]
         },
         "name": {
             "type": "string"

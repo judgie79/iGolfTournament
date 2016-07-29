@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,29 +13,29 @@ namespace Golf.Tournament.Controllers
 
         // GET: Player
         [Route("players")]
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var players = loader.Load<IEnumerable<Player>>("players");
+            var players = await loader.Load<IEnumerable<Player>>("players");
 
             return View(players);
         }
 
         // GET: Player/Details/5
         [Route("players/{id}")]
-        public ActionResult Details(string id)
+        public async Task<ActionResult> Details(string id)
         {
-            var player = loader.Load<Player>("players/" + id);
+            var player = await loader.Load<Player>("players/" + id);
 
             return View(player);
         }
 
         // GET: Player/Create
         [Route("players/create")]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             var playerCreateViewModel = new PlayerCreateViewModel();
 
-            playerCreateViewModel.Clubs = loader.Load<IEnumerable<HomeClub>>("clubs");
+            playerCreateViewModel.Clubs = await loader.Load<IEnumerable<HomeClub>>("clubs");
 
             return View(playerCreateViewModel);
         }
@@ -42,29 +43,34 @@ namespace Golf.Tournament.Controllers
         // POST: Player/Create
         [Route("players/create")]
         [HttpPost]
-        public ActionResult Create(PlayerCreateViewModel playerCreateViewModel)
+        public async Task<ActionResult> Create(PlayerCreateViewModel playerCreateViewModel)
         {
             if (ModelState.IsValid)
             {
 
 
-                playerCreateViewModel.Player = loader.Post<Player>("players/", playerCreateViewModel.Player);
+                playerCreateViewModel.Player = await loader.Post<Player>("players/", playerCreateViewModel.Player);
 
                 return RedirectToAction("Index");
             }
 
-            playerCreateViewModel.Clubs = loader.Load<IEnumerable<HomeClub>>("clubs");
+            playerCreateViewModel.Clubs = await loader.Load<IEnumerable<HomeClub>>("clubs");
             return View(playerCreateViewModel);
         }
 
         // GET: Player/Edit/5
         [Route("players/{id}/edit")]
-        public ActionResult Edit(string id)
+        public async Task<ActionResult> Edit(string id)
         {
             var playerEditViewModel = new PlayerEditViewModel();
 
-            playerEditViewModel.Clubs = loader.Load<IEnumerable<Club>>("clubs");
-            playerEditViewModel.Player = loader.Load<Player>("players/" + id);
+            var clubs = loader.Load<IEnumerable<Club>>("clubs");
+            var player = loader.Load<Player>("players/" + id);
+
+            await Task.WhenAll(clubs, player);
+
+            playerEditViewModel.Clubs = clubs.Result;
+            playerEditViewModel.Player = player.Result;
 
             return View(playerEditViewModel);
         }
@@ -72,11 +78,11 @@ namespace Golf.Tournament.Controllers
         // POST: Player/Edit/5
         [Route("players/{id}/edit")]
         [HttpPost]
-        public ActionResult Edit(string id, PlayerEditViewModel playerEditViewModel)
+        public async Task<ActionResult> Edit(string id, PlayerEditViewModel playerEditViewModel)
         {
             try
             {
-                playerEditViewModel.Player = loader.Put<Player>("players/" + id, playerEditViewModel.Player);
+                playerEditViewModel.Player = await loader.Put<Player>("players/" + id, playerEditViewModel.Player);
 
                 return RedirectToAction("Index");
             }
@@ -88,20 +94,20 @@ namespace Golf.Tournament.Controllers
 
         // GET: Participant/Delete/5
         [Route("players/{id}/delete")]
-        public ActionResult Delete(string id)
+        public async Task<ActionResult> Delete(string id)
         {
-            var player = loader.Load<Player>("players/" + id);
+            var player = await loader.Load<Player>("players/" + id);
             return View(player);
         }
 
         // POST: Player/Delete/5
         [HttpPost]
         [Route("players/{id}/delete")]
-        public ActionResult Delete(string id, FormCollection form)
+        public async Task<ActionResult> Delete(string id, FormCollection form)
         {
             try
             {
-                loader.Delete<Player>("players/" + id);
+                await loader.Delete<Player>("players/" + id);
 
                 return RedirectToAction("Index");
             }

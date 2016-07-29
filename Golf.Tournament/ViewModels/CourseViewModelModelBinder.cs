@@ -48,18 +48,22 @@ namespace Golf.Tournament.ViewModels
                         Name = Name,
                         Par = Convert.ToInt32(Par),
                         SlopeRating = float.Parse(SlopeRating),
-                        Holes = new HoleCollection()
+                        Holes = new CourseHoles()
+                        {
+                            Front = new HoleCollection(),
+                            Back = new HoleCollection()
+                        }
                     };
 
                     while (true)
                     {
-                        if (!string.IsNullOrEmpty(form["Course.TeeBoxes[" + teeBoxCounter + "].Holes[" + holeCounter + "].Number"]))
+                        if (!string.IsNullOrEmpty(form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Front[" + holeCounter + "].Number"]))
                         {
-                            string holeId = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes[" + holeCounter + "].HoleId"];
-                            string holePar = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes[" + holeCounter + "].Par"];
-                            string holeDistance = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes[" + holeCounter + "].Distance"];
-                            string holeNumber = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes[" + holeCounter + "].Number"];
-                            string holeHcp = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes[" + holeCounter + "].Hcp"];
+                            string holeId = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Front[" + holeCounter + "].HoleId"];
+                            string holePar = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Front[" + holeCounter + "].Par"];
+                            string holeDistance = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Front[" + holeCounter + "].Distance"];
+                            string holeNumber = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Front[" + holeCounter + "].Number"];
+                            string holeHcp = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Front[" + holeCounter + "].Hcp"];
 
                             var Hole = new Hole()
                             {
@@ -70,11 +74,32 @@ namespace Golf.Tournament.ViewModels
                                 Number = Convert.ToInt32(holeNumber)
                             };
 
-                            TeeBox.Holes.Add(Hole);
+                            TeeBox.Holes.Front.Add(Hole);
                             holeCounter++;
-                        } else
+                        } else if (!string.IsNullOrEmpty(form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Back[" + holeCounter + "].Number"]))
                         {
-                            TeeBox.Holes = TeeBox.Holes.OrderBy(h => h.Number).ToHoleCollection();
+                            string holeId = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Back[" + holeCounter + "].HoleId"];
+                            string holePar = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Back[" + holeCounter + "].Par"];
+                            string holeDistance = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Back[" + holeCounter + "].Distance"];
+                            string holeNumber = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Back[" + holeCounter + "].Number"];
+                            string holeHcp = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Back[" + holeCounter + "].Hcp"];
+
+                            var Hole = new Hole()
+                            {
+                                Par = Convert.ToInt32(holePar),
+                                Distance = Convert.ToInt32(holeDistance),
+                                Hcp = Convert.ToInt32(holeHcp),
+                                HoleId = holeId,
+                                Number = Convert.ToInt32(holeNumber)
+                            };
+
+                            TeeBox.Holes.Back.Add(Hole);
+                            holeCounter++;
+                        }
+                        else
+                        {
+                            TeeBox.Holes.Front = TeeBox.Holes.Front.OrderBy(h => h.Number).ToHoleCollection();
+                            TeeBox.Holes.Back = TeeBox.Holes.Back.OrderBy(h => h.Number).ToHoleCollection();
                             holeCounter = 0;
                             break;
                         }
