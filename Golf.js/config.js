@@ -8,6 +8,7 @@ var config = {
             players: "players",
             users: "users",
             tournaments: "tournaments",
+            scorecards: "scorecards"
         }
     },
     rest: {

@@ -1,35 +1,35 @@
 
-var tournamentSchema = {
-    "id": "tournamentSchema", //important thing not to forget
+
+var teamSchema = {
+    "id": "teamSchema", //important thing not to forget
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Tournament Schema",
+    "title": "Team Schema",
     "type": "object",
     "properties": {
         "_id": {
-            "type": ["string", "null", "object"]
+            "type": ["string", "null"]
         },
-        "title": {
+        "name": {
             "type": "string"
         },
-        "date": {
+        "teeTime": {
             "type": "string",
             "format": "date-time"
         },
-        "course": {
-            "$ref": "courseSchema"
-        },
-        "club": {
-            "$ref": "clubSchema"
+        "hcp": {
+            "type": ["number", "integer"],
+            "minimum": 0,
+            "maximum": 54
         },
         "participants": {
             "type": ["array", "null"],
             "items": {
                 "$ref": "participantSchema"
             }
-        },
+        } 
     },
-    "required": ["title"]
+    "required": ["name", "hcp"]
 }
 
 
-module.exports = tournamentSchema;
+module.exports = playerSchema;

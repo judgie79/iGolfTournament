@@ -35,3 +35,17 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+/Golf.Excel/Golf.Excel/Golf.Excel.csproj.user
+/Golf.Excel/Golf.Excel/bin
+/Golf.Excel/Golf.Excel/obj
+/Golf.Excel.Tests/Golf.Excel.Tests.csproj.user
+/Golf.Excel.Tests/bin
+/Golf.Excel.Tests/obj
+/Golf.Models/obj
+/Golf.Models/bin
+/Golf.Tournament/Golf.Tournament.csproj.user
+/Golf.Tournament/bin
+/Golf.Tournament/obj
+/Golf.Tournament.Tests/obj
+/Golf.Tournament.Tests/bin
+/TestResults
