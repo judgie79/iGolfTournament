@@ -1,26 +1,26 @@
-﻿var courseScheme = {
-    "id": "courseSchema", //important thing not to forget
+﻿
+var participantSchema = {
+    "id": "participantSchema", //important thing not to forget
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "title": "Course Schema",
+    "title": "Participant Schema",
     "type": "object",
     "properties": {
         "_id": {
-            "type": ["string", "null"]
+            "type": ["string", "null", "object"]
         },
-        "clubId": {
-            "type": "string"
+        "teeBoxId": {
+            "type": ["string", "object"]
         },
-        "name": {
-            "type": "string"
+        "teeTime": {
+            "type": "string",
+            "format": "date-time"
         },
-        "teeboxes": {
-            "type": "array",
-            "items": {
-                "$ref": "teeboxSchema"
-            }
+        "player": {
+            "$ref" : "playerSchema"
         }
     },
-    "required": ["clubId", "name"]
+    "required": ["teeBoxId", "player"]
 }
 
-module.exports = courseScheme;
+
+module.exports = participantSchema;

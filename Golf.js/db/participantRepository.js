@@ -10,7 +10,7 @@ var mongoUtil = require('../db/mongoUtil');
 var CrudRepository = require('./crudRepository.js');
 var crudRepository = new CrudRepository(config.db.collections.clubs);
 
-var Validator = require('./clubValidator');
+var Validator = require('./tournamentValidator');
 
 module.exports.deleteParticipant = function (tournamentId, participantId, callback) {
     var db = mongoUtil.getDb();

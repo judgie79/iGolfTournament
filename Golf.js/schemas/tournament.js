@@ -20,7 +20,13 @@ var tournamentSchema = {
         },
         "club": {
             "$ref": "clubSchema"
-        }
+        },
+        "participants": {
+            "type": ["array", "null"],
+            "items": {
+                "$ref": "participantSchema"
+            }
+        },
     },
     "required": ["title"]
 }
