@@ -41,7 +41,7 @@ module.exports.create = function (newplayer, callback) {
 }
 
 module.exports.update = function (id, updatePlayer, callback) {
-    var val = new Validator(newplayer);
+    var val = new Validator(updatePlayer);
     
     var updater = new Updater();
     var db = mongoUtil.getDb();
@@ -52,7 +52,7 @@ module.exports.update = function (id, updatePlayer, callback) {
         return updater.updateHomeClub(db, config.db.collections.clubs, updatePlayer, true);
 
     }).then(function(player) {
-        crudRepository.update(id, newplayer, callback);
+        crudRepository.update(id, updatePlayer, callback);
     }).catch(function(err) {
         callback(err, null);
     });

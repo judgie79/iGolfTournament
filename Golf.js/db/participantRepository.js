@@ -8,7 +8,7 @@ var ObjectID = mongodb.ObjectID;
 var mongoUtil = require('../db/mongoUtil');
 
 var CrudRepository = require('./crudRepository.js');
-var crudRepository = new CrudRepository(config.db.collections.clubs);
+var crudRepository = new CrudRepository(config.db.collections.tournaments);
 
 var Validator = require('./tournamentValidator');
 

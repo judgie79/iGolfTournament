@@ -14,6 +14,7 @@ var playerRouter = require('./routes/players');
 var userRouter = require('./routes/users');
 var tournamentRouter = require('./routes/tournaments');
 var participantRouter = require('./routes/participants');
+var scorecardRouter = require('./routes/scorecards');
 
 
 var passport = require('passport');
@@ -34,6 +35,7 @@ app.use('/' + config.rest.apiPrefix + '/courses', teeboxRouter);
 app.use('/' + config.rest.apiPrefix + '/players', playerRouter);
 app.use('/' + config.rest.apiPrefix + '/tournaments', tournamentRouter);
 app.use('/' + config.rest.apiPrefix + '/tournaments', participantRouter);
+app.use('/' + config.rest.apiPrefix + '/tournaments', scorecardRouter);
 app.use('/' + config.rest.apiPrefix + '/users', userRouter);
 
 app.use('/schemas', express.static('schemas'));
