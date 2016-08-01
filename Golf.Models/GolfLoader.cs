@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
@@ -30,7 +31,7 @@ namespace Golf.Tournament.Controllers
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }
         
-        public async Task<TModel> Load<TModel>(string requestUri)
+        public async Task<TModel> LoadAsync<TModel>(string requestUri)
         {
                 var response = await client.GetAsync(requestUri);
                 
@@ -44,7 +45,22 @@ namespace Golf.Tournament.Controllers
                 }
         }
 
-        public async Task<TModel> Post<TModel>(string requestUri, TModel model)
+        public async Task<TModel> LoadAsync<TModel, TFormatter>(string requestUri)
+            where TFormatter : MediaTypeFormatter, new()
+        {
+                var response = await client.GetAsync(requestUri);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadAsAsync<TModel>(new[] { new TFormatter() });
+                }
+                else
+                {
+                    throw new ApiException(response);
+                }
+        }
+
+        public async Task<TModel> PostAsync<TModel>(string requestUri, TModel model)
         {
             var response = await client.PostAsJsonAsync(requestUri, model);
 
@@ -58,7 +74,7 @@ namespace Golf.Tournament.Controllers
             }
         }
 
-        public async Task<TResultModel> Post<TModel, TResultModel>(string requestUri, TModel model)
+        public async Task<TResultModel> PostAsync<TModel, TResultModel>(string requestUri, TModel model)
         {
             var response = await client.PostAsJsonAsync(requestUri, model);
 
@@ -72,7 +88,7 @@ namespace Golf.Tournament.Controllers
             }
         }
 
-        public async Task<TResultModel> Put<TModel, TResultModel>(string requestUri, TModel model)
+        public async Task<TResultModel> PutAsync<TModel, TResultModel>(string requestUri, TModel model)
         {
             var response = await client.PutAsJsonAsync(requestUri, model);
 
@@ -86,7 +102,7 @@ namespace Golf.Tournament.Controllers
             }
         }
 
-        public async Task<TModel> Put<TModel>(string requestUri, TModel model)
+        public async Task<TModel> PutAsync<TModel>(string requestUri, TModel model)
         {
             var response = await client.PutAsJsonAsync(requestUri, model);
 

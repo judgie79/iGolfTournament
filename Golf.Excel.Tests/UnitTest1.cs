@@ -13,11 +13,11 @@ namespace Golf.Excel.Tests
     public class UnitTest1
     {
         [TestMethod]
-        public async Task TestMethod1()
+        public async Task TestMethod1Async()
         {
 
             GolfLoader loader = new GolfLoader("http://localhost:8080/api/");
-            IEnumerable<Golf.Tournament.Models.Tournament> tournaments = await loader.Load<IEnumerable<Golf.Tournament.Models.Tournament>>("tournaments/");
+            IEnumerable<Golf.Tournament.Models.Tournament> tournaments = await loader.LoadAsync<IEnumerable<Golf.Tournament.Models.Tournament>>("tournaments/");
             var tournament = tournaments.First(t => t.HasStarted);
 
             using (TournamentWorkbook wb = new TournamentWorkbook())

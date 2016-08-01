@@ -15,8 +15,8 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes")]
         public async Task<ActionResult> Index(string clubId, string courseId)
         {
-            var club = loader.Load<Club>("clubs/" + clubId);
-            var course = loader.Load<Course>("courses/" + courseId);
+            var club = loader.LoadAsync<Club>("clubs/" + clubId);
+            var course = loader.LoadAsync<Course>("courses/" + courseId);
             await Task.WhenAll(club, course);
 
             return View(new TeeboxListViewModel(club.Result, course.Result));
@@ -26,8 +26,8 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{id}")]
         public async Task<ActionResult> Details(string clubId, string courseId, string id)
         {
-            var club = loader.Load<Club>("clubs/" + clubId);
-            var course = loader.Load<Course>("courses/" + courseId);
+            var club = loader.LoadAsync<Club>("clubs/" + clubId);
+            var course = loader.LoadAsync<Course>("courses/" + courseId);
             await Task.WhenAll(club, course);
 
             return View(new TeeboxDetailsViewModel()
@@ -42,8 +42,8 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/create")]
         public async Task<ActionResult> Create(string clubId, string courseId)
         {
-            var club = loader.Load<Club>("clubs/" + clubId);
-            var course = loader.Load<Course>("courses/" + courseId);
+            var club = loader.LoadAsync<Club>("clubs/" + clubId);
+            var course = loader.LoadAsync<Course>("courses/" + courseId);
             await Task.WhenAll(club, course);
             return View(new TeeboxCreateViewModel()
             {
@@ -65,13 +65,13 @@ namespace Golf.Tournament.Controllers
             if (ModelState.IsValid)
             {
 
-                await loader.Post<TeeBox, Course>("courses/" + courseId + "/teeboxes", teeboxCreateViewModel.Teebox);
+                await loader.PostAsync<TeeBox, Course>("courses/" + courseId + "/teeboxes", teeboxCreateViewModel.Teebox);
                 return RedirectToAction("Index");
             }
             else
             {
-                var club = loader.Load<Club>("clubs/" + clubId);
-                var course = loader.Load<Course>("courses/" + courseId);
+                var club = loader.LoadAsync<Club>("clubs/" + clubId);
+                var course = loader.LoadAsync<Course>("courses/" + courseId);
                 await Task.WhenAll(club, course);
 
                 teeboxCreateViewModel.Club = club.Result;
@@ -85,9 +85,9 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{id}/edit")]
         public async Task<ActionResult> Edit(string clubId, string courseId, string id)
         {
-            var club = loader.Load<Club>("clubs/" + clubId);
-            var course = loader.Load<Course>("courses/" + courseId);
-            var courses = loader.Load<IEnumerable<Course>>("clubs/" + clubId + "/courses");
+            var club = loader.LoadAsync<Club>("clubs/" + clubId);
+            var course = loader.LoadAsync<Course>("courses/" + courseId);
+            var courses = loader.LoadAsync<IEnumerable<Course>>("clubs/" + clubId + "/courses");
 
             await Task.WhenAll(club, course, courses);
 
@@ -104,8 +104,8 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{id}/edit")]
         public async Task<ActionResult> Edit(string clubId, string courseId, string id, [ModelBinder(typeof(TeeboxEditViewModelBinder))]TeeboxEditViewModel teeboxEditViewModel)
         {
-            var club = loader.Load<Club>("clubs/" + clubId);
-            var course = loader.Load<Course>("courses/" + courseId);
+            var club = loader.LoadAsync<Club>("clubs/" + clubId);
+            var course = loader.LoadAsync<Course>("courses/" + courseId);
 
             await Task.WhenAll(club, course);
 
@@ -120,7 +120,7 @@ namespace Golf.Tournament.Controllers
 
                 teeboxEditViewModel.Course.TeeBoxes[teeboxEditViewModel.Course.TeeBoxes.IndexOf(teebox)] = teeboxEditViewModel.Teebox;
 
-                await loader.Put<Course>("courses/" + courseId, teeboxEditViewModel.Course);
+                await loader.PutAsync<Course>("courses/" + courseId, teeboxEditViewModel.Course);
                 return RedirectToAction("Index");
             }
             else
@@ -137,9 +137,9 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{id}/delete")]
         public async Task<ActionResult> Delete(string clubId, string courseId, string id)
         {
-            var club = loader.Load<Club>("clubs/" + clubId);
-            var course = loader.Load<Course>("courses/" + courseId);
-            var courses = loader.Load<IEnumerable<Course>>("clubs/" + clubId + "/courses");
+            var club = loader.LoadAsync<Club>("clubs/" + clubId);
+            var course = loader.LoadAsync<Course>("courses/" + courseId);
+            var courses = loader.LoadAsync<IEnumerable<Course>>("clubs/" + clubId + "/courses");
 
             await Task.WhenAll(club, course, courses);
 
@@ -156,14 +156,14 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{id}/delete")]
         public async Task<ActionResult> Delete(string clubId, string courseId, string id, FormCollection form)
         {
-            var club = loader.Load<Club>("clubs/" + clubId);
-            var course = loader.Load<Course>("courses/" + courseId);
+            var club = loader.LoadAsync<Club>("clubs/" + clubId);
+            var course = loader.LoadAsync<Course>("courses/" + courseId);
             await Task.WhenAll(club, course);
 
             try
             {
                 course.Result.TeeBoxes.Remove(course.Result.TeeBoxes.First(t => t.Id == id));
-                await loader.Put<Course>("courses/" + courseId, course.Result);
+                await loader.PutAsync<Course>("courses/" + courseId, course.Result);
                 return RedirectToAction("Index");
             }
             catch

@@ -53,5 +53,6 @@ namespace Golf.Tournament.ViewModels
         public IEnumerable<Models.Tournament> Tournaments { get; set; }
 
         public Golf.Tournament.Models.Tournament LabelModel = new Models.Tournament();
+
     }
 }

@@ -18,7 +18,8 @@ namespace Golf.Tournament.ViewModels
             string clubId = request.Form.Get("ClubId");
 
             string title = request.Form.Get("Tournament.Title");
-            var type = (TournamentType)Enum.Parse(typeof(TournamentType), request.Form.Get("TournamentType"));
+            var type = (TournamentType)Convert.ToInt16(request.Form.Get("TournamentType"));
+            var scoreType = (ScoreType)Convert.ToInt16(request.Form.Get("StrokeType"));
 
             string dateKey = request.Form.Get("Tournament.Date") ?? request.Form.Get("Tournament.Date.Tournament.Date");
             DateTime date = DateTime.Parse(dateKey);
@@ -27,35 +28,38 @@ namespace Golf.Tournament.ViewModels
 
             switch (type)
             {
-                case TournamentType.Stableford_Single:
+                case TournamentType.Single:
                     t = new Models.Tournament();
+                    
                     break;
-                case TournamentType.Stableford_Team:
+                case TournamentType.Team:
                     t = new Models.TeamTournament();
                     break;
                 default:
+                    t = new Models.Tournament();
                     break;
             }
+
+            t.ScoreType = scoreType;
+            t.Title = title;
+            t.Date = date.ToUniversalTime();
+            t.Club = new Club()
+            {
+                Id = clubId
+            };
+            t.Course = new Course()
+            {
+                Id = courseId,
+                ClubId = clubId
+            };
 
             return new TournamentCreateViewModel<Models.Tournament>
             {
                 ClubId = clubId,
                 CourseId = courseId,
-                TournamenType = type,
-                Tournament = new Models.Tournament()
-                {
-                    Title = title,
-                    Date = date.ToUniversalTime(),
-                    Club = new Club()
-                    {
-                        Id = clubId
-                    },
-                    Course = new Course()
-                    {
-                        Id = courseId,
-                        ClubId = clubId
-                    }
-                }
+                TournamentType = type,
+                Tournament = t,
+                ScoreType = scoreType
             };
         }
     }

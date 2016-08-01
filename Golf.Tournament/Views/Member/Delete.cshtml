@@ -1,0 +1,77 @@
+﻿@model Golf.Tournament.ViewModels.MemberDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+@Html.DisplayFor(model => model.Tournament)
+
+@Html.DisplayFor(model => model.Team)
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h2 class="panel-title">Are you sure you want to remove the player from the team?</h2>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Member.TeeboxId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Member.TeeboxId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Member.Teetime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Member.Teetime)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Member.Player.Lastname)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Member.Player.Lastname)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Member.Player.Firstname)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Member.Player.Firstname)
+            </dd>
+
+        </dl>
+
+
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-sm btn-default" })
+            </div>
+            <div class="col-sm-9">
+                <div class="pull-right">
+                    @using (Html.BeginForm())
+            {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            @Html.HiddenFor(model => model.Tournament.Id)
+                            @Html.HiddenFor(model => model.Team.Id)
+                            @Html.HiddenFor(model => model.Member.Id)
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

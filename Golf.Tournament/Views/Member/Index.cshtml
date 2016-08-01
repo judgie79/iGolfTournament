@@ -1,0 +1,103 @@
+﻿@model Golf.Tournament.ViewModels.MemberListViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@Model.Tournament.Title - @Model.Team.Name - Members</h2>
+
+@Html.DisplayFor(model => model.Tournament)
+
+@Html.DisplayFor(model => model.Team)
+
+@if (!Model.Tournament.HasStarted && (Model.Tournament.Participants != null && Model.Tournament.Participants.Any()))
+{
+    <p>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-sm btn-primary btn-lg" data-toggle="modal" data-target="#myModal_AddParticipant">
+            Register Member
+        </button>
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LabelModel.TeeboxId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LabelModel.Teetime)
+        </th>
+        <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Lastname)</th>
+        <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Firstname)</th>
+        <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Hcp)</th>
+        <th>@Html.Label("Homeclub")</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Team.Members) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeeboxId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Teetime)
+        </td>
+        <td>@Html.DisplayFor(model => item.Player.Lastname)</td>
+        <td>@Html.DisplayFor(model => item.Player.Firstname)</td>
+        <td>@Html.DisplayFor(model => item.Player.Hcp)</td>
+        <td>@Html.DisplayFor(model => item.Player.HomeClub.Name)</td>
+
+        <td>
+            @if (!Model.Tournament.HasStarted)
+            {
+                @Html.ActionLink("Edit", "Edit", "Member", new { id = item.Id, teamId = Model.Team.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-default" })
+            }
+            @Html.ActionLink("Details", "Details", "Participant", new { id = item.Id, teamId = Model.Team.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-default" })
+            @if (!Model.Tournament.HasStarted)
+            {
+                @Html.ActionLink("Delete", "Delete", "Member", new { id = item.Id, teamId = Model.Team.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-danger" })
+            }
+        </td>
+
+    </tr>
+}
+
+</table>
+
+<p>
+    @Html.ActionLink("Back to Team", "Details", "Team", new { id = Model.Team.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-default" })
+</p>
+@using (Html.BeginContent("bottom"))
+{
+    <!-- Modal Add Participant -->
+    <div class="modal fade" id="myModal_AddParticipant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <form method="post" action="@Url.Action("Create", "Member", new { tournamentId = Model.Tournament.Id, teamId = Model.Team.Id })">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add Participant</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.Partial("Create", Model.MemberCreateViewModel)
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Register Member</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Add Member -->
+}

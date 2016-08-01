@@ -29,7 +29,7 @@ namespace Golf.Tournament.Controllers
         [Route("tournaments/{id}/excel/create")]
         public async Task<FileResult> Create(string id)
         {
-            var tournament = await loader.Load<Models.Tournament>("tournaments/" + id);
+            var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + id);
             String savePath = ControllerContext.HttpContext.Server.MapPath("~/scorecards/");
             var spreadsheetSaveLocation = Path.Combine(savePath, string.Format("{0}.xlsx", id));
 

@@ -21,7 +21,7 @@ var teamSchema = {
             "minimum": 0,
             "maximum": 54
         },
-        "participants": {
+        "members": {
             "type": ["array", "null"],
             "items": {
                 "$ref": "participantSchema"

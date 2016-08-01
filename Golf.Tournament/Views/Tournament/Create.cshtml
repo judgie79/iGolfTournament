@@ -11,28 +11,42 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+    <div class="form-horizontal row">
         <h4>Tournament</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
+            @Html.LabelFor(model => model.TournamentType, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-3">
+                @Html.EnumDropDownListFor(model => model.TournamentType)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ScoreType, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-3">
+                @Html.EnumDropDownListFor(model => model.ScoreType)
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.ClubId, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
+            <div class="col-sm-3">
                 @Html.DropDownListFor(model => model.ClubId, Model.Clubs.Select(club => new SelectListItem() { Text = club.Name, Value = club.Id, Selected = Model.ClubId == club.Id }))
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
+            <div class="col-sm-3">
                 @Html.DropDownListFor(model => model.CourseId, Model.Courses.Select(course => new SelectListItem() { Text = course.Name, Value = course.Id, Selected = Model.CourseId == course.Id }))
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Tournament.Title, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
+            <div class="col-sm-3">
                 @Html.EditorFor(model => model.Tournament.Title, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Tournament.Title, "", new { @class = "text-danger" })
             </div>
@@ -40,14 +54,14 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Tournament.Date, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
+            <div class="col-sm-3">
                 @Html.EditorFor(model => model.Tournament.Date, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Tournament.Date, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-sm-10">
+            <div class="col-md-offset-2 col-sm-4">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>

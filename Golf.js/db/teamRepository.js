@@ -1,0 +1,280 @@
+var config = require("../config.js");
+
+
+var express = require('express');
+var mongodb = require("mongodb");
+var ObjectID = mongodb.ObjectID;
+
+var mongoUtil = require('../db/mongoUtil');
+
+var CrudRepository = require('./crudRepository.js');
+var crudRepository = new CrudRepository(config.db.collections.tournaments);
+
+var Validator = require('./tournamentValidator');
+
+module.exports.deleteTeam = function (tournamentId, teamId, callback) {
+    var db = mongoUtil.getDb();
+
+    crudRepository.findById(tournamentId, function (err, doc) {
+        if (err) {
+            callback(err, null);
+        }
+
+        var val = new Validator(doc);
+
+        val.tournamentNotStarted().then(function () {
+            db.collection(config.db.collections.tournaments).update({ "_id": new ObjectID(tournamentId) },
+                { $pull: { "teams": { "_id": new ObjectID(teamId) } } }, false, callback);
+        }).catch(function (err) {
+            callback(err, updateTournament);
+        });
+    });
+};
+
+module.exports.updateTeam = function (tournamentId, id, team, callback) {
+    var db = mongoUtil.getDb();
+
+    crudRepository.findById(tournamentId, function (err, doc) {
+        var val = new Validator(doc);
+        val.tournamentNotStarted().then(function () {
+            delete team._id;
+
+            team._id = new ObjectID(id);
+
+            db.collection(config.db.collections.tournaments).update(
+                {
+                    _id: new ObjectID(tournamentId),
+                    "teams._id": team._id
+                },
+                {
+                    $set: { "teams.$": team }
+                },
+                function (err, part) {
+                    db.collection(config.db.collections.tournaments).findOne(
+                        { "_id": new ObjectID(tournamentId) },
+                        function (err, tournament) {
+                            callback(err, tournament);
+                        }
+                    );
+                }
+            );
+        }).catch(function (err) {
+            callback(err, null);
+        });
+    });
+}
+
+module.exports.registerTeam = function (tournamentId, team, callback) {
+    var db = mongoUtil.getDb();
+
+    crudRepository.findById(tournamentId, function (err, doc) {
+        var val = new Validator(doc);
+        val.tournamentNotStarted().then(function () {
+
+            team._id = new ObjectID();
+            team.members = team.members || [];
+            db.collection(config.db.collections.tournaments).update(
+                {
+                    _id: new ObjectID(tournamentId)
+                },
+                {
+                    "$push": { "teams": team }
+                },
+                function (err, part) {
+                    db.collection(config.db.collections.tournaments).findOne(
+                        { "_id": new ObjectID(tournamentId) },
+                        function (err, tournament) {
+                            callback(err, tournament);
+                        }
+                    );
+                }
+            );
+        });
+    });
+}
+
+//members
+
+module.exports.deleteTeamMember = function (tournamentId, teamId, participantId, callback) {
+    var db = mongoUtil.getDb();
+
+    crudRepository.findById(tournamentId, function (err, doc) {
+        if (err) {
+            callback(err, null);
+        }
+
+        var val = new Validator(doc);
+
+        val.tournamentNotStarted().then(function () {
+
+            var team = doc.teams.find(function (t) {
+                return t._id == teamId;
+            });
+
+            var hcp = team.members.reduce(function (previousValue, currentValue) {
+                if (currentValue._id == participantId) {
+                    return previousValue;
+                }
+
+                if (isNaN(previousValue)) {
+                    return currentValue.player.hcp;
+                } else {
+                    return currentValue.player.hcp + previousValue;
+                }
+
+
+            }) / (team.members.length - 1);
+
+            db.collection(config.db.collections.tournaments).update({
+                "_id": new ObjectID(tournamentId),
+                "teams.teamId": new ObjectID(teamId),
+                "teams.members._id": new ObjectID(participantId)
+            },
+
+                {
+                    $pull: { "teams.$.members": { "_id": new ObjectID(participantId) } },
+                },
+                false, function (err, tourn) {
+                    if (err) {
+                        callback(err, null);
+                    }
+
+                    db.collection(config.db.collections.tournaments).update({
+                        "_id": new ObjectID(tournamentId),
+                        "teams._id": new ObjectID(teamId)
+                    },
+                        {  "$set" : {"teams.$.hcp": hcp } },
+                        false, function (err, tourn) {
+                            callback(err, null);
+                        });
+
+                });
+        }).catch(function (err) {
+
+
+
+            callback(err, updateTournament);
+        });
+    });
+};
+
+module.exports.updateTeamMember = function (tournamentId, id, team, callback) {
+    var db = mongoUtil.getDb();
+
+    crudRepository.findById(tournamentId, function (err, doc) {
+        var val = new Validator(doc);
+        val.tournamentNotStarted().then(function () {
+            delete participant._id;
+
+            db.collection(config.db.collections.players).findOne(
+                { "_id": new ObjectID(participant.player._id) },
+                function (err, player) {
+                    participant._id = new ObjectID(id);
+                    participant.player = player;
+                    participant.player._id = new ObjectID(participant.player._id);
+                    participant.player.homeClub._id = new ObjectID(participant.player.homeClub._id);
+                    participant.teeBoxId = new ObjectID(participant.teeBoxId);
+
+                    db.collection(config.db.collections.tournaments).update(
+                        {
+                            _id: new ObjectID(tournamentId),
+                            "teams._id": new ObjectID(teamId),
+                            "teams.members._id": participant._id
+                        },
+                        {
+                            $set: { "teams.$.members.$": participant }
+                        },
+                        function (err, part) {
+                            db.collection(config.db.collections.tournaments).findOne(
+                                { "_id": new ObjectID(tournamentId) },
+                                function (err, tournament) {
+                                    callback(err, tournament);
+                                }
+                            );
+                        }
+                    );
+                });
+        }).catch(function (err) {
+            callback(err, null);
+        });
+    });
+}
+
+module.exports.registerTeamMember = function (tournamentId, teamId, participant, callback) {
+    var db = mongoUtil.getDb();
+
+    crudRepository.findById(tournamentId, function (err, doc) {
+        var val = new Validator(doc);
+        val.tournamentNotStarted().then(function () {
+
+
+            db.collection(config.db.collections.tournaments).findOne(
+                {
+                    "_id": new ObjectID(tournamentId),
+                    "teams._id": new ObjectID(teamId),
+                    "teams.members._id": new ObjectID(participant._id),
+                },
+                function (err, tournament) {
+                    if (tournament != null) {
+                        callback({ message: "Participant is already a team member!" }, null);
+                        return;
+                    }
+
+                    tournament = doc;
+
+                    var team = tournament.teams.find(function (t) {
+                        return t._id == teamId;
+                    });
+
+                    var fullPart = tournament.participants.find(function (part) {
+                        return part._id.toHexString() === participant._id;
+                    });
+
+                    var hcp = fullPart.player.hcp;
+                    
+                    if(team.members && team.members.length > 0) {
+                        hcp = team.members.reduce(function (previousValue, currentValue) {
+
+                            if (isNaN(previousValue)) {
+                                return currentValue.player.hcp;
+                            } else {
+                                return currentValue.player.hcp + previousValue;
+                            }
+
+
+                        }) + fullPart.player.hcp / team.members.length + 1;
+                    }
+                    fullPart.teeTime = team.teeTime;
+                    db.collection(config.db.collections.tournaments).update(
+                        {
+                            _id: new ObjectID(tournamentId),
+                            "teams._id": new ObjectID(teamId)
+                        },
+                        {
+                            "$push": { "teams.$.members": fullPart }
+                        },
+                        function (err, part) {
+
+                            db.collection(config.db.collections.tournaments).update({
+                                "_id": new ObjectID(tournamentId),
+                                "teams._id": new ObjectID(teamId)
+                            },
+                                { "teams.$.hcp": hcp },
+                                false, function (err, tourn) {
+                                    db.collection(config.db.collections.tournaments).findOne(
+                                        { "_id": new ObjectID(tournamentId) },
+                                        function (err, tournament) {
+                                            callback(err, tournament);
+                                        }
+                                    );
+                                });
+
+                            
+                        }
+                    );
+                });
+        }).catch(function (err) {
+            callback(err, null);
+        });
+    });
+}

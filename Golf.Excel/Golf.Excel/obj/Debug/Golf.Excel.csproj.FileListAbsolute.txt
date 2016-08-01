@@ -17,11 +17,11 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\bin\Debug\Golf.Exce
 D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\bin\Debug\Golf.Excel.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\bin\Debug\Golf.Excel.pdb
 D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\bin\Debug\Golf.Models.dll
-D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\bin\Debug\Newtonsoft.Json.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\bin\Debug\System.Net.Http.Formatting.dll
+D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\bin\Debug\Newtonsoft.Json.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\bin\Debug\Golf.Models.pdb
-D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\bin\Debug\Newtonsoft.Json.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\bin\Debug\System.Net.Http.Formatting.xml
+D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\bin\Debug\Newtonsoft.Json.xml
 D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\obj\Debug\Golf.Excel.csprojResolveAssemblyReference.cache
 D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\obj\Debug\Golf.Excel.csproj.ResolveComReference.cache
 D:\theju\Documents\Git\iGolfTournament\Golf.Excel\Golf.Excel\obj\Debug\Golf.Excel.dll

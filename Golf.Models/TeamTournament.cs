@@ -9,6 +9,11 @@ namespace Golf.Tournament.Models
 {
     public class TeamTournament : Tournament
     {
+        public TeamTournament()
+        {
+            Teams = new TeamCollection();
+        }
+
         [JsonProperty("teams")]
         public TeamCollection Teams { get; set; }
     }

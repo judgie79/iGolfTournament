@@ -15,7 +15,7 @@ namespace Golf.Tournament.Controllers
         [Route("courses")]
         public async Task<ActionResult> Index()
         {
-            var courses = await loader.Load<IEnumerable<Course>>("courses");
+            var courses = await loader.LoadAsync<IEnumerable<Course>>("courses");
 
             return View(courses);
         }
@@ -23,7 +23,7 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{id}/courses")]
         public async Task<ActionResult> GetCoursesFromClub(string id)
         {
-            var courses = await loader.Load<IEnumerable<Course>>("clubs/" + id + "/courses");
+            var courses = await loader.LoadAsync<IEnumerable<Course>>("clubs/" + id + "/courses");
 
             return View("Index", courses);
         }
@@ -32,8 +32,8 @@ namespace Golf.Tournament.Controllers
         [Route("courses/{id}")]
         public async Task<ActionResult> Details(string id)
         {
-            var course = await loader.Load<Course>("courses/" + id);
-            var club = await loader.Load<Club>("clubs/" + course.ClubId);
+            var course = await loader.LoadAsync<Course>("courses/" + id);
+            var club = await loader.LoadAsync<Club>("clubs/" + course.ClubId);
 
             return View(new CourseDetailsViewModel()
             {
@@ -50,7 +50,7 @@ namespace Golf.Tournament.Controllers
 
             courseCreateViewModel.Course = new Course();
 
-            var clubs = await loader.Load<IEnumerable<Club>>("clubs");
+            var clubs = await loader.LoadAsync<IEnumerable<Club>>("clubs");
             courseCreateViewModel.Clubs = clubs;
 
             if (!string.IsNullOrWhiteSpace(clubId))
@@ -64,8 +64,8 @@ namespace Golf.Tournament.Controllers
         [Route("courses/create")]
         public async Task<ActionResult> Create([ModelBinder(typeof(CourseViewModelModelBinder<CourseCreateViewModel>))] CourseCreateViewModel courseCreateViewModel)
         {
-            var clubs = loader.Load<IEnumerable<Club>>("clubs/");
-            var course = loader.Post<Course>("Courses/", courseCreateViewModel.Course);
+            var clubs = loader.LoadAsync<IEnumerable<Club>>("clubs/");
+            var course = loader.PostAsync<Course>("Courses/", courseCreateViewModel.Course);
             await Task.WhenAll(clubs, course);
             if (ModelState.IsValid)
             {
@@ -86,8 +86,8 @@ namespace Golf.Tournament.Controllers
         {
             CourseEditViewModel courseEditViewModel = new CourseEditViewModel();
 
-            courseEditViewModel.Course = await loader.Load<Course>("courses/" + id);
-            courseEditViewModel.Club = await loader.Load<Club>("clubs/" + courseEditViewModel.Course.ClubId);
+            courseEditViewModel.Course = await loader.LoadAsync<Course>("courses/" + id);
+            courseEditViewModel.Club = await loader.LoadAsync<Club>("clubs/" + courseEditViewModel.Course.ClubId);
 
             return View(courseEditViewModel);
         }
@@ -97,19 +97,19 @@ namespace Golf.Tournament.Controllers
         [Route("courses/{id}/edit")]
         public async Task<ActionResult> Edit(string id, [ModelBinder(typeof(CourseViewModelModelBinder<CourseEditViewModel>))] CourseEditViewModel courseEditViewModel)
         {
-            var tCourse = await loader.Load<Course>("courses/" + id);
+            var tCourse = await loader.LoadAsync<Course>("courses/" + id);
             courseEditViewModel.Course.TeeBoxes = tCourse.TeeBoxes;
 
             if (ModelState.IsValid)
             {
                 
-                courseEditViewModel.Course = await loader.Put<Course>("courses/" + id, courseEditViewModel.Course);
+                courseEditViewModel.Course = await loader.PutAsync<Course>("courses/" + id, courseEditViewModel.Course);
 
                 return RedirectToAction("Index");
             }
             else
             {
-                courseEditViewModel.Club = await loader.Load<Club>("clubs/" + courseEditViewModel.Course.ClubId);
+                courseEditViewModel.Club = await loader.LoadAsync<Club>("clubs/" + courseEditViewModel.Course.ClubId);
                 return View(courseEditViewModel);
             }
         }
@@ -118,7 +118,7 @@ namespace Golf.Tournament.Controllers
         [Route("courses/{id}/delete")]
         public async Task<ActionResult> Delete(string id)
         {
-            Course course = await loader.Load<Course>("courses/" + id);
+            Course course = await loader.LoadAsync<Course>("courses/" + id);
 
             return View(course);
         }

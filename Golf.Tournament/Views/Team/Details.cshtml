@@ -1,0 +1,90 @@
+﻿@model Golf.Tournament.ViewModels.TeamDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Team</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Team.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Team.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Team.Hcp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Team.Hcp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Team.Teetime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Team.Teetime)
+        </dd>
+
+    </dl>
+</div>
+
+<table class="table">
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model.MemberLabelModel.TeeboxId)
+        </td>
+        <th>
+            @Html.DisplayNameFor(model => model.MemberLabelModel.Teetime)
+        </th>
+        <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Lastname)</th>
+        <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Lastname)</th>
+        <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Firstname)</th>
+        <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Hcp)</th>
+        <th>@Html.Label("Homeclub")</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Team.Members)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TeeboxId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Teetime)
+            </td>
+            <td>@Html.DisplayFor(model => item.Player.Lastname)</td>
+            <td>@Html.DisplayFor(model => item.Player.Firstname)</td>
+            <td>@Html.DisplayFor(model => item.Player.Hcp)</td>
+            <td>@Html.DisplayFor(model => item.Player.HomeClub.Name)</td>
+
+            <td>
+                @if (!Model.Tournament.HasStarted)
+                {
+                    @Html.ActionLink("Edit", "Edit", "Participant", new { id = item.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-default" })
+                }
+                @Html.ActionLink("Details", "Details", "Participant", new { id = item.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-default" })
+                @if (!Model.Tournament.HasStarted)
+                {
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-danger" })
+                }
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { tournamentId = Model.Tournament.Id, id = Model.Team.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

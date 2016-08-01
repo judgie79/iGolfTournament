@@ -18,7 +18,14 @@ Updater.prototype.updateTournament = function (tournament, update) {
         me.updateCourse(db, config.db.collections.courses, tournament, update).then(function (updatedTournament) {
             return me.updateClub(db, config.db.collections.clubs, updatedTournament, update)
         }).then(function (updatedTournament) {
-            return me.updatePlayers(db, config.db.collections.players, updatedTournament, update);
+            
+            if(tournament.type === "single") {
+                return me.updatePlayers(db, config.db.collections.players, updatedTournament, update);
+            }
+            else if(tournament.type === "team") {
+                return me.updateTeams(db, config.db.collections.players, updatedTournament, update);
+            }
+            
         }).then(function (updatedTournament) {
             resolve(updatedTournament);
         }).catch(function (err) {
@@ -46,6 +53,18 @@ Updater.prototype.updateCourse = function (db, collection, tournament, update) {
             }
             resolve(tournament);
         });
+    });
+};
+
+Updater.prototype.updateTeams = function (db, collection, tournament, update) {
+
+    return new Promise(function (resolve, reject) {
+        if (tournament.teams == null || tournament.teams.length == 0)
+        {
+             tournament.teams = [];
+             resolve(tournament);
+        }
+        resolve(tournament);
     });
 };
 

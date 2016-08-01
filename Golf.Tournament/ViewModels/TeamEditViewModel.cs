@@ -18,4 +18,14 @@ namespace Golf.Tournament.ViewModels
 
         public Course Course { get; internal set; }
     }
+
+    public class TeamDetailsViewModel
+    {
+        public Team Team { get; set; }
+
+        public Models.Tournament Tournament { get; set; }
+
+        public TournamentParticipant MemberLabelModel = new TournamentParticipant();
+
+    }
 }

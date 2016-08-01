@@ -1,0 +1,59 @@
+﻿@model Golf.Tournament.ViewModels.TeamDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h2 class="panel-title">Are you sure you want to remove the player from the tournament?</h2>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Team.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Team.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Team.Teetime)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Team.Teetime)
+            </dd>
+
+
+
+        </dl>
+
+
+    </div>
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col-sm-3">
+                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-sm btn-default" })
+            </div>
+            <div class="col-sm-9">
+                <div class="pull-right">
+                    @using (Html.BeginForm())
+            {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            @Html.HiddenFor(model => model.Tournament.Id)
+                            @Html.HiddenFor(model => model.Team.Id)
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

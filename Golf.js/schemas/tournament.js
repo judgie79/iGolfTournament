@@ -8,6 +8,12 @@ var tournamentSchema = {
         "_id": {
             "type": ["string", "null", "object"]
         },
+        "type": {
+            "enum": [ "single", "team" ]
+        },
+        "scoreType": {
+            "enum": [ "stableford", "strokeplay" ]
+        },
         "title": {
             "type": "string"
         },
@@ -25,6 +31,12 @@ var tournamentSchema = {
             "type": ["array", "null"],
             "items": {
                 "$ref": "participantSchema"
+            }
+        },
+        "teams": {
+            "type": ["array", "null"],
+            "items": {
+                "$ref": "teamSchema"
             }
         },
     },

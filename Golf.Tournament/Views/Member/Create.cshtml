@@ -1,0 +1,13 @@
+﻿@model Golf.Tournament.ViewModels.MemberCreateViewModel
+
+
+<div class="form-group">
+    @Html.LabelFor(model => model.ParticipantId, htmlAttributes: new { @class = "control-label col-sm-3" })
+    <div class="col-sm-9">
+        @Html.DropDownListFor(model => model.ParticipantId, Model.Participants.Select(participant => new SelectListItem() { Text = participant.Player.Lastname + ", " + participant.Player.Firstname + "; Hcp " + participant.Player.Hcp, Value = participant.Id }), new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ParticipantId, "", new { @class = "text-danger" })
+                
+    </div>
+</div>
+
+        

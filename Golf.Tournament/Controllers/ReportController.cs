@@ -11,9 +11,9 @@ namespace Golf.Tournament.Controllers
     public class ReportController : BaseController
     {
         // GET: Report
-        public async Task<ActionResult> Clubs()
+        public async Task<ActionResult> ClubsAsync()
         {
-            var clubReport = await loader.Load<IEnumerable<ClubReport>>("clubs/report");
+            var clubReport = await loader.LoadAsync<IEnumerable<ClubReport>>("clubs/report");
 
             return PartialView(clubReport);
         }

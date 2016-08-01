@@ -10,13 +10,20 @@ namespace Golf.Tournament.ViewModels
 {
     public class TeamCreateViewModel
     {
+        public TeamCreateViewModel()
+        {
+            this.Tournament = new TeamTournament();
+        }
+
+        public TeamCreateViewModel(Models.TeamTournament tournament)
+        {
+            this.Tournament = tournament;
+        }
+
         public string TournamentId { get; set; }
 
         public string Name { get; set; }
 
-        [DisplayName("Teebox")]
-        public string TeeboxId { get; set; }
-
-        public TeeboxCollection Teeboxes { get; set; }
+        public TeamTournament Tournament { get; set; }
     }
 }

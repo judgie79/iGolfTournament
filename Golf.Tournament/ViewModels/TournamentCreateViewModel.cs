@@ -1,6 +1,7 @@
 ﻿using Golf.Tournament.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,15 +26,8 @@ namespace Golf.Tournament.ViewModels
 
         public string CourseId { get; set; }
 
-        public TournamentType TournamenType { get; set; }
-    }
-
-    public enum TournamentType
-    {
-        Stableford_Single,
-        Stableford_Team,
-        //StrokePlay_Single,
-        //StrokePlay_Team,
-        //Other
+        
+        public TournamentType TournamentType { get; set; }
+        public ScoreType ScoreType { get; internal set; }
     }
 }

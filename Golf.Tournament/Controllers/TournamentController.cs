@@ -15,16 +15,15 @@ namespace Golf.Tournament.Controllers
         [Route("tournaments")]
         public async Task<ActionResult> Index()
         {
-            var tournaments = await loader.Load<IEnumerable<Models.Tournament>>("tournaments");
-
-            return View(new TournamentListViewModel(tournaments));
+            var tournaments = await loader.LoadAsync<IEnumerable<Models.Tournament>>("tournaments");
+            return View("Index", new TournamentListViewModel(tournaments));
         }
 
         // GET: Tournament/Details/5
         [Route("tournaments/{id}")]
         public async Task<ActionResult> Details(string id)
         {
-            var tournament = await loader.Load<Models.Tournament>("tournaments/" + id);
+            var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + id);
 
             var viewModel = new ViewModels.TournamentDetailsViewModel()
             {
@@ -38,8 +37,8 @@ namespace Golf.Tournament.Controllers
         [Route("tournaments/create")]
         public async Task<ActionResult> Create(string clubId = null, string courseId = null)
         {
-            var clubs = loader.Load<IEnumerable<Models.Club>>("clubs");
-            var courses = loader.Load<IEnumerable<Models.Course>>("courses");
+            var clubs = loader.LoadAsync<IEnumerable<Models.Club>>("clubs");
+            var courses = loader.LoadAsync<IEnumerable<Models.Course>>("courses");
 
             await Task.WhenAll(clubs, courses);
 
@@ -64,8 +63,8 @@ namespace Golf.Tournament.Controllers
         public async Task<ActionResult> Create([ModelBinder(typeof(TournamentCreateViewModelBinder))]TournamentCreateViewModel<Models.Tournament> tournament)
         {
 
-            var clubs = loader.Load<IEnumerable<Models.Club>>("clubs");
-            var courses = loader.Load<IEnumerable<Models.Course>>("courses");
+            var clubs = loader.LoadAsync<IEnumerable<Models.Club>>("clubs");
+            var courses = loader.LoadAsync<IEnumerable<Models.Course>>("courses");
 
             await Task.WhenAll(clubs, courses);
 
@@ -75,7 +74,7 @@ namespace Golf.Tournament.Controllers
             if (ModelState.IsValid)
             {
 
-                await loader.Post<Models.Tournament>("tournaments/", tournament.Tournament);
+                await loader.PostAsync<Models.Tournament>("tournaments/", tournament.Tournament);
 
                 return RedirectToAction("Index");
             } else
@@ -88,7 +87,7 @@ namespace Golf.Tournament.Controllers
         [Route("tournaments/{id}/edit")]
         public async Task<ActionResult> Edit(string id)
         {
-            var tournament = await loader.Load<Models.Tournament>("tournaments/" + id);
+            var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + id);
 
             var viewModel = new TournamentEditViewModel<Models.Tournament>()
             {
@@ -103,7 +102,7 @@ namespace Golf.Tournament.Controllers
         [Route("tournaments/{id}/edit")]
         public async Task<ActionResult> Edit(string id, [ModelBinder(typeof(TournamentEditViewModelBinder))]TournamentEditViewModel<Models.Tournament> tournamentViewModel)
         {
-            var tournament = await loader.Load<Models.Tournament>("tournaments/" + id);
+            var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + id);
             tournamentViewModel.Tournament.Participants = tournament.Participants;
             tournamentViewModel.Tournament.Club = tournament.Club;
             tournamentViewModel.Tournament.Course = tournament.Course;
@@ -117,7 +116,7 @@ namespace Golf.Tournament.Controllers
 
                 
 
-                await loader.Put<Models.Tournament>("tournaments/" + id, tournamentViewModel.Tournament);
+                await loader.PutAsync<Models.Tournament>("tournaments/" + id, tournamentViewModel.Tournament);
 
                 return RedirectToAction("Index");
             }
@@ -153,9 +152,9 @@ namespace Golf.Tournament.Controllers
 
         // GET: Tournament/Edit/5
         [Route("tournaments/{id}/start")]
-        public async Task<ActionResult> Start(string id)
+        public async Task<ActionResult> StartAsync(string id)
         {
-            var tournament = await loader.Load<Models.Tournament>("tournaments/" + id);
+            var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + id);
 
             var viewModel = new TournamentEditViewModel<Models.Tournament>()
             {
@@ -167,9 +166,9 @@ namespace Golf.Tournament.Controllers
 
         [HttpPost]
         [Route("tournaments/{id}/start")]
-        public async Task<ActionResult> Start(string id, [ModelBinder(typeof(ViewModels.TournamentStartViewModelBinder))]TournamentEditViewModel<Models.Tournament> tournamentViewModel)
+        public async Task<ActionResult> StartAsync(string id, [ModelBinder(typeof(ViewModels.TournamentStartViewModelBinder))]TournamentEditViewModel<Models.Tournament> tournamentViewModel)
         {
-            var tournament = await loader.Load<Models.Tournament>("tournaments/" + id);
+            var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + id);
             tournamentViewModel.Tournament = tournament;
 
             ModelState.Clear();
@@ -178,7 +177,7 @@ namespace Golf.Tournament.Controllers
             if (ModelState.IsValid)
             {
 
-                await loader.Put<Models.Tournament>("tournaments/" + id + "/start", tournamentViewModel.Tournament);
+                await loader.PutAsync<Models.Tournament>("tournaments/" + id + "/start", tournamentViewModel.Tournament);
 
                 return RedirectToAction("Index");
     }

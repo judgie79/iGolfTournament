@@ -14,8 +14,8 @@ namespace Golf.Tournament.Controllers
         [Route("tournaments/{tournamentId}/participants")]
         public async Task<ActionResult> Index(string tournamentId)
         {
-            var tournament = loader.Load<Models.Tournament>("tournaments/" + tournamentId);
-            var players = loader.Load<Models.PlayerCollection>("players");
+            var tournament = loader.LoadAsync<Models.Tournament>("tournaments/" + tournamentId);
+            var players = loader.LoadAsync<Models.PlayerCollection>("players");
 
             await Task.WhenAll(tournament, players);
 
@@ -49,8 +49,8 @@ namespace Golf.Tournament.Controllers
 
             if (ModelState.IsValid)
             {
-                var player = await loader.Load<Models.Player>("players/" + createViewModel.PlayerId);
-                Models.Tournament tournamentResult = await loader.Post<Models.TournamentParticipant, Models.Tournament>("tournaments/" + tournamentId + "/participants", new Models.TournamentParticipant()
+                var player = await loader.LoadAsync<Models.Player>("players/" + createViewModel.PlayerId);
+                Models.Tournament tournamentResult = await loader.PostAsync<Models.TournamentParticipant, Models.Tournament>("tournaments/" + tournamentId + "/participants", new Models.TournamentParticipant()
                 {
                     Player = player,
                     TeeboxId = createViewModel.TeeboxId
@@ -60,8 +60,8 @@ namespace Golf.Tournament.Controllers
             }
 
 
-            var tournament = loader.Load<Models.Tournament>("tournaments/" + tournamentId);
-            var players = loader.Load<Models.PlayerCollection>("players");
+            var tournament = loader.LoadAsync<Models.Tournament>("tournaments/" + tournamentId);
+            var players = loader.LoadAsync<Models.PlayerCollection>("players");
             await Task.WhenAll(tournament, players);
 
             createViewModel.Teeboxes = tournament.Result.Course.TeeBoxes;
@@ -73,7 +73,7 @@ namespace Golf.Tournament.Controllers
         [Route("tournaments/{tournamentId}/participants/{id}/edit")]
         public async Task<ActionResult> Edit(string tournamentId, string id)
         {
-            var tournament = await loader.Load<Models.Tournament>("tournaments/" + tournamentId);
+            var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + tournamentId);
 
             return View(new TournamentParticipantEditViewModel()
             {
@@ -94,14 +94,14 @@ namespace Golf.Tournament.Controllers
 
             if (ModelState.IsValid)
             {
-                var player = await loader.Load<Models.Player>("players/" + editViewModel.Participant.Player.Id);
-                var tournamentResult = await loader.Put<Models.TournamentParticipant, Models.Tournament>("tournaments/" + tournamentId + "/" + "participants/" + editViewModel.Participant.Id, editViewModel.Participant);
+                var player = await loader.LoadAsync<Models.Player>("players/" + editViewModel.Participant.Player.Id);
+                var tournamentResult = await loader.PutAsync<Models.TournamentParticipant, Models.Tournament>("tournaments/" + tournamentId + "/" + "participants/" + editViewModel.Participant.Id, editViewModel.Participant);
 
                 return RedirectToAction("Index");
             }
             else
             {
-                var tournament = await loader.Load<Models.Tournament>("tournaments/" + tournamentId);
+                var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + tournamentId);
                 editViewModel.Tournament = tournament;
                 editViewModel.Course = tournament.Course;
                 editViewModel.Teeboxes = tournament.Course.TeeBoxes;
@@ -113,7 +113,7 @@ namespace Golf.Tournament.Controllers
         [Route("tournaments/{tournamentId}/participants/{id}/delete")]
         public async Task<ActionResult> Delete(string tournamentId, string id)
         {
-            var tournament = await loader.Load<Models.Tournament>("tournaments/" + tournamentId);
+            var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + tournamentId);
             var participant = tournament.Participants.SingleOrDefault(p => p.Id == id);
 
 

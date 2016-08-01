@@ -19,8 +19,7 @@ namespace Golf.Tournament.ViewModels
 
             string id = form.Get("Team.Id");
             string name = form.Get("Team.Name");
-
-            string teeboxId = form.Get("Team.TeeboxId");
+            
             DateTime Teetime = DateTime.Parse(form.Get("Team.Teetime.Team.Teetime"));
 
             var team = new Team()
@@ -28,7 +27,6 @@ namespace Golf.Tournament.ViewModels
                 Id = id,
                 Name = name,
                 Teetime = Teetime,
-                TeeboxId = teeboxId
             };
 
             return new TeamEditViewModel

@@ -16,6 +16,12 @@
             @Html.DisplayNameFor(model => model.LabelModel.Title)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.LabelModel.TournamentType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LabelModel.ScoreType)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.LabelModel.Title)
         </th>
         <th>
@@ -35,6 +41,12 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TournamentType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScoreType)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)

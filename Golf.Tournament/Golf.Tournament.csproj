@@ -156,6 +156,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ExcelController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\TeeboxController.cs" />
@@ -168,6 +169,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\MemberCreateViewModel.cs" />
+    <Compile Include="ViewModels\MemberListViewModel.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="ViewModels\DashboardListPanelViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
@@ -180,6 +183,7 @@
     <Compile Include="ViewModels\CourseViewModelModelBinder.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\ScoresheetEditModel.cs" />
+    <Compile Include="ViewModels\TeamListViewModel.cs" />
     <Compile Include="ViewModels\TeeboxCreateViewModel.cs" />
     <Compile Include="ViewModels\TeeboxDetailsViewModel.cs" />
     <Compile Include="ViewModels\TeeboxEditViewModel.cs" />
@@ -819,7 +823,6 @@
     <Content Include="Views\Shared\EditorTemplates\HoleCollection.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Participant\Index.cshtml" />
-    <Content Include="Views\Participant\View.cshtml" />
     <Content Include="Views\Participant\Create.cshtml" />
     <Content Include="Views\Participant\Delete.cshtml" />
     <Content Include="Views\Player\Delete.cshtml" />
@@ -848,14 +851,24 @@
     <Content Include="Views\Shared\EditorTemplates\CourseHoles.cshtml" />
     <Content Include="Views\Teebox\Delete.cshtml" />
     <Content Include="Views\Shared\ClubReport.cshtml" />
+    <Content Include="Views\Team\Create.cshtml" />
+    <Content Include="Views\Team\Index.cshtml" />
+    <Content Include="Views\Team\List.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Team\Delete.cshtml" />
+    <Content Include="Views\Team\Edit.cshtml" />
+    <Content Include="Views\Member\Create.cshtml" />
+    <Content Include="Views\Member\Delete.cshtml" />
+    <Content Include="Views\Team\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Golf\Tournament\ViewModels\" />
     <Folder Include="scorecards\" />
+    <Folder Include="ViewModels\Formatter\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Excel\" />
     <Folder Include="Views\Report\" />
-    <Folder Include="Views\Team\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
