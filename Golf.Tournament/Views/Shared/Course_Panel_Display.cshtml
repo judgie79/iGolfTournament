@@ -1,8 +1,9 @@
 ﻿@model Golf.Tournament.Models.Course
 
-<div class="panel panel-default">
+<div class="panel panel-default panel-collapsed">
     <div class="panel-heading">
-        @Model.Name
+        <h3 class="panel-title">@Model.Name</h3>
+        <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span>
     </div>
     <div class="panel-body">
         <div class="row">

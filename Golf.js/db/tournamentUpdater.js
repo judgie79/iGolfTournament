@@ -64,6 +64,7 @@ Updater.prototype.updateTeams = function (db, collection, tournament, update) {
              tournament.teams = [];
              resolve(tournament);
         }
+
         resolve(tournament);
     });
 };

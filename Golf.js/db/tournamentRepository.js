@@ -59,6 +59,8 @@ module.exports.update = function (id, updateTournament, callback) {
         val.validateSchema().then(function () {
             return val.tournamentNotStarted();
         }).then(function () {
+            
+            
             crudRepository.update(id, updatedTournament, callback);
         }).catch(function (err) {
             callback(err, updateTournament);

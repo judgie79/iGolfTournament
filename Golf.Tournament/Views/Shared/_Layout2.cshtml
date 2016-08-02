@@ -285,7 +285,21 @@
         $(function () {
             $('.edit_colorpicker').colorpicker();
             $('.datetimepicker').datetimepicker();
+            
+            $(document).on('click', '.panel-heading span.clickable', function (e) {
+                var $this = $(this);
+                var panel = $this.parents('.panel');
 
+                if (!panel.hasClass('panel-collapsed')) {
+                    panel.find('.panel-body').slideUp();
+                    panel.addClass('panel-collapsed');
+                    $this.find('i').removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+                } else {
+                    panel.find('.panel-body').slideDown();
+                    panel.removeClass('panel-collapsed');
+                    $this.find('i').removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+                }
+            })
         });
     </script>
 

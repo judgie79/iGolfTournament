@@ -45,3 +45,22 @@ textarea {
     height: 100%;
     width: 100%;
 }
+
+.row{
+    margin-top:40px;
+    padding: 0 10px;
+}
+
+.clickable{
+    cursor: pointer;   
+}
+
+.panel-heading span {
+	margin-top: -20px;
+	font-size: 15px;
+}
+
+.panel-collapsed .panel-body {
+    display: none;
+    height: 0;
+}
