@@ -21,6 +21,9 @@ namespace Golf.Tournament.Models
         [JsonProperty("teeTime")]
         public DateTime Teetime { get; set; }
 
+        [JsonProperty("teeBoxId")]
+        public string TeeboxId { get; set; }
+
         [JsonProperty("members")]
         public TournamentParticipantCollection Members { get; set; }
     }

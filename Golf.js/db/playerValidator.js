@@ -5,7 +5,7 @@ var JaySchema = require('jayschema');
 var js = new JaySchema();
 
 var playerSchema = require('../schemas/player.js');
-
+var addressSchema =  require('../schemas/address.js');
 var hcpService = require('../services/hcpService');
 
 var Validator = function (player) {
@@ -43,7 +43,7 @@ Validator.prototype.validateSchema = function(){
     var me = this;
     return new Promise(function (resolve, reject) {
 
-        //js.register(addressSchema);
+        js.register(addressSchema);
 
         var isValid = js.validate(me.player, playerSchema);
 

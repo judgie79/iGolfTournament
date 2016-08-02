@@ -14,9 +14,11 @@ namespace Golf.Tournament.ViewModels
 
         public Models.Tournament Tournament { get; set; }
 
-        public TeeboxCollection Teeboxes { get; set; }
-
         public Course Course { get; internal set; }
+
+        
+
+        public TeeboxCollection Teeboxes { get; set; }
     }
 
     public class TeamDetailsViewModel

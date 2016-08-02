@@ -10,153 +10,8 @@ using MSExcel = Microsoft.Office.Interop.Excel;
 
 namespace Golf.Excel
 {
-    public class TournamentWorkbook : IDisposable
+    public class TournamentWorkbook : TournamentWorkbookBase
     {
-        private static readonly object misValue = System.Reflection.Missing.Value;
-
-        private MSExcel.Application xlApp;
-        private MSExcel.Workbook xlWorkBook;
-
-        int holeNumberRow = 2;
-        int holeParRow = 3;
-        int holeHcpRow = 4;
-        int holeDistanceRow = 5;
-
-        int sepRow1 = 6;
-        int holeStrokesRow = 7;
-        int sepRow2 = 8;
-
-        int holeCalcHcpRow = 9;
-        int holeCalcStrokesRow = 10;
-        int holeStrokesNettoRow = 11;
-
-        int holeStbfPointsNettoRow = 12;
-        int holeStbfPointsBruttoRow = 13;
-
-        int playerCol = 1;
-        int playerSpvgCol = 2;
-
-        int playerHcpRow = 2;
-        int playerHcpCol = 1;
-
-        int labelCol = 2;
-        int holeColStart = 3;
-
-        
-
-        public TournamentWorkbook()
-        {
-
-        }
-
-        public void Open(string fileName)
-        {
-            xlApp = new MSExcel.Application();
-            xlWorkBook = xlApp.Workbooks.Open(fileName, 0, true, 5, "", "", true, MSExcel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-        }
-
-        public void Save()
-        {
-            xlWorkBook.Save();
-        }
-
-        public void SaveAs(string fileName)
-        {
-            xlWorkBook.SaveCopyAs(fileName);
-        }
-
-        public void OpenFromTemplate(string fileName)
-        {
-            xlApp = new MSExcel.Application();
-            xlWorkBook = xlApp.Workbooks.Add();
-
-            MSExcel.Workbook xlWorkBookTemplate = xlApp.Workbooks.Open(fileName, 0, true, 5, "", "", true, MSExcel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-
-            xlWorkBookTemplate.Worksheets.Copy(xlWorkBook.Worksheets);
-
-            xlWorkBook.SaveAs("");
-
-
-            xlWorkBookTemplate.Close(true, misValue, misValue);
-            releaseObject(xlWorkBookTemplate);
-        }
-
-        public void CloseExcel(bool saveChanges)
-        {
-            xlWorkBook.Close(saveChanges, misValue, misValue);
-            xlApp.Quit();
-
-            releaseObject(xlWorkBook);
-            releaseObject(xlApp);
-        }
-
-        private void releaseObject(object obj)
-        {
-            try
-            {
-                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-                obj = null;
-            }
-            catch (Exception ex)
-            {
-                obj = null;
-            }
-            finally
-            {
-                GC.Collect();
-            }
-        }
-
-        public void Dispose()
-        {
-            xlWorkBook.Close(false, misValue, misValue);
-            xlApp.Quit();
-
-            releaseObject(xlWorkBook);
-            releaseObject(xlApp);
-        }
-
-        public void SetCourse(Club club, Course course)
-        {
-            MSExcel.Worksheet clubSheet = this.xlWorkBook.Worksheets["Course"];
-
-            clubSheet.Range["A2:D2"].End[MSExcel.XlDirection.xlDown].Clear();
-
-            clubSheet.Range["A2"].Value = club.Id;
-            clubSheet.Range["B2"].Value = club.Name;
-            clubSheet.Range["C2"].Value = course.Id;
-            clubSheet.Range["D2"].Value = course.Name;
-        }
-
-        public void SetTeeboxes(TeeboxCollection teeboxes)
-        {
-            MSExcel.Worksheet clubSheet = this.xlWorkBook.Worksheets["Teeboxes"];
-
-            clubSheet.Range["A2:F2"].End[MSExcel.XlDirection.xlDown].Clear();
-            object[,] values = new object[teeboxes.Count, 6];
-
-            int rowCounter = 0;
-            for (int i = 0; i < teeboxes.Count; i++)
-            {
-                var teebox = teeboxes[i];
-
-                var currentRow = new object[1, 6];
-
-                values[rowCounter, 0] = teebox.Color.Value;
-                values[rowCounter, 1] = teebox.Name;
-                values[rowCounter, 2] = teebox.CourseRating;
-                values[rowCounter, 3] = teebox.SlopeRating;
-                values[rowCounter, 4] = teebox.Par;
-                values[rowCounter, 5] = teebox.Holes.Count;
-                
-                
-                rowCounter++;
-            }
-            clubSheet.Range[string.Format("A2:F{0}", teeboxes.Count + 1)].Value = values;
-
-
-        }
-
         public void SetParticipants(TournamentParticipantCollection participants, TeeBox teebox)
         {
             var teeboxSheet = this.xlWorkBook.Worksheets["Teeboxes"];
@@ -200,7 +55,6 @@ namespace Golf.Excel
             }
         }
 
-       
         public void SetScoresheet(TournamentParticipant participant, TeeBox teebox)
         {
             var player = participant.Player;
@@ -346,9 +200,158 @@ namespace Golf.Excel
             scorecardSheet.Rows[holeStrokesNettoRow].EntireRow.Hidden = true;
         }
 
+    }
+
+    public abstract class TournamentWorkbookBase : IDisposable
+    {
+        protected static readonly object misValue = System.Reflection.Missing.Value;
+
+        protected MSExcel.Application xlApp;
+        protected MSExcel.Workbook xlWorkBook;
+
+        protected int holeNumberRow = 2;
+        protected int holeParRow = 3;
+        protected int holeHcpRow = 4;
+        protected int holeDistanceRow = 5;
+
+        protected int sepRow1 = 6;
+        protected int holeStrokesRow = 7;
+        protected int sepRow2 = 8;
+
+        protected int holeCalcHcpRow = 9;
+        protected int holeCalcStrokesRow = 10;
+        protected int holeStrokesNettoRow = 11;
+
+        protected int holeStbfPointsNettoRow = 12;
+        protected int holeStbfPointsBruttoRow = 13;
+
+        protected int playerCol = 1;
+        protected int playerSpvgCol = 2;
+
+        protected int playerHcpRow = 2;
+        protected int playerHcpCol = 1;
+
+        protected int labelCol = 2;
+        protected int holeColStart = 3;
+
+
+
+        public TournamentWorkbookBase()
+        {
+
+        }
+
+        public void Open(string fileName)
+        {
+            xlApp = new MSExcel.Application();
+            xlWorkBook = xlApp.Workbooks.Open(fileName, 0, true, 5, "", "", true, MSExcel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+        }
+
+        public void Save()
+        {
+            xlWorkBook.Save();
+        }
+
+        public void SaveAs(string fileName)
+        {
+            xlWorkBook.SaveCopyAs(fileName);
+        }
+
+        public void OpenFromTemplate(string fileName)
+        {
+            xlApp = new MSExcel.Application();
+            xlWorkBook = xlApp.Workbooks.Add();
+
+            MSExcel.Workbook xlWorkBookTemplate = xlApp.Workbooks.Open(fileName, 0, true, 5, "", "", true, MSExcel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+
+            xlWorkBookTemplate.Worksheets.Copy(xlWorkBook.Worksheets);
+
+            xlWorkBook.SaveAs("");
+
+
+            xlWorkBookTemplate.Close(true, misValue, misValue);
+            releaseObject(xlWorkBookTemplate);
+        }
+
+        public void CloseExcel(bool saveChanges)
+        {
+            xlWorkBook.Close(saveChanges, misValue, misValue);
+            xlApp.Quit();
+
+            releaseObject(xlWorkBook);
+            releaseObject(xlApp);
+        }
+
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+
+        public void Dispose()
+        {
+            xlWorkBook.Close(false, misValue, misValue);
+            xlApp.Quit();
+
+            releaseObject(xlWorkBook);
+            releaseObject(xlApp);
+        }
+
+        public void SetCourse(Club club, Course course)
+        {
+            MSExcel.Worksheet clubSheet = this.xlWorkBook.Worksheets["Course"];
+
+            clubSheet.Range["A2:D2"].End[MSExcel.XlDirection.xlDown].Clear();
+
+            clubSheet.Range["A2"].Value = club.Id;
+            clubSheet.Range["B2"].Value = club.Name;
+            clubSheet.Range["C2"].Value = course.Id;
+            clubSheet.Range["D2"].Value = course.Name;
+        }
+
+        public void SetTeeboxes(TeeboxCollection teeboxes)
+        {
+            MSExcel.Worksheet clubSheet = this.xlWorkBook.Worksheets["Teeboxes"];
+
+            clubSheet.Range["A2:F2"].End[MSExcel.XlDirection.xlDown].Clear();
+            object[,] values = new object[teeboxes.Count, 6];
+
+            int rowCounter = 0;
+            for (int i = 0; i < teeboxes.Count; i++)
+            {
+                var teebox = teeboxes[i];
+
+                var currentRow = new object[1, 6];
+
+                values[rowCounter, 0] = teebox.Color.Value;
+                values[rowCounter, 1] = teebox.Name;
+                values[rowCounter, 2] = teebox.CourseRating;
+                values[rowCounter, 3] = teebox.SlopeRating;
+                values[rowCounter, 4] = teebox.Par;
+                values[rowCounter, 5] = teebox.Holes.Count;
+
+
+                rowCounter++;
+            }
+            clubSheet.Range[string.Format("A2:F{0}", teeboxes.Count + 1)].Value = values;
+
+
+        }
+
         public void SetSums(MSExcel.Worksheet scorecardSheet, string teeboxColor, int sumIndex, int sumStart)
         {
-            scorecardSheet.Cells[holeParRow, sumIndex].FormulaLocal = "=SUMME(" + GetExcelColumnName(sumStart) + holeParRow + ":" + GetExcelColumnName(sumIndex-1) + holeParRow + ")";
+            scorecardSheet.Cells[holeParRow, sumIndex].FormulaLocal = "=SUMME(" + GetExcelColumnName(sumStart) + holeParRow + ":" + GetExcelColumnName(sumIndex - 1) + holeParRow + ")";
             scorecardSheet.Cells[holeParRow, sumIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
             scorecardSheet.Cells[holeParRow, sumIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].Weight = MSExcel.XlBorderWeight.xlMedium;
             scorecardSheet.Cells[holeParRow, sumIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
@@ -356,7 +359,7 @@ namespace Golf.Excel
             scorecardSheet.Cells[holeParRow, sumIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
             ((MSExcel.Range)scorecardSheet.Cells[holeParRow, sumIndex]).Font.Bold = true;
 
-            scorecardSheet.Cells[holeDistanceRow, sumIndex].FormulaLocal = "=SUMME(" + GetExcelColumnName(sumStart) + holeDistanceRow + ":" + GetExcelColumnName(sumIndex-1) + holeDistanceRow + ")";
+            scorecardSheet.Cells[holeDistanceRow, sumIndex].FormulaLocal = "=SUMME(" + GetExcelColumnName(sumStart) + holeDistanceRow + ":" + GetExcelColumnName(sumIndex - 1) + holeDistanceRow + ")";
             scorecardSheet.Cells[holeDistanceRow, sumIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
             scorecardSheet.Cells[holeDistanceRow, sumIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].Weight = MSExcel.XlBorderWeight.xlMedium;
             scorecardSheet.Cells[holeDistanceRow, sumIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
@@ -515,6 +518,49 @@ namespace Golf.Excel
             }
 
             return columnName;
+        }
+    }
+
+    public class TeamTournamentWorkbook : TournamentWorkbookBase
+    {
+        public void SetTeams(TeamTournament tournament)
+        {
+            //var teeboxSheet = this.xlWorkBook.Worksheets["Teeboxes"];
+
+            //MSExcel.Worksheet teamsSheet = this.xlWorkBook.Worksheets.Add(Before: teeboxSheet);
+            //teamsSheet.Name = "Teams";
+            ////participantsSheet.Range["A2:K2"].End[MSExcel.XlDirection.xlDown].Clear();
+
+            //teamsSheet.Range["A1"].Value = "Id";
+            //teamsSheet.Range["B1"].Value = "Teetime";
+            //teamsSheet.Range["C1"].Value = "Lastname";
+            //teamsSheet.Range["E1"].Value = "Hcp";
+            //teamsSheet.Range["F1"].Value = "Spvg";
+            //teamsSheet.Range["H1"].Value = "Teebox";
+            //teamsSheet.Range["I1"].Value = "Par";
+            //teamsSheet.Range["J1"].Value = "CourseRating";
+            //teamsSheet.Range["K1"].Value = "SlopeRating";
+            //teamsSheet.Range["L1"].Value = "Strokes";
+            //teamsSheet.Range["M1"].Value = "Brutto";
+            //teamsSheet.Range["N1"].Value = "Netto";
+
+            //int rowIndex = 2;
+            //foreach (var team in tournament.Teams)
+            //{
+            //    teamsSheet.Range["A" + rowIndex].Value = team.Id;
+            //    teamsSheet.Range["B" + rowIndex].Value = team.Teetime;
+            //    teamsSheet.Range["C" + rowIndex].Value = team.Name;
+            //    teamsSheet.Range["E" + rowIndex].FormulaLocal = string.Format("=RUNDEN({0};1)", team.Hcp.ToString().Replace(".", ","));
+            //    teamsSheet.Range["F" + rowIndex].FormulaLocal = string.Format("=RUNDEN({0}*({1}/113)-{2}+{3};1)", ("E" + rowIndex), ("K" + rowIndex), ("J" + rowIndex), ("I" + rowIndex));
+            //    teamsSheet.Range["H" + rowIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.ColorTranslator.FromHtml(teebox.Color.Value));
+            //    teamsSheet.Range["I" + rowIndex].Value = teebox.Par;
+            //    teamsSheet.Range["J" + rowIndex].Value = teebox.CourseRating;
+            //    teamsSheet.Range["K" + rowIndex].Value = teebox.SlopeRating;
+            //    teamsSheet.Range["L" + rowIndex].FormulaLocal = string.Format("=INDIREKT(\"Scoresheet_\" & $C{0} & \"_\" & $D{0} & \"!{1}7\")", rowIndex, GetExcelColumnName(teebox.Holes.Count + 5));
+            //    teamsSheet.Range["M" + rowIndex].FormulaLocal = string.Format("=INDIREKT(\"Scoresheet_\" & $C{0} & \"_\" & $D{0} & \"!{1}12\")", rowIndex, GetExcelColumnName(teebox.Holes.Count + 5));
+            //    teamsSheet.Range["N" + rowIndex].FormulaLocal = string.Format("=INDIREKT(\"Scoresheet_\" & $C{0} & \"_\" & $D{0} & \"!{1}13\")", rowIndex, GetExcelColumnName(teebox.Holes.Count + 5));
+            //    rowIndex++;
+            //}
         }
     }
 }

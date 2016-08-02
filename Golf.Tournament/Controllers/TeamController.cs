@@ -48,7 +48,8 @@ namespace Golf.Tournament.Controllers
             {
                 await loader.PostAsync<Team>("tournaments/" + tournamentId + "/teams", new Team()
                 {
-                    Name = viewModel.Name
+                    Name = viewModel.Name,
+                    TeeboxId = viewModel.TeeboxId
                 });
 
                 return RedirectToAction("Index");
@@ -81,6 +82,10 @@ namespace Golf.Tournament.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(string tournamentId, string id, TeamEditViewModel viewModel)
         {
+            ModelState.Clear();
+
+            TryValidateModel(viewModel.Team);
+
             if (ModelState.IsValid)
             {
                 await loader.PutAsync<Team>("tournaments/" + tournamentId + "/teams/" + id, viewModel.Team);

@@ -21,6 +21,9 @@ var teamSchema = {
             "minimum": 0,
             "maximum": 54
         },
+        "teeBoxId": {
+            "type": ["string", "object"]
+        },
         "members": {
             "type": ["array", "null"],
             "items": {

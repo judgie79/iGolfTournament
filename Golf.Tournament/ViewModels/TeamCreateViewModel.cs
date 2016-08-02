@@ -25,5 +25,10 @@ namespace Golf.Tournament.ViewModels
         public string Name { get; set; }
 
         public TeamTournament Tournament { get; set; }
+
+        [DisplayName("Teebox")]
+        public string TeeboxId { get; set; }
+
+        public TeeboxCollection Teeboxes { get; set; }
     }
 }
