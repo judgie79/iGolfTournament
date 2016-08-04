@@ -35,4 +35,4 @@ var teamSchema = {
 }
 
 
-module.exports = playerSchema;
+module.exports = teamSchema;

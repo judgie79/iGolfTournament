@@ -41,6 +41,8 @@ module.exports.updateTeam = function (tournamentId, id, team, callback) {
 
             team._id = new ObjectID(id);
 
+            
+
             db.collection(config.db.collections.tournaments).update(
                 {
                     _id: new ObjectID(tournamentId),
@@ -76,7 +78,7 @@ module.exports.registerTeam = function (tournamentId, team, callback) {
         val.tournamentNotStarted().then(function () {
 
             team._id = new ObjectID();
-
+            team.teeTime = doc.date;
             team.members = team.members || [];
             db.collection(config.db.collections.tournaments).update(
                 {
@@ -106,7 +108,7 @@ function getTeamHcp(members, excludeId, addValue) {
 
     if (members.length == 1) {
         hcp = members[0].player.hcp;
-    } else {
+    } else if (members.length > 0) {
         hcp = members.reduce(function (previousValue, currentValue) {
 
             if (excludeId) {
@@ -270,7 +272,7 @@ module.exports.registerTeamMember = function (tournamentId, teamId, participant,
                     });
 
                     var fullPart = tournament.participants.find(function (part) {
-                        return part._id.toHexString() === participant._id;
+                        return part._id === participant._id;
                     });
 
                     var hcp = getTeamHcp(team.members, false, fullPart.player.hcp);

@@ -107,15 +107,18 @@ namespace Golf.Tournament.Controllers
             tournamentViewModel.Tournament.Club = tournament.Club;
             tournamentViewModel.Tournament.Course = tournament.Course;
 
+            
+
+            if(tournament.TournamentType == Models.TournamentType.Team)
+            {
+                ((Models.TeamTournament)tournamentViewModel.Tournament).Teams = ((Models.TeamTournament)tournament).Teams;
+            }
+
             ModelState.Clear();
             TryValidateModel(tournamentViewModel.Tournament);
 
             if (ModelState.IsValid)
             {
-                
-
-                
-
                 await loader.PutAsync<Models.Tournament>("tournaments/" + id, tournamentViewModel.Tournament);
 
                 return RedirectToAction("Index");
@@ -152,9 +155,29 @@ namespace Golf.Tournament.Controllers
 
         // GET: Tournament/Edit/5
         [Route("tournaments/{id}/start")]
-        public async Task<ActionResult> StartAsync(string id)
+        public async Task<ActionResult> Start(string id)
         {
             var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + id);
+
+            
+
+            if(tournament.TournamentType == Models.TournamentType.Single)
+            {
+                var viewModelSingleTournament = new TournamentEditViewModel<Models.Tournament>()
+                {
+                    Tournament = tournament
+                };
+
+                return View("Start", viewModelSingleTournament);
+            } else if (tournament.TournamentType == Models.TournamentType.Team)
+            {
+                var viewModelTeamTournament = new TournamentEditViewModel<Models.TeamTournament>()
+                {
+                    Tournament = (Models.TeamTournament)tournament
+                };
+
+                return View("StartTeam", viewModelTeamTournament);
+            }
 
             var viewModel = new TournamentEditViewModel<Models.Tournament>()
             {
@@ -166,7 +189,7 @@ namespace Golf.Tournament.Controllers
 
         [HttpPost]
         [Route("tournaments/{id}/start")]
-        public async Task<ActionResult> StartAsync(string id, [ModelBinder(typeof(ViewModels.TournamentStartViewModelBinder))]TournamentEditViewModel<Models.Tournament> tournamentViewModel)
+        public async Task<ActionResult> Start(string id, [ModelBinder(typeof(ViewModels.TournamentStartViewModelBinder))]TournamentEditViewModel<Models.Tournament> tournamentViewModel)
         {
             var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + id);
             tournamentViewModel.Tournament = tournament;

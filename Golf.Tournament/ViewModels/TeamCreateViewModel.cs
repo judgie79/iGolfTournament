@@ -18,6 +18,7 @@ namespace Golf.Tournament.ViewModels
         public TeamCreateViewModel(Models.TeamTournament tournament)
         {
             this.Tournament = tournament;
+            this.Teeboxes = tournament.Course.TeeBoxes;
         }
 
         public string TournamentId { get; set; }

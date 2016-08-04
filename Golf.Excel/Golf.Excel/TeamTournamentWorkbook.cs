@@ -1,76 +1,75 @@
 ﻿using Golf.Tournament.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using MSExcel = Microsoft.Office.Interop.Excel;
 
 namespace Golf.Excel
 {
-    public class TournamentWorkbook : TournamentWorkbookBase
+    public class TeamTournamentWorkbook : TournamentWorkbookBase
     {
-        public void SetParticipants(TournamentParticipantCollection participants, TeeBox teebox)
+        public void SetTeams(TeamTournament tournament)
         {
             var teeboxSheet = this.xlWorkBook.Worksheets["Teeboxes"];
-            MSExcel.Worksheet participantsSheet = this.xlWorkBook.Worksheets.Add(Before: teeboxSheet);
-            participantsSheet.Name = teebox.Name + "_" + "Particpants";
+
+            var teeboxes = tournament.Course.TeeBoxes;
+
+            MSExcel.Worksheet teamsSheet = this.xlWorkBook.Worksheets.Add(Before: teeboxSheet);
+            teamsSheet.Name = "Teams";
             //participantsSheet.Range["A2:K2"].End[MSExcel.XlDirection.xlDown].Clear();
 
-            participantsSheet.Range["A1"].Value = "Id";
-            participantsSheet.Range["B1"].Value = "Teetime";
-            participantsSheet.Range["C1"].Value = "Lastname";
-            participantsSheet.Range["D1"].Value = "Firstname";
-            participantsSheet.Range["E1"].Value = "Hcp";
-            participantsSheet.Range["F1"].Value = "Spvg";
-            participantsSheet.Range["G1"].Value = "Club";
-            participantsSheet.Range["H1"].Value = "Teebox";
-            participantsSheet.Range["I1"].Value = "Par";
-            participantsSheet.Range["J1"].Value = "CourseRating";
-            participantsSheet.Range["K1"].Value = "SlopeRating";
-            participantsSheet.Range["L1"].Value = "Strokes";
-            participantsSheet.Range["M1"].Value = "Brutto";
-            participantsSheet.Range["N1"].Value = "Netto";
+            teamsSheet.Range["A1"].Value = "Id";
+            teamsSheet.Range["B1"].Value = "Teetime";
+            teamsSheet.Range["C1"].Value = "Lastname";
+            teamsSheet.Range["E1"].Value = "Hcp";
+            teamsSheet.Range["F1"].Value = "Spvg";
+            teamsSheet.Range["H1"].Value = "Teebox";
+            teamsSheet.Range["I1"].Value = "Par";
+            teamsSheet.Range["J1"].Value = "CourseRating";
+            teamsSheet.Range["K1"].Value = "SlopeRating";
+            teamsSheet.Range["L1"].Value = "Strokes";
+            teamsSheet.Range["M1"].Value = "Brutto";
+            teamsSheet.Range["N1"].Value = "Netto";
 
             int rowIndex = 2;
-            foreach (var participant in participants)
+            foreach (var team in tournament.Teams)
             {
-                participantsSheet.Range["A" + rowIndex].Value = participant.Id;
-                participantsSheet.Range["B" + rowIndex].Value = participant.Teetime;
-                participantsSheet.Range["C" + rowIndex].Value = participant.Player.Lastname;
-                participantsSheet.Range["D" + rowIndex].Value = participant.Player.Firstname;
-                participantsSheet.Range["E" + rowIndex].FormulaLocal = string.Format("=RUNDEN({0};1)", participant.Player.Hcp.ToString().Replace(".", ","));
-                participantsSheet.Range["F" + rowIndex].FormulaLocal = string.Format("=RUNDEN({0}*({1}/113)-{2}+{3};1)", ("E" + rowIndex), ("K" + rowIndex), ("J" + rowIndex), ("I" + rowIndex));
-                participantsSheet.Range["G" + rowIndex].Value = participant.Player.HomeClub.Name;
-                participantsSheet.Range["H" + rowIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.ColorTranslator.FromHtml(teebox.Color.Value));
-                participantsSheet.Range["I" + rowIndex].Value = teebox.Par;
-                participantsSheet.Range["J" + rowIndex].Value = teebox.CourseRating;
-                participantsSheet.Range["K" + rowIndex].Value = teebox.SlopeRating;
-                participantsSheet.Range["L" + rowIndex].FormulaLocal = string.Format("=INDIREKT(\"Scoresheet_\" & $C{0} & \"_\" & $D{0} & \"!{1}7\")", rowIndex, GetExcelColumnName(teebox.Holes.Count + 5));
-                participantsSheet.Range["M" + rowIndex].FormulaLocal = string.Format("=INDIREKT(\"Scoresheet_\" & $C{0} & \"_\" & $D{0} & \"!{1}12\")", rowIndex, GetExcelColumnName(teebox.Holes.Count + 5));
-                participantsSheet.Range["N" + rowIndex].FormulaLocal = string.Format("=INDIREKT(\"Scoresheet_\" & $C{0} & \"_\" & $D{0} & \"!{1}13\")", rowIndex, GetExcelColumnName(teebox.Holes.Count + 5));
+                var teebox = teeboxes.FirstOrDefault(t => t.Id == team.TeeboxId);
+
+                teamsSheet.Range["A" + rowIndex].Value = team.Id;
+                teamsSheet.Range["B" + rowIndex].Value = team.Teetime;
+                teamsSheet.Range["C" + rowIndex].Value = team.Name;
+                teamsSheet.Range["E" + rowIndex].FormulaLocal = string.Format("=RUNDEN({0};1)", team.Hcp.ToString().Replace(".", ","));
+                teamsSheet.Range["F" + rowIndex].FormulaLocal = string.Format("=RUNDEN({0}*({1}/113)-{2}+{3};1)", ("E" + rowIndex), ("K" + rowIndex), ("J" + rowIndex), ("I" + rowIndex));
+                teamsSheet.Range["H" + rowIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.ColorTranslator.FromHtml(teebox.Color.Value));
+                teamsSheet.Range["I" + rowIndex].Value = teebox.Par;
+                teamsSheet.Range["J" + rowIndex].Value = teebox.CourseRating;
+                teamsSheet.Range["K" + rowIndex].Value = teebox.SlopeRating;
+                teamsSheet.Range["L" + rowIndex].FormulaLocal = string.Format("=INDIREKT(\"Scoresheet_\" & $C{0} & \"_\" & $D{0} & \"!{1}7\")", rowIndex, GetExcelColumnName(teebox.Holes.Count + 5));
+                teamsSheet.Range["M" + rowIndex].FormulaLocal = string.Format("=INDIREKT(\"Scoresheet_\" & $C{0} & \"_\" & $D{0} & \"!{1}12\")", rowIndex, GetExcelColumnName(teebox.Holes.Count + 5));
+                teamsSheet.Range["N" + rowIndex].FormulaLocal = string.Format("=INDIREKT(\"Scoresheet_\" & $C{0} & \"_\" & $D{0} & \"!{1}13\")", rowIndex, GetExcelColumnName(teebox.Holes.Count + 5));
                 rowIndex++;
             }
         }
 
-        public void SetScoresheet(TournamentParticipant participant, TeeBox teebox)
+        public void SetScoresheet(Team team, TeeBox teebox)
         {
-            var player = participant.Player;
+ 
             var teeboxSheet = this.xlWorkBook.Worksheets["Teeboxes"];
             MSExcel.Worksheet scorecardSheet = xlWorkBook.Worksheets.Add(After: teeboxSheet);
-            scorecardSheet.Name = "Scoresheet_" + player.Lastname + "_" + player.Firstname;
+            scorecardSheet.Name = "Scoresheet_" + team.Name;
 
-            
+
 
             int holeColIndex = holeColStart;
 
             string playSpvgCell = "$" + GetExcelColumnName(playerSpvgCol) + "$" + holeStrokesRow;
 
 
-            scorecardSheet.Cells[holeStrokesRow, playerCol].Value = string.Format("{0}, {1}", player.Lastname, player.Firstname);
-            scorecardSheet.Cells[playerHcpRow, playerHcpCol].FormulaLocal = string.Format("=RUNDEN({0};1)", player.Hcp.ToString().Replace(".", ","));
+            scorecardSheet.Cells[holeStrokesRow, playerCol].Value = string.Format("{0}, {1}", team.Name);
+            scorecardSheet.Cells[playerHcpRow, playerHcpCol].FormulaLocal = string.Format("=RUNDEN({0};1)", team.Hcp.ToString().Replace(".", ","));
             scorecardSheet.Cells[holeStrokesRow, playerSpvgCol].FormulaLocal = string.Format("=RUNDEN({0}*({1}/113)-{2}+{3};1)", (GetExcelColumnName(playerHcpCol) + playerHcpRow), teebox.SlopeRating.ToString().Replace(".", ","), teebox.CourseRating.ToString().Replace(".", ","), teebox.Par);
 
             scorecardSheet.Cells[holeNumberRow, labelCol].Value = "Hole";
@@ -88,7 +87,7 @@ namespace Golf.Excel
 
             var frontHoles = teebox.Holes.Front.OrderByDescending(h => h.Number).ToList();
             var backHoles = teebox.Holes.Back.OrderByDescending(h => h.Number).ToList();
-            
+
 
             int sumFrontCol = holeColStart + frontHoles.Count;
             int sumBackCol = holeColStart + frontHoles.Count + backHoles.Count + 1;
@@ -119,7 +118,7 @@ namespace Golf.Excel
                 else
                     holeColIndex++;
             }
-            SetSums(scorecardSheet, teebox.Color.Value, sumBackCol, sumFrontCol+1);
+            SetSums(scorecardSheet, teebox.Color.Value, sumBackCol, sumFrontCol + 1);
 
             //set sum column
             scorecardSheet.Cells[holeParRow, sumCol].FormulaLocal = string.Format("={0}+{1}", GetExcelColumnName(sumFrontCol) + holeParRow, GetExcelColumnName(sumBackCol) + holeParRow);
@@ -199,5 +198,5 @@ namespace Golf.Excel
             scorecardSheet.Rows[holeCalcStrokesRow].EntireRow.Hidden = true;
             scorecardSheet.Rows[holeStrokesNettoRow].EntireRow.Hidden = true;
         }
-    } 
+    }
 }

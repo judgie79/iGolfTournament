@@ -9,6 +9,9 @@ var clubSchema = require('../schemas/club.js');
 var addressSchema = require('../schemas/address.js');
 var holeSchema = require('../schemas/hole.js');
 var teeboxSchema = require('../schemas/teebox.js');
+var teamSchema = require('../schemas/team.js');
+var participantSchema = require('../schemas/participant.js');
+var playerSchema = require('../schemas/player.js');
 
 var Validator = function (tournament) {
     this.tournament = tournament;
@@ -23,6 +26,9 @@ Validator.prototype.validateSchema = function(){
         js.register(clubSchema);
         js.register(holeSchema);
         js.register(teeboxSchema);
+        js.register(teamSchema);
+        js.register(participantSchema);
+        js.register(playerSchema);
         
 
         var isValid = js.validate(me.tournament, tournamentSchema);

@@ -169,6 +169,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Utility\HtmlPanelHelper.cs" />
     <Compile Include="ViewModels\MemberCreateViewModel.cs" />
     <Compile Include="ViewModels\MemberListViewModel.cs" />
     <Compile Include="Models\Error.cs" />
@@ -860,6 +861,7 @@
     <Content Include="Views\Member\Create.cshtml" />
     <Content Include="Views\Member\Delete.cshtml" />
     <Content Include="Views\Team\Details.cshtml" />
+    <Content Include="Views\Tournament\StartTeam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
