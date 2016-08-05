@@ -68,14 +68,10 @@
             <td>@Html.DisplayFor(model => item.Player.HomeClub.Name)</td>
 
             <td>
+                @Html.ActionLink("Details", "Details", "Member", new { id = item.Id, teamId = Model.Team.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-default" })
                 @if (!Model.Tournament.HasStarted)
                 {
-                    @Html.ActionLink("Edit", "Edit", "Participant", new { id = item.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-default" })
-                }
-                @Html.ActionLink("Details", "Details", "Participant", new { id = item.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-default" })
-                @if (!Model.Tournament.HasStarted)
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-danger" })
+                    @Html.ActionLink("Delete", "Delete", "Member", new { id = item.Id, teamId = Model.Team.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-danger" })
                 }
             </td>
 

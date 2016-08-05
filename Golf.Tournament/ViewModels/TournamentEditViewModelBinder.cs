@@ -21,62 +21,45 @@ namespace Golf.Tournament.ViewModels
             string clubId = form.Get("Tournament.Club.Id");
 
             string title = form.Get("Tournament.Title");
+
+            TournamentType type = (TournamentType)Enum.Parse(typeof(TournamentType), request.Form.Get("Tournament.TournamentType"));
+            ScoreType scoreType = (ScoreType)Enum.Parse(typeof(ScoreType), request.Form.Get("Tournament.ScoreType"));
+
             DateTime date = DateTime.Parse(form.Get("Tournament.Date.Tournament.Date"));
 
-            var tournament = new Models.Tournament()
+            Models.Tournament t;
+
+            switch (type)
             {
-                Title = title,
-                Date = date.ToUniversalTime(),
-                Club = new Club()
-                {
-                    Id = clubId
-                },
-                Course = new Course()
-                {
-                    Id = courseId,
-                    ClubId = clubId
-                },
-                Id = id,
-                Participants = new TournamentParticipantCollection()
+                case TournamentType.Single:
+                    t = new Models.Tournament();
+
+                    break;
+                case TournamentType.Team:
+                    t = new Models.TeamTournament();
+                    break;
+                default:
+                    t = new Models.Tournament();
+                    break;
+            }
+
+            t.ScoreType = scoreType;
+            t.Title = title;
+            t.Date = date.ToUniversalTime();
+            t.Id = id;
+            t.Club = new Club()
+            {
+                Id = clubId
             };
-
-            //int participantCounter = 0; //"Course.TeeBoxes[0].Holes[0].HoleId"
-
-            //while (true)
-            //{
-            //    if (!string.IsNullOrEmpty(form["Participants[" + participantCounter + "].Id"]))
-            //    {
-            //        string Id = form["Participants[" + participantCounter + "].Name"];
-            //        DateTime Teetime = DateTime.Parse(form["Participants[" + participantCounter + "].Teetime"].ToString());
-            //        string TeeboxId = form["Participants[" + participantCounter + "].TeeboxId"];
-            //        string PlayerId = form["Participants[" + participantCounter + "].PlayerId"];
-
-            //        var participant = new TournamentParticipant()
-            //        {
-            //            Id = Id,
-            //            Teetime = Teetime,
-            //            TeeboxId = TeeboxId,
-            //            Player = new Player()
-            //            {
-            //                Id = PlayerId
-            //            }
-            //        };
-
-            //        tournament.Participants.Add(participant);
-            //        participantCounter++;
-            //    }
-            //    else
-            //    {
-            //        participantCounter = 0;
-            //        break;
-            //    }
-
-
-            //}
+            t.Course = new Course()
+            {
+                Id = courseId,
+                ClubId = clubId
+            };
 
             return new TournamentEditViewModel<Models.Tournament>
             {
-                Tournament = tournament
+                Tournament = t
             };
         }
     }

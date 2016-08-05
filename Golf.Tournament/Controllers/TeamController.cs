@@ -80,7 +80,7 @@ namespace Golf.Tournament.Controllers
 
         [Route("tournaments/{tournamentId}/teams/{id}/edit")]
         [HttpPost]
-        public async Task<ActionResult> Edit(string tournamentId, string id, TeamEditViewModel viewModel)
+        public async Task<ActionResult> Edit(string tournamentId, string id, [ModelBinder(typeof(TeamEditViewModelBinder))] TeamEditViewModel viewModel)
         {
             ModelState.Clear();
 

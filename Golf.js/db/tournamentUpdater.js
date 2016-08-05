@@ -15,9 +15,11 @@ Updater.prototype.updateTournament = function (tournament, update) {
     return new Promise(function(resolve, reject) {
         var db = mongoUtil.getDb();
 
-        me.updateCourse(db, config.db.collections.courses, tournament, update).then(function (updatedTournament) {
+        me.updateCourse(db, config.db.collections.courses, tournament, update)
+        .then(function (updatedTournament) {
             return me.updateClub(db, config.db.collections.clubs, updatedTournament, update)
-        }).then(function (updatedTournament) {
+        })
+        .then(function (updatedTournament) {
             
             if(tournament.type === "single") {
                 return me.updatePlayers(db, config.db.collections.players, updatedTournament, update);
@@ -46,11 +48,7 @@ Updater.prototype.updateCourse = function (db, collection, tournament, update) {
             }
 
             tournament.course = course;
-            if (update)
-                tournament.course._id = new ObjectID(course._id);
-            else if (tournament.course._id) {
 
-            }
             resolve(tournament);
         });
     });
@@ -94,17 +92,11 @@ Updater.prototype.updatePlayers = function (db, collection, tournament, update) 
 
             tournament.participants = tournament.participants.map(function (participant) {
 
-                if (update)
-                    participant._id = new ObjectID(participant._id);
-
                 for (var i = 0; i < players.length; i++) {
                     var player = players[i];
-                    if (update)
-                        player._id = new ObjectID(player._id);
 
                     if (player._id === participant.player._id) {
                         participant.player = player;
-
                     }
                 }
 
@@ -127,12 +119,6 @@ Updater.prototype.updateClub = function (db, collection, tournament, update) {
             }
 
             tournament.club = club;
-
-
-            if (update) {
-                tournament.course.clubId = new ObjectID(club._id);
-                tournament.club._id = new ObjectID(club._id);
-            }
 
             resolve(tournament);
         });

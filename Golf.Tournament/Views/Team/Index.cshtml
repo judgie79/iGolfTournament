@@ -20,6 +20,7 @@
         <th>
             @Html.DisplayNameFor(model => model.ViewModel.Teetime)
         </th>
+        <th>Members</th>
         <th></th>
     </tr>
 
@@ -35,6 +36,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Teetime)
             </td>
+            <td>@item.Members.Count</td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id, tournamentId = Model.Tournament.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id, tournamentId = Model.Tournament.Id }) |

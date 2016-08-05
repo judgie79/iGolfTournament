@@ -18,14 +18,21 @@ module.exports.findAll = function (callback) {
 
 module.exports.findById = function (id, callback) {
     crudRepository.findById(id, function (err, tournament) {
-        var db = mongoUtil.getDb();
+        var val = new Validator(tournament);
 
-        var updater = new Updater();
-        updater.updateTournament(tournament, false).then(function (updatedTournament) {
-            callback(false, updatedTournament);
+        val.tournamentNotStarted().then(function () {
+            var db = mongoUtil.getDb();
+            var updater = new Updater();
+
+            updater.updateTournament(tournament, false).then(function (updatedTournament) {
+                callback(false, updatedTournament);
+            }).catch(function (err) {
+                callback(err, tournament);
+            });
         }).catch(function (err) {
-            callback(err, tournament);
+            callback(false, tournament);
         });
+
     });
 };
 
@@ -34,7 +41,7 @@ module.exports.create = function (newtournament, callback) {
 
     var db = mongoUtil.getDb();
     var updater = new Updater();
-    
+
     updater.updateTournament(newtournament, false).then(function (updatedTournament) {
         val.validateSchema().then(function () {
             return val.tournamentNotStarted();
@@ -50,17 +57,14 @@ module.exports.create = function (newtournament, callback) {
 
 module.exports.update = function (id, updateTournament, callback) {
 
-    var val = new Validator(updateTournament);
-
     var db = mongoUtil.getDb();
 
     var updater = new Updater();
     updater.updateTournament(updateTournament, false).then(function (updatedTournament) {
+        var val = new Validator(updatedTournament);
         val.validateSchema().then(function () {
             return val.tournamentNotStarted();
         }).then(function () {
-            
-            
             crudRepository.update(id, updatedTournament, callback);
         }).catch(function (err) {
             callback(err, updateTournament);
@@ -68,8 +72,6 @@ module.exports.update = function (id, updateTournament, callback) {
     }).catch(function (err) {
         callback(err, updateTournament);
     });
-
-
 };
 
 module.exports.start = function (id, tournament, callback) {
@@ -93,15 +95,13 @@ module.exports.start = function (id, tournament, callback) {
 };
 
 module.exports.delete = function (id, callback) {
-
-
     crudRepository.findById(id, function (err, doc) {
         var val = new Validator(doc);
 
         val.tournamentNotStarted().then(function () {
             crudRepository.delete(id, callback);
         }).catch(function (err) {
-
+            callback(err, tournament);
         });
     });
 };

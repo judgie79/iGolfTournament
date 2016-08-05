@@ -32,13 +32,28 @@ namespace Golf.Excel
         protected int holeStbfPointsBruttoRow = 13;
 
         protected int playerCol = 1;
-        protected int playerSpvgCol = 2;
+        protected int playerSpvgCol = 3;
 
-        protected int playerHcpRow = 2;
+        protected int slopeRatingLabelCol = 1;
+        protected int slopeRatingLabelRow = 3;
+        protected int slopeRatingCol = 2;
+        protected int slopeRatingRow = 3;
+
+        protected int teetimeLabelCol = 1;
+        protected int teetimeLabelRow = 15;
+        protected int teetimeCol = 2;
+        protected int teetimeRow = 15;
+
+        protected int courseRatingLabelCol = 1;
+        protected int courseRatingLabelRow = 2;
+        protected int courseRatingCol = 2;
+        protected int courseRatinglRow = 2;
+
+        protected int playerHcpRow = 12;
         protected int playerHcpCol = 1;
 
-        protected int labelCol = 2;
-        protected int holeColStart = 3;
+        protected int labelCol = 3;
+        protected int holeColStart = 4;
 
         public TournamentWorkbookBase()
         {
@@ -47,8 +62,15 @@ namespace Golf.Excel
 
         public void Open(string fileName)
         {
-            xlApp = new MSExcel.Application();
-            xlWorkBook = xlApp.Workbooks.Open(fileName, 0, true, 5, "", "", true, MSExcel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+            try
+            {
+                xlApp = new MSExcel.Application();
+                xlWorkBook = xlApp.Workbooks.Open(fileName, 0, true, 5, "", "", true, MSExcel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public void Save()
@@ -111,6 +133,206 @@ namespace Golf.Excel
             releaseObject(xlApp);
         }
 
+        protected virtual MSExcel.Worksheet SetScoreSheet(string sheetName, string playername, float hcp, DateTime teetime, TeeBox teebox)
+        {
+            var teeboxSheet = this.xlWorkBook.Worksheets["Teeboxes"];
+            MSExcel.Worksheet scorecardSheet = xlWorkBook.Worksheets.Add(After: teeboxSheet);
+            scorecardSheet.Name = "Scoresheet_" + sheetName;
+
+
+
+            int holeColIndex = holeColStart;
+
+            string playSpvgCell = "$" + GetExcelColumnName(playerSpvgCol) + "$" + holeStrokesRow;
+
+            MSExcel.Range playerCell = scorecardSheet.Cells[holeStrokesRow, playerCol];
+            playerCell.Value = string.Format("{0}", playername);
+            playerCell.Font.Size = 20;
+            playerCell.Font.Bold = true;
+
+            scorecardSheet.Cells[playerHcpRow, playerHcpCol].FormulaLocal = string.Format("=RUNDEN({0};1)", hcp.ToString().Replace(".", ","));
+            scorecardSheet.Cells[holeStrokesRow, playerSpvgCol].FormulaLocal = string.Format("=RUNDEN({0}*({1}/113)-{2}+{3};1)", (GetExcelColumnName(playerHcpCol) + playerHcpRow), teebox.SlopeRating.ToString().Replace(".", ","), teebox.CourseRating.ToString().Replace(".", ","), teebox.Par);
+
+            MSExcel.Range slopeLabelCell = scorecardSheet.Cells[slopeRatingLabelRow, slopeRatingLabelCol];
+            slopeLabelCell.Value = "SlopeRating";
+            slopeLabelCell.Font.Size = 8;
+            slopeLabelCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignRight;
+
+
+            MSExcel.Range slopeCell = scorecardSheet.Cells[slopeRatingRow, slopeRatingCol];
+            slopeCell.FormulaLocal = string.Format("=RUNDEN({0};1)", teebox.SlopeRating.ToString().Replace(".", ","));
+            slopeCell.Font.Size = 8;
+            slopeCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignLeft;
+
+            MSExcel.Range courseLabelCell = scorecardSheet.Cells[courseRatingLabelRow, courseRatingLabelCol];
+            courseLabelCell.Value = "CourseRating";
+            courseLabelCell.Font.Size = 8;
+            courseLabelCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignRight;
+
+            MSExcel.Range courseCell = scorecardSheet.Cells[courseRatinglRow, courseRatingCol];
+            courseCell.FormulaLocal = string.Format("=RUNDEN({0};1)", teebox.CourseRating.ToString().Replace(".", ","));
+            courseCell.Font.Size = 8;
+
+            MSExcel.Range teetimeLabelCell = scorecardSheet.Cells[teetimeLabelRow, teetimeLabelCol];
+            teetimeLabelCell.Value = "Teetime";
+            teetimeLabelCell.Font.Size = 8;
+            teetimeLabelCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignRight;
+
+            MSExcel.Range teetimeCell = scorecardSheet.Cells[teetimeRow, teetimeCol];
+            teetimeCell.Value = teetime.ToString("hh:mm");
+            teetimeCell.Font.Size = 8;
+
+            MSExcel.Range holeLabelCell = scorecardSheet.Cells[holeNumberRow, labelCol];
+            holeLabelCell.Value = "Hole";
+            holeLabelCell.Font.Size = 8;
+            holeLabelCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignRight;
+
+            MSExcel.Range parLabelCell = scorecardSheet.Cells[holeParRow, labelCol];
+            parLabelCell.Value = "Par";
+            parLabelCell.Font.Size = 8;
+            parLabelCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignRight;
+
+            MSExcel.Range hcpLabelCell = scorecardSheet.Cells[holeCalcHcpRow, labelCol];
+            hcpLabelCell.Value = "Hcp";
+            hcpLabelCell.Font.Size = 8;
+            hcpLabelCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignRight;
+
+            MSExcel.Range teeboxLabelCell = scorecardSheet.Cells[holeDistanceRow, labelCol];
+            teeboxLabelCell.Value = teebox.Name;
+            teeboxLabelCell.Cells[holeDistanceRow, labelCol].Font.Size = 8;
+            teeboxLabelCell.Cells[holeDistanceRow, labelCol].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.ColorTranslator.FromHtml(teebox.Color.Value));
+            teeboxLabelCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignRight;
+
+            MSExcel.Range nettoLabelCell = scorecardSheet.Cells[holeStbfPointsNettoRow, labelCol];
+            nettoLabelCell.Value = "Netto";
+            nettoLabelCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignRight;
+
+            MSExcel.Range bruttoLabelCell = scorecardSheet.Cells[holeStbfPointsBruttoRow, labelCol];
+            bruttoLabelCell.Value = "Brutto";
+            bruttoLabelCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignRight;
+
+            //Set seperator row heights
+            ((MSExcel.Range)scorecardSheet.Rows[sepRow1]).RowHeight = 3.75;
+            ((MSExcel.Range)scorecardSheet.Rows[sepRow2]).RowHeight = 3.75;
+
+            var frontHoles = teebox.Holes.Front.OrderByDescending(h => h.Number).ToList();
+            var backHoles = teebox.Holes.Back.OrderByDescending(h => h.Number).ToList();
+
+
+            int sumFrontCol = holeColStart + frontHoles.Count;
+            int sumBackCol = holeColStart + frontHoles.Count + backHoles.Count + 1;
+            int sumCol = sumBackCol + 1;
+
+            //front
+            holeColIndex = holeColStart;
+            for (int i = 0; i < frontHoles.Count; i++)
+            {
+                SetHole(scorecardSheet, teebox.Color.Value, frontHoles[i], holeNumberRow, i, holeColStart, holeColIndex, frontHoles.Count - 1, playSpvgCell);
+                if (i == frontHoles.Count)
+                {
+
+                }
+                else
+                    holeColIndex++;
+            }
+            SetSums(scorecardSheet, teebox.Color.Value, sumFrontCol, holeColStart);
+
+            //back
+            for (int i = 0; i < backHoles.Count; i++)
+            {
+                SetHole(scorecardSheet, teebox.Color.Value, backHoles[i], holeNumberRow, i, sumFrontCol + 1, sumFrontCol + 1, backHoles.Count - 1, playSpvgCell);
+                if (i == backHoles.Count)
+                {
+
+                }
+                else
+                    holeColIndex++;
+            }
+            SetSums(scorecardSheet, teebox.Color.Value, sumBackCol, sumFrontCol + 1);
+
+            //set sum column
+            scorecardSheet.Cells[holeParRow, sumCol].FormulaLocal = string.Format("={0}+{1}", GetExcelColumnName(sumFrontCol) + holeParRow, GetExcelColumnName(sumBackCol) + holeParRow);
+            scorecardSheet.Cells[holeParRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeParRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeParRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeParRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            ((MSExcel.Range)scorecardSheet.Cells[holeParRow, sumCol]).Font.Bold = true;
+            scorecardSheet.Cells[holeParRow, sumCol].ColumnWidth = 6.43;
+
+            scorecardSheet.Cells[holeDistanceRow, sumCol].FormulaLocal = string.Format("={0}+{1}", GetExcelColumnName(sumFrontCol) + holeDistanceRow, GetExcelColumnName(sumBackCol) + holeDistanceRow);
+            scorecardSheet.Cells[holeDistanceRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeDistanceRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeDistanceRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeDistanceRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            ((MSExcel.Range)scorecardSheet.Cells[holeDistanceRow, sumCol]).Font.Bold = true;
+
+            scorecardSheet.Cells[holeStrokesRow, sumCol].FormulaLocal = string.Format("={0}+{1}", GetExcelColumnName(sumFrontCol) + holeStrokesRow, GetExcelColumnName(sumBackCol) + holeStrokesRow);
+            scorecardSheet.Cells[holeStrokesRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStrokesRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStrokesRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStrokesRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            ((MSExcel.Range)scorecardSheet.Cells[holeStrokesRow, sumCol]).Font.Bold = true;
+
+            scorecardSheet.Cells[holeStrokesNettoRow, sumCol].FormulaLocal = string.Format("={0}+{1}", GetExcelColumnName(sumFrontCol) + holeStrokesNettoRow, GetExcelColumnName(sumBackCol) + holeStrokesNettoRow);
+            scorecardSheet.Cells[holeStrokesNettoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStrokesNettoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStrokesNettoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStrokesNettoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            ((MSExcel.Range)scorecardSheet.Cells[holeStrokesNettoRow, sumCol]).Font.Bold = true;
+
+            scorecardSheet.Cells[holeStbfPointsNettoRow, sumCol].FormulaLocal = string.Format("={0}+{1}", GetExcelColumnName(sumFrontCol) + holeStbfPointsNettoRow, GetExcelColumnName(sumBackCol) + holeStbfPointsNettoRow);
+            scorecardSheet.Cells[holeStbfPointsNettoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStbfPointsNettoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStbfPointsNettoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStbfPointsNettoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            ((MSExcel.Range)scorecardSheet.Cells[holeStbfPointsNettoRow, sumCol]).Font.Bold = true;
+
+            scorecardSheet.Cells[holeStbfPointsBruttoRow, sumCol].FormulaLocal = string.Format("={0}+{1}", GetExcelColumnName(sumFrontCol) + holeStbfPointsBruttoRow, GetExcelColumnName(sumBackCol) + holeStbfPointsBruttoRow);
+            scorecardSheet.Cells[holeStbfPointsBruttoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStbfPointsBruttoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStbfPointsBruttoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Cells[holeStbfPointsBruttoRow, sumCol].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            ((MSExcel.Range)scorecardSheet.Cells[holeStbfPointsBruttoRow, sumCol]).Font.Bold = true;
+
+            //draw borders
+
+            //front
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(holeColStart) + holeNumberRow, GetExcelColumnName(sumFrontCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(holeColStart) + holeNumberRow, GetExcelColumnName(sumFrontCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].Weight = MSExcel.XlBorderWeight.xlThick;
+
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(holeColStart) + holeNumberRow, GetExcelColumnName(sumFrontCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(holeColStart) + holeNumberRow, GetExcelColumnName(sumFrontCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].Weight = MSExcel.XlBorderWeight.xlThick;
+
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(holeColStart) + holeNumberRow, GetExcelColumnName(sumFrontCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(holeColStart) + holeNumberRow, GetExcelColumnName(sumFrontCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].Weight = MSExcel.XlBorderWeight.xlThick;
+
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(holeColStart) + holeNumberRow, GetExcelColumnName(sumFrontCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(holeColStart) + holeNumberRow, GetExcelColumnName(sumFrontCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].Weight = MSExcel.XlBorderWeight.xlThick;
+
+            //back
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(sumFrontCol + 1) + holeNumberRow, GetExcelColumnName(sumBackCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(sumFrontCol + 1) + holeNumberRow, GetExcelColumnName(sumBackCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].Weight = MSExcel.XlBorderWeight.xlThick;
+
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(sumFrontCol + 1) + holeNumberRow, GetExcelColumnName(sumBackCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(sumFrontCol + 1) + holeNumberRow, GetExcelColumnName(sumBackCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].Weight = MSExcel.XlBorderWeight.xlThick;
+
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(sumFrontCol + 1) + holeNumberRow, GetExcelColumnName(sumBackCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(sumFrontCol + 1) + holeNumberRow, GetExcelColumnName(sumBackCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].Weight = MSExcel.XlBorderWeight.xlThick;
+
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(sumFrontCol + 1) + holeNumberRow, GetExcelColumnName(sumBackCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            scorecardSheet.Range[string.Format("{0}:{1}", GetExcelColumnName(sumFrontCol + 1) + holeNumberRow, GetExcelColumnName(sumBackCol) + holeStbfPointsBruttoRow)].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].Weight = MSExcel.XlBorderWeight.xlThick;
+
+
+            ////hide calc rows
+            scorecardSheet.Rows[holeCalcHcpRow].EntireRow.Hidden = true;
+            scorecardSheet.Rows[holeCalcStrokesRow].EntireRow.Hidden = true;
+            scorecardSheet.Rows[holeStrokesNettoRow].EntireRow.Hidden = true;
+
+            MSExcel.Range usedrange = scorecardSheet.UsedRange;
+            usedrange.Columns.AutoFit();
+            return scorecardSheet;
+        }
+
         public void SetCourse(Club club, Course course)
         {
             MSExcel.Worksheet clubSheet = this.xlWorkBook.Worksheets["Course"];
@@ -147,6 +369,9 @@ namespace Golf.Excel
                 rowCounter++;
             }
             clubSheet.Range[string.Format("A2:F{0}", teeboxes.Count + 1)].Value = values;
+
+            MSExcel.Range usedrange = clubSheet.UsedRange;
+            usedrange.Columns.AutoFit();
         }
 
         public void SetSums(MSExcel.Worksheet scorecardSheet, string teeboxColor, int sumIndex, int sumStart)
@@ -168,6 +393,7 @@ namespace Golf.Excel
             scorecardSheet.Cells[holeDistanceRow, sumIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.ColorTranslator.FromHtml(teeboxColor));
             scorecardSheet.Cells[holeDistanceRow, sumIndex].ColumnWidth = 6.43;
             ((MSExcel.Range)scorecardSheet.Cells[holeDistanceRow, sumIndex]).Font.Bold = true;
+            ((MSExcel.Range)scorecardSheet.Cells[holeDistanceRow, sumIndex]).Font.Size = 8;
 
             scorecardSheet.Cells[holeNumberRow, sumIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
             scorecardSheet.Cells[holeNumberRow, sumIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].Weight = MSExcel.XlBorderWeight.xlMedium;
@@ -216,44 +442,62 @@ namespace Golf.Excel
 
         public void SetHole(MSExcel.Worksheet scorecardSheet, string teeboxColor, Hole hole, int holeNumberRow, int index, int holeColIndex, int sumStart, int last, string playHcpCell)
         {
+            
+
             ((MSExcel.Range)scorecardSheet.Cells[holeNumberRow, holeColIndex]).EntireColumn.Insert(MSExcel.XlInsertShiftDirection.xlShiftToRight,
                 MSExcel.XlInsertFormatOrigin.xlFormatFromRightOrBelow);
 
+            MSExcel.Range numberCell = scorecardSheet.Cells[holeNumberRow, holeColIndex];
             //hole numbers
-            scorecardSheet.Cells[holeNumberRow, holeColIndex].Value = hole.Number;
-            ((MSExcel.Range)scorecardSheet.Cells[holeNumberRow, holeColIndex]).Font.Bold = true;
-            ((MSExcel.Range)scorecardSheet.Cells[holeNumberRow, holeColIndex]).Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeNumberRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeNumberRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeNumberRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+
+            numberCell.Value = hole.Number;
+            numberCell.Font.Bold = true;
+            numberCell.Font.Size = 16;
+            numberCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            numberCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            numberCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            numberCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            numberCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignCenter;
+            //set column widths
+            numberCell.ColumnWidth = 4.29;
 
             //hole par
-            scorecardSheet.Cells[holeParRow, holeColIndex].Value = hole.Par;
-            scorecardSheet.Cells[holeParRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeParRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeParRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeParRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            MSExcel.Range parCell = scorecardSheet.Cells[holeParRow, holeColIndex];
+            parCell.Value = hole.Par;
+            parCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            parCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            parCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            parCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            parCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignCenter;
 
             //hole hcp
-            scorecardSheet.Cells[holeHcpRow, holeColIndex].Value = hole.Hcp;
-            scorecardSheet.Cells[holeHcpRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeHcpRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeHcpRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeHcpRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            MSExcel.Range hcpCell = scorecardSheet.Cells[holeHcpRow, holeColIndex];
+            hcpCell.Value = hole.Hcp;
+            hcpCell.Font.Size = 8;
+            hcpCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            hcpCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            hcpCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            hcpCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            hcpCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignCenter;
 
             //hole distance
-            scorecardSheet.Cells[holeDistanceRow, holeColIndex].Value = hole.Distance;
-            scorecardSheet.Cells[holeDistanceRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeDistanceRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeDistanceRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeDistanceRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeDistanceRow, holeColIndex].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.ColorTranslator.FromHtml(teeboxColor));
+            MSExcel.Range distanceCell = scorecardSheet.Cells[holeDistanceRow, holeColIndex];
+            distanceCell.Value = hole.Distance;
+            distanceCell.Font.Size = 8;
+            distanceCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            distanceCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            distanceCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            distanceCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            distanceCell.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.ColorTranslator.FromHtml(teeboxColor));
+            distanceCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignCenter;
 
             //hole strokes
-            scorecardSheet.Cells[holeStrokesRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeStrokesRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeStrokesRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeStrokesRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            MSExcel.Range strokeCell = scorecardSheet.Cells[holeStrokesRow, holeColIndex];
+            strokeCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            strokeCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            strokeCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            strokeCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            strokeCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignCenter;
 
             scorecardSheet.Cells[holeCalcHcpRow, holeColIndex].Formula = "=" + playHcpCell + "-" + GetExcelColumnName(holeColIndex) + "$" + holeHcpRow;
 
@@ -267,20 +511,23 @@ namespace Golf.Excel
             string holeCalcStrokesCell = GetExcelColumnName(holeColIndex) + "" + holeCalcStrokesRow;
             string holeStrokesNettoCell = GetExcelColumnName(holeColIndex) + "" + holeStrokesNettoRow;
 
-            scorecardSheet.Cells[holeStbfPointsNettoRow, holeColIndex].FormulaLocal = string.Format("=WENN({0}<1;\"\";WENN((2+{1}+{3})>-1;(2+{2}+{4});0))", holeStrokesCell, holeStrokesNettoCell, holeStrokesNettoCell, holeCalcStrokesCell, holeCalcStrokesCell);
-            scorecardSheet.Cells[holeStbfPointsNettoRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeStbfPointsNettoRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeStbfPointsNettoRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeStbfPointsNettoRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
 
-            scorecardSheet.Cells[holeStbfPointsBruttoRow, holeColIndex].FormulaLocal = string.Format("=WENN({0}<1;\"\";WENN((2+{1})>-1;(2+{2});0))", holeStrokesCell, holeStrokesNettoCell, holeStrokesNettoCell);
-            scorecardSheet.Cells[holeStbfPointsBruttoRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeStbfPointsBruttoRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeStbfPointsBruttoRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
-            scorecardSheet.Cells[holeStbfPointsBruttoRow, holeColIndex].Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            MSExcel.Range nettoPointsCell = scorecardSheet.Cells[holeStbfPointsNettoRow, holeColIndex];
+            nettoPointsCell.FormulaLocal = string.Format("=WENN({0}<1;\"\";WENN((2+{1}+{3})>-1;(2+{2}+{4});0))", holeStrokesCell, holeStrokesNettoCell, holeStrokesNettoCell, holeCalcStrokesCell, holeCalcStrokesCell);
+            nettoPointsCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            nettoPointsCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            nettoPointsCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            nettoPointsCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            nettoPointsCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignCenter;
 
-            //set column widths
-            ((MSExcel.Range)scorecardSheet.Cells[holeNumberRow, holeColIndex]).ColumnWidth = 4.29;
+            MSExcel.Range bruttoPointsCell = scorecardSheet.Cells[holeStbfPointsBruttoRow, holeColIndex];
+            bruttoPointsCell.FormulaLocal = string.Format("=WENN({0}<1;\"\";WENN((2+{1})>-1;(2+{2});0))", holeStrokesCell, holeStrokesNettoCell, holeStrokesNettoCell);
+            bruttoPointsCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            bruttoPointsCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeRight].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            bruttoPointsCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            bruttoPointsCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
+            bruttoPointsCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignCenter;
+
         }
 
         public static int ExcelColumnNameToNumber(string columnName)

@@ -33,11 +33,11 @@ namespace Golf.Tournament.Controllers
 
             String savePath = ControllerContext.HttpContext.Server.MapPath("~/scorecards/");
             var spreadsheetSaveLocation = Path.Combine(savePath, string.Format("{0}.xlsx", id));
-            String path = ControllerContext.HttpContext.Server.MapPath("~/bin/");
+            String path = ControllerContext.HttpContext.Server.MapPath("~/templates/");
 
             var spreadsheetLocation = Path.Combine(path, "Template.xlsx");
 
-            if (tournament.TournamentType == Models.TournamentType.Team)
+            if (tournament.TournamentType == Models.TournamentType.Single)
             {
                 using (Golf.Excel.TournamentWorkbook wb = new Excel.TournamentWorkbook())
                 {
@@ -58,7 +58,7 @@ namespace Golf.Tournament.Controllers
 
                     wb.SaveAs(spreadsheetSaveLocation);
                 }
-            } else if (tournament.TournamentType == Models.TournamentType.Single)
+            } else if (tournament.TournamentType == Models.TournamentType.Team)
             {
                 using (Golf.Excel.TeamTournamentWorkbook wb = new Excel.TeamTournamentWorkbook())
                 {
