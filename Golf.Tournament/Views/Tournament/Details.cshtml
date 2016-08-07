@@ -64,8 +64,8 @@
         @Html.ActionLink("Start", "Start", new { id = Model.Tournament.Id }, new { @class = "btn btn-xs btn-success" })
     }
     @if (Model.Tournament.HasStarted && !Model.Tournament.HasFinished)
-    {
-        @Html.ActionLink("Scorecards", "Create", "Excel", new { id = Model.Tournament.Id }, new { @class = "btn btn-xs btn-primary" })
+    { 
+        @Html.ActionLink("Scorecards", "Scorecards", new { id = Model.Tournament.Id }, new { @class = "btn btn-xs btn-primary" })
     }
     @Html.ActionLink("Back to List", "Index")
     @Html.ActionLink("Show Participants", "Index", "Participant", new { tournamentId = Model.Tournament.Id }, new { @class = "btn btn-default" })

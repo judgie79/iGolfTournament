@@ -13,14 +13,13 @@ namespace Golf.Tournament.Controllers
     {
         // GET: Excel
         [Route("tournaments/{id}/excel")]
-        public async Task<FileResult> Index(string id)
+        public async Task<FileResult> Download(string id)
         {
             String savePath = ControllerContext.HttpContext.Server.MapPath("~/scorecards/");
-            var spreadsheetSaveLocation = Path.Combine(savePath, string.Format("{}.xlsx", id));
+            var spreadsheetSaveLocation = Path.Combine(savePath, string.Format("{0}.xlsx", id));
 
             var xlBytes = await ReadAsync(spreadsheetSaveLocation);
             string fileName = "Scorecards.xlsx";
-
 
             return File(xlBytes, "application/vnd.ms-excel", fileName);
         }
@@ -62,7 +61,6 @@ namespace Golf.Tournament.Controllers
             {
                 using (Golf.Excel.TeamTournamentWorkbook wb = new Excel.TeamTournamentWorkbook())
                 {
-
                     var teamTournament = (Models.TeamTournament)tournament;
                     wb.Open(spreadsheetLocation);
 
@@ -79,9 +77,8 @@ namespace Golf.Tournament.Controllers
                 }
             }
 
-            
-
-            
+            tournament.ScorecardIsCreated = true;
+            await loader.PutAsync<Models.Tournament>("tournaments/" + tournament.Id, tournament);
 
             var xlBytes = await ReadAsync(spreadsheetSaveLocation);
             string fileName = "Scorecards.xlsx";

@@ -1,0 +1,26 @@
+﻿@model Golf.Tournament.Models.Tournament
+
+@{
+    ViewBag.Title = "Scorecards";
+}
+
+<h2>Scorecards</h2>
+
+<div>
+    @Html.DisplayFor(model => model)
+</div>
+
+<div>
+    @if (Model.HasStarted && !Model.HasFinished)
+    {
+        if (Model.ScorecardIsCreated)
+        {
+            @Html.ActionLink("Download", "Download", "Excel", new { id = Model.Id }, new { @class = "btn btn-xs btn-primary", target="_blank" })
+            @Html.ActionLink("Recreate", "Create", "Excel", new { id = Model.Id }, new { @class = "btn btn-xs btn-primary", target = "_blank" })
+        }
+        else
+        {
+            @Html.ActionLink("Create", "Create", "Excel", new { id = Model.Id }, new { @class = "btn btn-xs btn-primary", target = "_blank" })
+        }
+    }
+</div>

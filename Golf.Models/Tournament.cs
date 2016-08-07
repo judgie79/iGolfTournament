@@ -68,6 +68,9 @@ namespace Golf.Tournament.Models
 
         [JsonProperty("hasFinished")]
         public bool HasFinished { get; set; }
+
+        [JsonProperty("scoreCardIsCreated")]
+        public bool ScorecardIsCreated { get; set; }
     }
 
     [JsonConverter(typeof(StringEnumConverter))]

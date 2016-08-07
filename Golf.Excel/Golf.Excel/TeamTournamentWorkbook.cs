@@ -18,22 +18,8 @@ namespace Golf.Excel
 
             MSExcel.Worksheet teamsSheet = this.xlWorkBook.Worksheets.Add(Before: teeboxSheet);
             teamsSheet.Name = "Teams";
-            //participantsSheet.Range["A2:K2"].End[MSExcel.XlDirection.xlDown].Clear();
             object[] header = { "Id", "Teetime", "Team", "Hcp", "Spvg", "Teebox", "Par", "CourseRating", "SlopeRating", "Strokes", "Brutto", "Netto" };
             teamsSheet.Range["A1:L1"].Value = header;
-
-            //teamsSheet.Range["A1"].Value = "Id";
-            //teamsSheet.Range["B1"].Value = "Teetime";
-            //teamsSheet.Range["C1"].Value = "Team";
-            //teamsSheet.Range["D1"].Value = "Hcp";
-            //teamsSheet.Range["E1"].Value = "Spvg";
-            //teamsSheet.Range["F1"].Value = "Teebox";
-            //teamsSheet.Range["G1"].Value = "Par";
-            //teamsSheet.Range["H1"].Value = "CourseRating";
-            //teamsSheet.Range["I1"].Value = "SlopeRating";
-            //teamsSheet.Range["J1"].Value = "Strokes";
-            //teamsSheet.Range["K1"].Value = "Brutto";
-            //teamsSheet.Range["L1"].Value = "Netto";
 
             int rowIndex = 2;
             foreach (var team in tournament.Teams)
@@ -69,9 +55,6 @@ namespace Golf.Excel
             teamMembersCell.Font.Size = 8;
             MSExcel.Style teamMembersCellStyle = teamMembersCell.Style;
             teamMembersCellStyle.WrapText = false;
-            //string range = string.Format("{0}{1}:{2}{3}", GetExcelColumnName(TeamMembersCol), TeamMembersRow, GetExcelColumnName(TeamMembersCol + 4), TeamMembersRow);
-            //scoreSheet.Range[range].Merge();
-            //teamMembersCellStyle.HorizontalAlignment = MSExcel.XlHAlign.xhal;
         }
 
         protected int TeamMembersRow = 15;

@@ -139,8 +139,6 @@ namespace Golf.Excel
             MSExcel.Worksheet scorecardSheet = xlWorkBook.Worksheets.Add(After: teeboxSheet);
             scorecardSheet.Name = "Scoresheet_" + sheetName;
 
-
-
             int holeColIndex = holeColStart;
 
             string playSpvgCell = "$" + GetExcelColumnName(playerSpvgCol) + "$" + holeStrokesRow;
@@ -157,7 +155,6 @@ namespace Golf.Excel
             slopeLabelCell.Value = "SlopeRating";
             slopeLabelCell.Font.Size = 8;
             slopeLabelCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignRight;
-
 
             MSExcel.Range slopeCell = scorecardSheet.Cells[slopeRatingRow, slopeRatingCol];
             slopeCell.FormulaLocal = string.Format("=RUNDEN({0};1)", teebox.SlopeRating.ToString().Replace(".", ","));
@@ -217,7 +214,6 @@ namespace Golf.Excel
 
             var frontHoles = teebox.Holes.Front.OrderByDescending(h => h.Number).ToList();
             var backHoles = teebox.Holes.Back.OrderByDescending(h => h.Number).ToList();
-
 
             int sumFrontCol = holeColStart + frontHoles.Count;
             int sumBackCol = holeColStart + frontHoles.Count + backHoles.Count + 1;
@@ -442,8 +438,6 @@ namespace Golf.Excel
 
         public void SetHole(MSExcel.Worksheet scorecardSheet, string teeboxColor, Hole hole, int holeNumberRow, int index, int holeColIndex, int sumStart, int last, string playHcpCell)
         {
-            
-
             ((MSExcel.Range)scorecardSheet.Cells[holeNumberRow, holeColIndex]).EntireColumn.Insert(MSExcel.XlInsertShiftDirection.xlShiftToRight,
                 MSExcel.XlInsertFormatOrigin.xlFormatFromRightOrBelow);
 
@@ -511,7 +505,6 @@ namespace Golf.Excel
             string holeCalcStrokesCell = GetExcelColumnName(holeColIndex) + "" + holeCalcStrokesRow;
             string holeStrokesNettoCell = GetExcelColumnName(holeColIndex) + "" + holeStrokesNettoRow;
 
-
             MSExcel.Range nettoPointsCell = scorecardSheet.Cells[holeStbfPointsNettoRow, holeColIndex];
             nettoPointsCell.FormulaLocal = string.Format("=WENN({0}<1;\"\";WENN((2+{1}+{3})>-1;(2+{2}+{4});0))", holeStrokesCell, holeStrokesNettoCell, holeStrokesNettoCell, holeCalcStrokesCell, holeCalcStrokesCell);
             nettoPointsCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeLeft].LineStyle = MSExcel.XlLineStyle.xlContinuous;
@@ -527,7 +520,6 @@ namespace Golf.Excel
             bruttoPointsCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeBottom].LineStyle = MSExcel.XlLineStyle.xlContinuous;
             bruttoPointsCell.Borders.Item[MSExcel.XlBordersIndex.xlEdgeTop].LineStyle = MSExcel.XlLineStyle.xlContinuous;
             bruttoPointsCell.Style.HorizontalAlignment = MSExcel.XlHAlign.xlHAlignCenter;
-
         }
 
         public static int ExcelColumnNameToNumber(string columnName)

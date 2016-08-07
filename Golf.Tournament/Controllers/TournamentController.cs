@@ -209,5 +209,13 @@ namespace Golf.Tournament.Controllers
                 return View(tournamentViewModel);
 }
         }
+
+        [Route("tournaments/{id}/scorecards")]
+        public async Task<ActionResult> ScoreCards(string id)
+        {
+            var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + id);
+
+            return View(tournament);
+        }
     }
 }
