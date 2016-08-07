@@ -172,6 +172,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Utility\HtmlPanelHelper.cs" />
+    <Compile Include="Utility\HtmlTeeboxHelper.cs" />
     <Compile Include="ViewModels\MemberCreateViewModel.cs" />
     <Compile Include="ViewModels\MemberListViewModel.cs" />
     <Compile Include="Models\Error.cs" />
@@ -788,7 +789,7 @@
     <Content Include="Views\Course\Details.cshtml" />
     <Content Include="Views\Course\Create.cshtml" />
     <Content Include="Views\Course\Edit.cshtml" />
-    <Content Include="Views\Shared\CourseListPart.cshtml" />
+    <Content Include="Views\Shared\CourseEditTablePart.cshtml" />
     <Content Include="Views\Player\Index.cshtml" />
     <Content Include="Views\Player\Details.cshtml" />
     <Content Include="Views\Player\Create.cshtml" />

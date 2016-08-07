@@ -12,25 +12,145 @@ namespace Golf.Tournament.Utility
     {
         public static MvcHtmlString Panel(this HtmlHelper helper, string panelTitle, Func<object, HelperResult> body, Func<object, HelperResult> footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
         {
+            return Panel(helper, panelTitle, body.Invoke(null).ToHtmlString(), footer.Invoke(null).ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, string panelTitle, string body, Func<object, HelperResult> footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle, body, footer.Invoke(null).ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, string panelTitle, Func<object, HelperResult> body, string footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle, body.Invoke(null).ToHtmlString(), footer, panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, string panelTitle, MvcHtmlString body, MvcHtmlString footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle, body.ToHtmlString(), footer.ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, string panelTitle, Func<object, HelperResult> body, MvcHtmlString footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle, body.Invoke(null).ToHtmlString(), footer.ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, string panelTitle, MvcHtmlString body, Func<object, HelperResult> footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle, body.ToHtmlString(), footer.Invoke(null).ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, string panelTitle, string body, MvcHtmlString footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle, body, footer.ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, string panelTitle, MvcHtmlString body, string footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle, body.ToHtmlString(), footer, panelClass, isCollapsible, isCollapsed);
+        }
+
+        /////
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, Func<object, HelperResult> panelTitle, Func<object, HelperResult> body, Func<object, HelperResult> footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.Invoke(null).ToHtmlString(), body.Invoke(null).ToHtmlString(), footer.Invoke(null).ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, Func<object, HelperResult> panelTitle, string body, Func<object, HelperResult> footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.Invoke(null).ToHtmlString(), body, footer.Invoke(null).ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, Func<object, HelperResult> panelTitle, Func<object, HelperResult> body, string footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.Invoke(null).ToHtmlString(), body.Invoke(null).ToHtmlString(), footer, panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, Func<object, HelperResult> panelTitle, MvcHtmlString body, MvcHtmlString footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.Invoke(null).ToHtmlString(), body.ToHtmlString(), footer.ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, Func<object, HelperResult> panelTitle, Func<object, HelperResult> body, MvcHtmlString footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.Invoke(null).ToHtmlString(), body.Invoke(null).ToHtmlString(), footer.ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, Func<object, HelperResult> panelTitle, MvcHtmlString body, Func<object, HelperResult> footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.Invoke(null).ToHtmlString(), body.ToHtmlString(), footer.Invoke(null).ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, Func<object, HelperResult> panelTitle, string body, MvcHtmlString footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.Invoke(null).ToHtmlString(), body, footer.ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, Func<object, HelperResult> panelTitle, MvcHtmlString body, string footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.Invoke(null).ToHtmlString(), body.ToHtmlString(), footer, panelClass, isCollapsible, isCollapsed);
+        }
+
+        ////
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, MvcHtmlString panelTitle, Func<object, HelperResult> body, Func<object, HelperResult> footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.ToHtmlString(), body.Invoke(null).ToHtmlString(), footer.Invoke(null).ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, MvcHtmlString panelTitle, string body, Func<object, HelperResult> footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.ToHtmlString(), body, footer.Invoke(null).ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, MvcHtmlString panelTitle, Func<object, HelperResult> body, string footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.ToHtmlString(), body.Invoke(null).ToHtmlString(), footer, panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, MvcHtmlString panelTitle, MvcHtmlString body, MvcHtmlString footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.ToHtmlString(), body.ToHtmlString(), footer.ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, MvcHtmlString panelTitle, Func<object, HelperResult> body, MvcHtmlString footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.ToHtmlString(), body.Invoke(null).ToHtmlString(), footer.ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, MvcHtmlString panelTitle, MvcHtmlString body, Func<object, HelperResult> footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.ToHtmlString(), body.ToHtmlString(), footer.Invoke(null).ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, MvcHtmlString panelTitle, string body, MvcHtmlString footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.ToHtmlString(), body, footer.ToHtmlString(), panelClass, isCollapsible, isCollapsed);
+        }
+
+        public static MvcHtmlString Panel(this HtmlHelper helper, MvcHtmlString panelTitle, MvcHtmlString body, string footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
+            return Panel(helper, panelTitle.ToHtmlString(), body.ToHtmlString(), footer, panelClass, isCollapsible, isCollapsed);
+        }
+
+        /* HTML Syntax
+        <div class="panel panel-default panel-collapsed">
+            <div class="panel-heading">
+                <h3 class="panel-title"></h3>
+                <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span>
+            </div>
+            <div class="panel-body">
+            </div>
+            <div class="panel-footer">
+            </div>
+        </div>
+        */
+        public static MvcHtmlString Panel(this HtmlHelper helper, string panelTitle, string body, string footer = null, string panelClass = "panel-default", bool isCollapsible = false, bool isCollapsed = false)
+        {
             StringBuilder sb = new StringBuilder();
 
-            /*
-             <div class="panel panel-default panel-collapsed">
-                <div class="panel-heading">
-                    <h3 class="panel-title">@Model.Name</h3>
-                    <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-down"></i></span>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            @Html.DisplayFor(model => model.TeeBoxes)
-                        </div>
-                    </div>
-                </div>
-                @*<div class="panel-footer">
-                </div>*@
-            </div>
-            */
+            
             string panelClassStr = string.Format(" {0}", panelClass);
             string panelCollapsedStr = isCollapsible && isCollapsed ? " panel-collapsed" : "";
 
@@ -53,13 +173,13 @@ namespace Golf.Tournament.Utility
 
             //panel body
             sb.Append("   <div class=\"panel-body\">\n");
-            sb.Append(body.Invoke(null).ToHtmlString());
+            sb.Append(body);
             sb.Append("   </div>\n");
 
             if (footer != null)
             {
                 sb.Append("   <div class=\"panel-footer\">\n");
-                sb.Append(footer.Invoke(null).ToHtmlString());
+                sb.Append(footer);
                 sb.Append("   </div>\n");
             }
 

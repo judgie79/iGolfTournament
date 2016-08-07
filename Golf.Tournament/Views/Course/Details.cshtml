@@ -9,9 +9,15 @@
 
 <div class="row">
     <div class="col-md-4">
-        @Html.Partial("Club_Panel", Model.Club)
+        @Html.Panel(Model.Club.Name,
+            Html.DisplayFor(model => model.Club.Address).ToHtmlString(),
+            Html.ActionLink("Details", "Details", new { id = Model.Club.Id }, new { @class = "btn btn-sm btn-default" }).ToHtmlString() + "\n" +
+            Html.ActionLink("Edit", "Edit", new { id = Model.Club.Id }, new { @class = "btn btn-sm btn-default" }).ToHtmlString()
+            )
     </div>
     <div class="col-md-8">
-        @Html.Partial("Course_Panel", Model.Course)
+        @Html.Panel(Model.Course.Name,
+            Html.DisplayFor(model => model.Course.TeeBoxes).ToHtmlString(),
+            Html.ActionLink("Edit", "Edit", "Course", new { clubId = Model.Club.Id, id = Model.Course.Id }, new { @class = "btn btn-sm btn-default" }).ToHtmlString() + "\n")
     </div>
 </div>
