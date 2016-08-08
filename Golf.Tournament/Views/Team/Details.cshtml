@@ -38,46 +38,48 @@
 </div>
 
 <table class="table">
-    <tr>
-        <td>
-            @Html.DisplayFor(model => model.MemberLabelModel.TeeboxId)
-        </td>
-        <th>
-            @Html.DisplayNameFor(model => model.MemberLabelModel.Teetime)
-        </th>
-        <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Lastname)</th>
-        <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Lastname)</th>
-        <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Firstname)</th>
-        <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Hcp)</th>
-        <th>@Html.Label("Homeclub")</th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.Team.Members)
-    {
+    <thead>
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TeeboxId)
+                @Html.DisplayFor(model => model.MemberLabelModel.TeeboxId)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Teetime)
-            </td>
-            <td>@Html.DisplayFor(model => item.Player.Lastname)</td>
-            <td>@Html.DisplayFor(model => item.Player.Firstname)</td>
-            <td>@Html.DisplayFor(model => item.Player.Hcp)</td>
-            <td>@Html.DisplayFor(model => item.Player.HomeClub.Name)</td>
-
-            <td>
-                @Html.ActionLink("Details", "Details", "Member", new { id = item.Id, teamId = Model.Team.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-default" })
-                @if (!Model.Tournament.HasStarted)
-                {
-                    @Html.ActionLink("Delete", "Delete", "Member", new { id = item.Id, teamId = Model.Team.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-danger" })
-                }
-            </td>
-
+            <th>
+                @Html.DisplayNameFor(model => model.MemberLabelModel.Teetime)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Lastname)</th>
+            <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Lastname)</th>
+            <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Firstname)</th>
+            <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Hcp)</th>
+            <th>@Html.Label("Homeclub")</th>
+            <th></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Team.Members)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TeeboxId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Teetime)
+                </td>
+                <td>@Html.DisplayFor(model => item.Player.Lastname)</td>
+                <td>@Html.DisplayFor(model => item.Player.Firstname)</td>
+                <td>@Html.DisplayFor(model => item.Player.Hcp)</td>
+                <td>@Html.DisplayFor(model => item.Player.HomeClub.Name)</td>
 
+                <td>
+                    @Html.ActionLink("Details", "Details", "Member", new { id = item.Id, teamId = Model.Team.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-default" })
+                    @if (!Model.Tournament.HasStarted)
+                {
+                        @Html.ActionLink("Delete", "Delete", "Member", new { id = item.Id, teamId = Model.Team.Id, tournamentId = Model.Tournament.Id }, new { @class = "btn btn-xs btn-danger" })
+                    }
+                </td>
+
+            </tr>
+        }
+    </tbody>
 </table>
 
 <p>

@@ -25,5 +25,17 @@ namespace Golf.Tournament.Utility
             return new DateTime(dateTime.Year, dateTime.Month,
                  dateTime.Day, dateTime.Hour, (dateTime.Minute / minutes) * minutes, 0);
         }
+
+        public static DateTime FromUnixTime(this DateTime dotNetTime, double unixTime)
+        {
+            System.DateTime result = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            return result.AddSeconds(unixTime).ToLocalTime();
+        }
+
+        public static long ToUnixTime(this DateTime dotNetTime)
+        {
+            var result = (dotNetTime - new DateTime(1970, 1, 1).ToLocalTime()).TotalSeconds;
+            return (long)result;
+        }
     }
 }

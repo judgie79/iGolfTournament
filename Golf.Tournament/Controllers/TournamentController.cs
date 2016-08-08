@@ -1,4 +1,5 @@
-﻿using Golf.Tournament.ViewModels;
+﻿using Golf.Tournament.Utility;
+using Golf.Tournament.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -216,6 +217,33 @@ namespace Golf.Tournament.Controllers
             var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + id);
 
             return View(tournament);
+        }
+
+        [Route("tournaments/calendar")]
+        public ActionResult Calendar()
+        {
+            return View();
+        }
+
+        [Route("tournaments/events")]
+        public async Task<JsonResult> Events(long from=1470002400000, long to=1472680800000, int utc_offset_from=-120, int utc_offset_to=-120)
+        {
+            var tournaments = await loader.LoadAsync<IEnumerable<Models.Tournament>>("tournaments");
+
+            var result = new
+            {
+                success = true,
+                result = tournaments.Select(t => new {
+                    id = t.Id,
+                   title = t.Title,
+                   url = Url.Action("Details", "Tournament", new { id = t.Id }),
+                   @class = t.TournamentType == Models.TournamentType.Single ? "event-info" : "event-warning",
+                   start= t.Date.ToUnixTime() * 1000, // Milliseconds
+                   end = t.Date.AddHours(5).ToUnixTime() * 1000 // Milliseconds
+                }).Where(t => t.start >= from && t.start <= to)
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

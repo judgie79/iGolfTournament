@@ -7,75 +7,109 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@Html.ActionLink("Tournament Calendar", "Calendar", "Tournament", new { }, new { })
+
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LabelModel.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LabelModel.TournamentType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LabelModel.ScoreType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LabelModel.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LabelModel.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LabelModel.HasStarted)
-        </th>
-        <td>
-            @Html.DisplayNameFor(model => model.LabelModel.HasFinished)
-        </td>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model.Tournaments)
-    {
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TournamentType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ScoreType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HasStarted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HasFinished)
-            </td>
-            <td>
-                @if (!item.HasStarted)
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })
-                }
-                @if (!item.HasStarted && !item.HasFinished)
-                {
-                    @Html.ActionLink("Start", "Start", new { id = item.Id }, new { @class = "btn btn-xs btn-success" })
-                }
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-default" }) 
-                @if (!item.HasStarted)
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger" })
-                }
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.Title)
+            </th>
+            <th class="filter-select filter-exact" data-placeholder="">@Html.DisplayNameFor(model => model.LabelModel.TournamentType)</th>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.ScoreType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.Date)
+            </th>
+            <th>
+                # Participants
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.HasStarted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.HasFinished)
+            </th>
+            <th class="sorter-false filter-false"></th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Tournaments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TournamentType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ScoreType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Participants.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasStarted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasFinished)
+                </td>
+                <td>
+                    @if (!item.HasStarted)
+                {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-xs btn-primary" })
+                    }
+                    @if (!item.HasStarted && !item.HasFinished)
+                {
+                        @Html.ActionLink("Start", "Start", new { id = item.Id }, new { @class = "btn btn-xs btn-success" })
+                    }
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-xs btn-default" })
+                    @if (!item.HasStarted)
+                {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.TournamentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.ScoreType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.Date)
+            </th>
+            <th>
+                # Participants
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.HasStarted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LabelModel.HasFinished)
+            </th>
+            <th>@Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-sm btn-default" })</th>
+        </tr>
+    </tfoot>
 </table>

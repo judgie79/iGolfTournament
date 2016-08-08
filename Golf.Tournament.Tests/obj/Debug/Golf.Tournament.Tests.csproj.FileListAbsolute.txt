@@ -108,7 +108,6 @@ E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament.Tests\obj\Debug\Golf.Tournament.Tests.pdb
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Models.dll
 E:\Documents\Visual Studio 2015\Projects\Golf.js\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Golf.Models.pdb
-D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Template.xlsx
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\ApplicationInsights.config
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\templates\Template.xlsx
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\roslyn\csc.exe
@@ -168,3 +167,4 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\de\System
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\obj\Debug\Golf.Tournament.Tests.csprojResolveAssemblyReference.cache
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\obj\Debug\Golf.Tournament.Tests.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\obj\Debug\Golf.Tournament.Tests.pdb
+D:\theju\Documents\Git\iGolfTournament\Golf.Tournament.Tests\bin\Debug\Template.xlsx

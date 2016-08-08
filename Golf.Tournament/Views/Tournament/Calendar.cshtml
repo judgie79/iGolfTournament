@@ -1,0 +1,147 @@
+﻿@model IEnumerable<Golf.Tournament.Models.Tournament>
+
+@{
+    ViewBag.Title = "Calendar";
+}
+
+<h2>Calendar</h2>
+
+<div class="page-header">
+    <div class="pull-right form-inline">
+        <div class="btn-group">
+            <button class="btn btn-primary" data-calendar-nav="prev">&lt;&lt; Prev</button>
+            <button class="btn" data-calendar-nav="today">Today</button>
+            <button class="btn btn-primary" data-calendar-nav="next">Next &gt;&gt;</button>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-warning" data-calendar-view="year">Year</button>
+            <button class="btn btn-warning active" data-calendar-view="month">Month</button>
+            <button class="btn btn-warning" data-calendar-view="week">Week</button>
+            <button class="btn btn-warning" data-calendar-view="day">Day</button>
+        </div>
+    </div>
+    <h3>@DateTime.Now.ToString("MMM yyyy")</h3>
+    <small>Tournaments</small>
+</div>
+
+<div class="row">
+    <div class="col-md-9">
+        <div id="calendar"></div>
+    </div>
+    <div class="col-md-3">
+        <ul class="nav nav-list" id="eventlist"></ul>
+    </div>
+</div>
+
+@using (Html.BeginContent("bottom"))
+{
+    <div class="modal fade" id="events-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Event</h3>
+                </div>
+                <div class="modal-body" style="height: 400px">
+                </div>
+                <div class="modal-footer">
+                    <a href="#" data-dismiss="modal" class="btn">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginScripts("afterjQuery"))
+{
+    <script src="~/Content/bootstrap-calendar-master/js/calendar.js"></script>
+}
+
+@using (Html.BeginScripts("end"))
+{
+    <script>
+        var options = {
+            events_source: "@Url.Action("Events", "Tournament", new { })",
+            view: 'month',
+            tmpl_path: "/Content/bootstrap-calendar-master/tmpls/",
+            tmpl_cache: false,
+            modal : "#events-modal", modal_type : "ajax", modal_title : function (e) { return e.title },
+            day: '@DateTime.Now.ToString("yyyy-MM-dd")',
+            onAfterEventsLoad: function (events) {
+                if (!events) {
+                    return;
+                }
+                var list = $('#eventlist');
+                list.html('');
+
+                $.each(events, function (key, val) {
+                    $(document.createElement('li'))
+                        .html('<a href="' + val.url + '">' + val.title + '</a>')
+                        .appendTo(list);
+                });
+            },
+            onAfterViewLoad: function (view) {
+                $('.page-header h3').text(this.getTitle());
+                $('.btn-group button').removeClass('active');
+                $('button[data-calendar-view="' + view + '"]').addClass('active');
+            },
+            classes: {
+                months: {
+                    general: 'label'
+                }
+            }
+        };
+
+        var calendar = $('#calendar').calendar(options);
+
+        $('.btn-group button[data-calendar-nav]').each(function () {
+            var $this = $(this);
+            $this.click(function () {
+                calendar.navigate($this.data('calendar-nav'));
+            });
+        });
+
+        $('.btn-group button[data-calendar-view]').each(function () {
+            var $this = $(this);
+            $this.click(function () {
+                calendar.view($this.data('calendar-view'));
+            });
+        });
+
+        $('#first_day').change(function () {
+            var value = $(this).val();
+            value = value.length ? parseInt(value) : null;
+            calendar.setOptions({ first_day: value });
+            calendar.view();
+        });
+
+        $('#language').change(function () {
+            calendar.setLanguage($(this).val());
+            calendar.view();
+        });
+
+        $('#events-in-modal').change(function () {
+            var val = $(this).is(':checked') ? $(this).val() : null;
+            calendar.setOptions({ modal: val });
+        });
+        $('#format-12-hours').change(function () {
+            var val = $(this).is(':checked') ? true : false;
+            calendar.setOptions({ format12: val });
+            calendar.view();
+        });
+        $('#show_wbn').change(function () {
+            var val = $(this).is(':checked') ? true : false;
+            calendar.setOptions({ display_week_numbers: val });
+            calendar.view();
+        });
+        $('#show_wb').change(function () {
+            var val = $(this).is(':checked') ? true : false;
+            calendar.setOptions({ weekbox: val });
+            calendar.view();
+        });
+        $('#events-modal .modal-header, #events-modal .modal-footer').click(function (e) {
+            //e.preventDefault();
+            //e.stopPropagation();
+        });
+    </script>
+}
