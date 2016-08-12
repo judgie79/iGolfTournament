@@ -57,10 +57,14 @@ Updater.prototype.updateCourse = function (db, collection, tournament, update) {
 Updater.prototype.updateTeams = function (db, collection, tournament, update) {
 
     return new Promise(function (resolve, reject) {
-        if (tournament.teams == null || tournament.teams.length == 0)
+        if (tournament.teams == null)
         {
              tournament.teams = [];
-             resolve(tournament);
+        }
+
+        if (tournament.participants == null)
+        {
+             tournament.participants = [];
         }
 
         resolve(tournament);

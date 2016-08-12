@@ -14,11 +14,11 @@ var teeboxSchema = {
             },
             "distance": {
                 "type": "number",
-                "minimum": 1
+                "minimum": 0
             },
             "par": {
                 "type": "number",
-                "minimum": 1
+                "minimum": 0
             },
             "courseRating": {
                 "type": "number",

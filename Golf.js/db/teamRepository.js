@@ -3,7 +3,7 @@ var config = require("../config.js");
 
 var express = require('express');
 var mongodb = require("mongodb");
-var ObjectID = mongodb.ObjectID;
+var ObjectId = mongodb.ObjectId;
 
 var mongoUtil = require('../db/mongoUtil');
 
@@ -23,8 +23,8 @@ module.exports.deleteTeam = function (tournamentId, teamId, callback) {
         var val = new Validator(doc);
 
         val.tournamentNotStarted().then(function () {
-            db.collection(config.db.collections.tournaments).update({ "_id": new ObjectID(tournamentId) },
-                { $pull: { "teams": { "_id": new ObjectID(teamId) } } }, false, callback);
+            db.collection(config.db.collections.tournaments).update({ "_id": new ObjectId(tournamentId) },
+                { $pull: { "teams": { "_id": new ObjectId(teamId) } } }, false, callback);
         }).catch(function (err) {
             callback(err, updateTournament);
         });
@@ -39,13 +39,13 @@ module.exports.updateTeam = function (tournamentId, id, team, callback) {
         val.tournamentNotStarted().then(function () {
             delete team._id;
 
-            team._id = new ObjectID(id);
+            team._id = new ObjectId(id);
 
             
 
             db.collection(config.db.collections.tournaments).update(
                 {
-                    _id: new ObjectID(tournamentId),
+                    _id: new ObjectId(tournamentId),
                     "teams._id": team._id
                 },
                 {
@@ -57,7 +57,7 @@ module.exports.updateTeam = function (tournamentId, id, team, callback) {
                 },
                 function (err, part) {
                     db.collection(config.db.collections.tournaments).findOne(
-                        { "_id": new ObjectID(tournamentId) },
+                        { "_id": new ObjectId(tournamentId) },
                         function (err, tournament) {
                             callback(err, tournament);
                         }
@@ -77,19 +77,19 @@ module.exports.registerTeam = function (tournamentId, team, callback) {
         var val = new Validator(doc);
         val.tournamentNotStarted().then(function () {
 
-            team._id = new ObjectID();
+            team._id = new ObjectId();
             team.teeTime = doc.date;
             team.members = team.members || [];
             db.collection(config.db.collections.tournaments).update(
                 {
-                    _id: new ObjectID(tournamentId)
+                    _id: new ObjectId(tournamentId)
                 },
                 {
                     "$push": { "teams": team }
                 },
                 function (err, part) {
                     db.collection(config.db.collections.tournaments).findOne(
-                        { "_id": new ObjectID(tournamentId) },
+                        { "_id": new ObjectId(tournamentId) },
                         function (err, tournament) {
                             callback(err, tournament);
                         }
@@ -170,8 +170,8 @@ module.exports.deleteTeamMember = function (tournamentId, teamId, participantId,
             db.collection(config.db.collections.tournaments).update(
 
                 {
-                    "_id": new ObjectID(tournamentId),
-                    "teams._id": new ObjectID(teamId)
+                    "_id": new ObjectId(tournamentId),
+                    "teams._id": new ObjectId(teamId)
                 },
                 {
                     "$pull": { "teams.$.members": { "_id": participantId } }
@@ -182,8 +182,8 @@ module.exports.deleteTeamMember = function (tournamentId, teamId, participantId,
                     }
 
                     db.collection(config.db.collections.tournaments).update({
-                        "_id": new ObjectID(tournamentId),
-                        "teams._id": new ObjectID(teamId)
+                        "_id": new ObjectId(tournamentId),
+                        "teams._id": new ObjectId(teamId)
                     },
                         { "$set": { "teams.$.hcp": hcp } },
                         false, function (err, tourn) {
@@ -209,18 +209,18 @@ module.exports.updateTeamMember = function (tournamentId, id, team, callback) {
             delete participant._id;
 
             db.collection(config.db.collections.players).findOne(
-                { "_id": new ObjectID(participant.player._id) },
+                { "_id": new ObjectId(participant.player._id) },
                 function (err, player) {
-                    participant._id = new ObjectID(id);
+                    participant._id = new ObjectId(id);
                     participant.player = player;
-                    participant.player._id = new ObjectID(participant.player._id);
-                    participant.player.homeClub._id = new ObjectID(participant.player.homeClub._id);
-                    participant.teeBoxId = new ObjectID(participant.teeBoxId);
+                    participant.player._id = new ObjectId(participant.player._id);
+                    participant.player.homeClub._id = new ObjectId(participant.player.homeClub._id);
+                    participant.teeBoxId = new ObjectId(participant.teeBoxId);
 
                     db.collection(config.db.collections.tournaments).update(
                         {
-                            _id: new ObjectID(tournamentId),
-                            "teams._id": new ObjectID(teamId),
+                            _id: new ObjectId(tournamentId),
+                            "teams._id": new ObjectId(teamId),
                             "teams.members._id": participant._id
                         },
                         {
@@ -228,7 +228,7 @@ module.exports.updateTeamMember = function (tournamentId, id, team, callback) {
                         },
                         function (err, part) {
                             db.collection(config.db.collections.tournaments).findOne(
-                                { "_id": new ObjectID(tournamentId) },
+                                { "_id": new ObjectId(tournamentId) },
                                 function (err, tournament) {
                                     callback(err, tournament);
                                 }
@@ -252,9 +252,9 @@ module.exports.registerTeamMember = function (tournamentId, teamId, participant,
 
             db.collection(config.db.collections.tournaments).findOne(
                 {
-                    "_id": new ObjectID(tournamentId),
-                    "teams._id": new ObjectID(teamId),
-                    "teams.members._id": participant._id,
+                    "_id": new ObjectId(tournamentId),
+                    "teams._id": new ObjectId(teamId),
+                    "teams.members._id": new ObjectId(participant._id),
                 },
                 function (err, tournament) {
                     if (tournament != null) {
@@ -269,7 +269,7 @@ module.exports.registerTeamMember = function (tournamentId, teamId, participant,
                     });
 
                     var fullPart = tournament.participants.find(function (part) {
-                        return part._id === participant._id;
+                        return part._id.toHexString() === new ObjectId(participant._id).toHexString();
                     });
 
                     var hcp = getTeamHcp(team.members, false, fullPart.player.hcp);
@@ -278,8 +278,8 @@ module.exports.registerTeamMember = function (tournamentId, teamId, participant,
                     //fullPart.player.hcp = hcp;
                     db.collection(config.db.collections.tournaments).update(
                         {
-                            "_id": new ObjectID(tournamentId),
-                            "teams._id": new ObjectID(teamId)
+                            "_id": new ObjectId(tournamentId),
+                            "teams._id": new ObjectId(teamId)
                         },
                         {
                             "$push": { "teams.$.members": fullPart }
@@ -288,13 +288,13 @@ module.exports.registerTeamMember = function (tournamentId, teamId, participant,
 
                             db.collection(config.db.collections.tournaments).update(
                                 {
-                                    "_id": new ObjectID(tournamentId),
-                                    "teams._id": new ObjectID(teamId)
+                                    "_id": new ObjectId(tournamentId),
+                                    "teams._id": new ObjectId(teamId)
                                 },
                                 { "$set": { "teams.$.hcp": hcp }},
                                 false, function (err, tourn) {
                                     db.collection(config.db.collections.tournaments).findOne(
-                                        { "_id": new ObjectID(tournamentId) },
+                                        { "_id": new ObjectId(tournamentId) },
                                         function (err, tournament) {
                                             callback(err, tournament);
                                         }

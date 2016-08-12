@@ -24,6 +24,7 @@
             <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Firstname)</th>
             <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Hcp)</th>
             <th>@Html.Label("Homeclub")</th>
+            <th class="sorter-false filter-false"></th>
         </tr>
     </thead>
     <tbody>
@@ -61,21 +62,34 @@
     <tfoot>
         @if (!Model.Tournament.HasStarted)
         {
-            <p>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-sm btn-primary btn-lg" data-toggle="modal" data-target="#myModal_AddParticipant">
-                    Register Participant
-                </button>
-            </p>
+
+            <tr>
+                <th>
+                    @Html.Label("Teebox")
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LabelModel.Teetime)
+                </th>
+                <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Lastname)</th>
+                <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Firstname)</th>
+                <th>@Html.DisplayNameFor(model => model.LabelModel.Player.Hcp)</th>
+                <th>@Html.Label("Homeclub")</th>
+                <th>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-sm btn-primary btn-lg" data-toggle="modal" data-target="#myModal_AddParticipant">
+                        Register Participant
+                    </button>
+                </th>
+            </tr>
         }
     </tfoot>
+
 </table>
-
-
 
 <p>
     @Html.ActionLink("Back to Tournament", "Details", "Tournament", new { id = Model.Tournament.Id }, new { @class = "btn btn-default" })
 </p>
+
 @using (Html.BeginContent("bottom"))
 {
 <!-- Modal Add Participant -->

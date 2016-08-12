@@ -1,0 +1,58 @@
+﻿@model HtmlEditorViewModel
+
+@{ 
+    string logId = string.Format("log_{0}", Model.Id);
+    string toolbarId = string.Format("toolbar_{0}", Model.Id);
+}
+
+<!-- toolbar with suitable buttons and dialogues -->
+<div id="{0}_toolbar">
+    <a data-wysihtml5-command="bold">bold</a>
+    <a data-wysihtml5-command="italic">italic</a>
+    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
+    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
+</div>
+
+<!-- element to edit -->
+<textarea id="@Model.Id" name="@Model.Name" style="width: 100%; height: 100%;" placeholder="Enter your text ..." autofocus>@Model.Text</textarea>
+
+@using (Html.BeginScripts("end"))
+{
+    <script>
+        $(function () {
+            var editor = new wysihtml.Editor(document.getElementById('@Model.Id'), {
+                toolbar: document.getElementById('@toolbarId')
+            });
+
+            //var log = document.getElementById('@logId');
+
+
+            editor
+                .on('load', function () {
+                    //log.innerHTML += '<div>load</div>';
+                })
+                .on('focus', function () {
+                    //log.innerHTML += '<div>focus</div>';
+                })
+                .on('blur', function () {
+                    //log.innerHTML += '<div>blur</div>';
+                })
+                .on('change', function () {
+                    //log.innerHTML += '<div>change</div>';
+                    
+                })
+                .on('paste', function () {
+                    //log.innerHTML += '<div>paste</div>';
+                })
+                .on('newword:composer', function () {
+                    //log.innerHTML += '<div>newword:composer</div>';
+                })
+                .on('undo:composer', function () {
+                    //log.innerHTML += '<div>undo:composer</div>';
+                })
+                .on('redo:composer', function () {
+                    //log.innerHTML += '<div>redo:composer</div>';
+                });
+        });
+    </script>
+}

@@ -41,12 +41,11 @@
     <thead>
         <tr>
             <td>
-                @Html.DisplayFor(model => model.MemberLabelModel.TeeboxId)
+                @Html.DisplayNameFor(model => model.MemberLabelModel.TeeboxId)
             </td>
             <th>
                 @Html.DisplayNameFor(model => model.MemberLabelModel.Teetime)
             </th>
-            <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Lastname)</th>
             <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Lastname)</th>
             <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Firstname)</th>
             <th>@Html.DisplayNameFor(model => model.MemberLabelModel.Player.Hcp)</th>
@@ -85,4 +84,5 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { tournamentId = Model.Tournament.Id, id = Model.Team.Id }) |
     @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to Tournament", "Details", "Tournament", new { id = Model.Tournament.Id }, new { @class = "btn btn-default" })
 </p>

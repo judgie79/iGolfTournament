@@ -58,6 +58,10 @@
                     <div class="col-md-offset-2 col-sm-10">
                         <input type="submit" value="Save" class="btn btn-primary" />
                         @Html.ActionLink("Show Participants", "Index", "Participant", new { tournamentId = Model.Tournament.Id }, new { @class = "btn btn-default" })
+                        @if (Model.Tournament.TournamentType == Golf.Tournament.Models.TournamentType.Team)
+                        {
+                            @Html.ActionLink("Show Teams", "Index", "Team", new { tournamentId = Model.Tournament.Id }, new { @class = "btn btn-default" })
+                        }
                     </div>
                 </div>
             </div>

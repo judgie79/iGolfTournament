@@ -13,6 +13,9 @@ var clubSchema = {
         },
         "address": {
             "$ref": "addressSchema"
+        },
+        "localRules": {
+            "type": ["null", "string"]
         }
     },
     "required": ["name"]

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Golf.Tournament.Models
 {
@@ -18,5 +19,10 @@ namespace Golf.Tournament.Models
 
         [JsonProperty("address")]
         public Address Address { get; set; }
+
+        [JsonProperty("localRules")]
+        [DataType(DataType.Html)]
+        [AllowHtml]
+        public string LocalRules { get; set; }
     }
 }

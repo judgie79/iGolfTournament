@@ -3,7 +3,7 @@ var config = require("../config.js");
 
 var express = require('express');
 var mongodb = require("mongodb");
-var ObjectID = mongodb.ObjectID;
+var ObjectId = mongodb.ObjectId;
 
 var mongoUtil = require('../db/mongoUtil');
 
@@ -23,8 +23,8 @@ module.exports.deleteParticipant = function (tournamentId, participantId, callba
         var val = new Validator(doc);
 
         val.tournamentNotStarted().then(function () {
-            db.collection(config.db.collections.tournaments).update({ "_id": new ObjectID(tournamentId) },
-                { $pull: { "participants": { "_id": new ObjectID(participantId) } } }, false, callback);
+            db.collection(config.db.collections.tournaments).update({ "_id": new ObjectId(tournamentId) },
+                { $pull: { "participants": { "_id": new ObjectId(participantId) } } }, false, callback);
         }).catch(function (err) {
             callback(err, updateTournament);
         });
@@ -40,17 +40,17 @@ module.exports.updateParticipant = function (tournamentId, id, participant, call
             delete participant._id;
 
             db.collection(config.db.collections.players).findOne(
-                { "_id": new ObjectID(participant.player._id) },
+                { "_id": new ObjectId(participant.player._id) },
                 function (err, player) {
-                    participant._id = new ObjectID(id);
+                    participant._id = new ObjectId(id);
                     participant.player = player;
-                    participant.player._id = new ObjectID(participant.player._id);
-                    participant.player.homeClub._id = new ObjectID(participant.player.homeClub._id);
-                    participant.teeBoxId = new ObjectID(participant.teeBoxId);
+                    participant.player._id = new ObjectId(participant.player._id);
+                    participant.player.homeClub._id = new ObjectId(participant.player.homeClub._id);
+                    participant.teeBoxId = new ObjectId(participant.teeBoxId);
 
                     db.collection(config.db.collections.tournaments).update(
                         {
-                            _id: new ObjectID(tournamentId),
+                            _id: new ObjectId(tournamentId),
                             "participants._id": participant._id
                         },
                         {
@@ -58,7 +58,7 @@ module.exports.updateParticipant = function (tournamentId, id, participant, call
                         },
                         function (err, part) {
                             db.collection(config.db.collections.tournaments).findOne(
-                                { "_id": new ObjectID(tournamentId) },
+                                { "_id": new ObjectId(tournamentId) },
                                 function (err, tournament) {
                                     callback(err, tournament);
                                 }
@@ -80,8 +80,8 @@ module.exports.registerParticipant = function (tournamentId, participant, callba
         val.tournamentNotStarted().then(function () {
             db.collection(config.db.collections.tournaments).findOne(
                 {
-                    "_id": new ObjectID(tournamentId),
-                    "participants.player._id": new ObjectID(participant.player._id),
+                    "_id": new ObjectId(tournamentId),
+                    "participants.player._id": new ObjectId(participant.player._id),
                 },
                 function (err, tournament) {
                     if (tournament != null) {
@@ -90,24 +90,24 @@ module.exports.registerParticipant = function (tournamentId, participant, callba
                     }
 
                     db.collection(config.db.collections.players).findOne(
-                        { "_id": new ObjectID(participant.player._id) },
+                        { "_id": new ObjectId(participant.player._id) },
                         function (err, player) {
-                            participant._id = new ObjectID();
+                            participant._id = new ObjectId();
                             participant.player = player;
-                            participant.player._id = new ObjectID(participant.player._id);
-                            participant.player.homeClub._id = new ObjectID(participant.player.homeClub._id);
-                            participant.teeBoxId = new ObjectID(participant.teeBoxId);
+                            participant.player._id = new ObjectId(participant.player._id);
+                            participant.player.homeClub._id = new ObjectId(participant.player.homeClub._id);
+                            participant.teeBoxId = new ObjectId(participant.teeBoxId);
 
                             db.collection(config.db.collections.tournaments).update(
                                 {
-                                    _id: new ObjectID(tournamentId)
+                                    _id: new ObjectId(tournamentId)
                                 },
                                 {
                                     "$push": { "participants": participant }
                                 },
                                 function (err, part) {
                                     db.collection(config.db.collections.tournaments).findOne(
-                                        { "_id": new ObjectID(tournamentId) },
+                                        { "_id": new ObjectId(tournamentId) },
                                         function (err, tournament) {
                                             callback(err, tournament);
                                         }

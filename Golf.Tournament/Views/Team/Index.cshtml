@@ -48,3 +48,7 @@
         @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-sm btn-default" })
     </tfoot>
 </table>
+
+<p>
+    @Html.ActionLink("Back to Tournament", "Details", "Tournament", new { id = Model.Tournament.Id }, new { @class = "btn btn-default" })
+</p>

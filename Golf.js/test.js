@@ -1,102 +1,35 @@
-var test = {
-    "_id" : ObjectId("5793c5ba0528622bdc3f67e1"),
-    "clubId" : ObjectId("57939466ae87983d68eb147b"),
-    "name" : "The2 Test Course",
-    "teeboxes" : [ 
-        {
-            "_id" : ObjectId("5793cbe3d068bd22c4278373"),
-            "color" : "#FFFFFF",
-            "name" : "Championship",
-            "distance" : 122,
-            "par" : 12,
-            "courseRating" : 12,
-            "slopeRating" : 12,
-            "holes" : {
-                "front": [ 
-                {
-                    "_id" : "",
-                    "number" : 1,
-                    "distance" : 100,
-                    "par" : 3,
-                    "hcp" : 1,
-                    "holeId" : ObjectId("5794c21cd068bd22c4278380")
-                }, 
-                {
-                    "_id" : "",
-                    "number" : 2,
-                    "distance" : 124,
-                    "par" : 4,
-                    "hcp" : 2,
-                    "holeId" : ObjectId("5794c21cd068bd22c4278381")
-                }
-            ],
-                "back": [ 
-                {
-                    "_id" : "",
-                    "number" : 1,
-                    "distance" : 100,
-                    "par" : 3,
-                    "hcp" : 1,
-                    "holeId" : ObjectId("5794c21cd068bd22c4278380")
-                }, 
-                {
-                    "_id" : "",
-                    "number" : 2,
-                    "distance" : 124,
-                    "par" : 4,
-                    "hcp" : 2,
-                    "holeId" : ObjectId("5794c21cd068bd22c4278381")
-                }
-            ]
-            },
-            
-        }, 
-        {
-            "_id" : ObjectId("5793cc6dd068bd22c4278378"),
-            "color" : "#0001FF",
-            "name" : "Senior",
-            "distance" : 12212,
-            "par" : 12,
-            "courseRating" : 12,
-            "slopeRating" : 12,
-            "holes" : {
-                "front": [ 
-                    {
-                        "_id" : "",
-                        "number" : 1,
-                        "distance" : 100,
-                        "par" : 3,
-                        "hcp" : 1,
-                        "holeId" : ObjectId("5794c21cd068bd22c4278382")
-                    }, 
-                    {
-                        "_id" : "",
-                        "number" : 2,
-                        "distance" : 230,
-                        "par" : 4,
-                        "hcp" : 2,
-                        "holeId" : ObjectId("5794c21cd068bd22c4278383")
-                    }
-                ],
-                "back": [ 
-                {
-                    "_id" : "",
-                    "number" : 1,
-                    "distance" : 100,
-                    "par" : 3,
-                    "hcp" : 1,
-                    "holeId" : ObjectId("5794c21cd068bd22c4278382")
-                }, 
-                {
-                    "_id" : "",
-                    "number" : 2,
-                    "distance" : 230,
-                    "par" : 4,
-                    "hcp" : 2,
-                    "holeId" : ObjectId("5794c21cd068bd22c4278383")
-                }
-                ]
-            }
-        }
-    ]
-}
+$(function () {
+    var editor = new wysihtml.Editor(document.getElementById('{0}'), {
+        toolbar:document.getElementById('{1}'),
+        parserRules:  wysihtmlParserRules
+    });
+
+    var log = document.getElementById('{2}');
+
+
+    editor
+        .on('load', function() {
+                    log.innerHTML += '<div>load</div>';
+                })
+        .on('focus', function() {
+                    log.innerHTML += '<div>focus</div>';
+                })
+        .on('blur', function() {
+                    log.innerHTML += '<div>blur</div>';
+                })
+        .on('change', function() {
+                    log.innerHTML += '<div>change</div>';
+                })
+        .on('paste', function() {
+                    log.innerHTML += '<div>paste</div>';
+                })
+        .on('newword:composer', function() {
+                    log.innerHTML += '<div>newword:composer</div>';
+                })
+        .on('undo:composer', function() {
+                    log.innerHTML += '<div>undo:composer</div>';
+                })
+        .on('redo:composer', function() {
+                    log.innerHTML += '<div>redo:composer</div>';
+                });
+});

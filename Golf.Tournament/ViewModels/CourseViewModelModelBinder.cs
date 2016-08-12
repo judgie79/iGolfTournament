@@ -17,9 +17,11 @@ namespace Golf.Tournament.ViewModels
             
             var form = request.Form;
 
+            string clubId = form.Get("Club.Id") ?? form.Get("Course.ClubId");
+
             var Course = new Course()
             {
-                ClubId = form.Get("Club.Id"),
+                ClubId = clubId,
                 Id = form.Get("Course.Id"),
                 Name = form.Get("Course.Name"),
                 TeeBoxes = new TeeboxCollection()
