@@ -17,12 +17,15 @@ var holeSchema = {
         },
         "par": {
             "type": "number",
-            "minimum": 3,
-            "maximum": 5
+            "minimum": 1,
+            "maximum": 6
         },
         "hcp": {
             "type": "number",
             "minimum": 1
+        },
+        "courseImage": {
+            "type" : ["null", "string"]
         }
     },
     "required": ["number", "distance", "par", "hcp"]

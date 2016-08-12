@@ -13,14 +13,27 @@ namespace Golf.Tournament.ViewModels
             ParticipantCreateViewModel = new TournamentParticipantCreateViewModel();
         }
 
+        public TournamentParticipantListViewModel(Models.Tournament tournament)
+            : this(tournament, null)
+        {
+            ParticipantCreateViewModel = new TournamentParticipantCreateViewModel();
+        }
+
         public TournamentParticipantListViewModel(Models.Tournament tournament, PlayerCollection players)
         {
-            ParticipantCreateViewModel = new TournamentParticipantCreateViewModel()
+            if (players != null)
             {
-                Players = new PlayerCollection(players.Where(o => !tournament.Participants.Any(p => p.Player.Id == o.Id))),
-                TournamentId = tournament.Id,
-                Teeboxes = tournament.Course.TeeBoxes
-            };
+                ParticipantCreateViewModel = new TournamentParticipantCreateViewModel()
+                {
+                    Players = new PlayerCollection(players.Where(o => !tournament.Participants.Any(p => p.Player.Id == o.Id))),
+                    TournamentId = tournament.Id,
+                    Teeboxes = tournament.Course.TeeBoxes
+                };
+            } else
+            {
+                ParticipantCreateViewModel = new TournamentParticipantCreateViewModel();
+            }
+            
             Participants = tournament.Participants;
             Tournament = tournament;
            
@@ -36,6 +49,8 @@ namespace Golf.Tournament.ViewModels
         public TournamentParticipantCollection Participants { get; set; }
 
         public Golf.Tournament.Models.TournamentParticipant LabelModel = new Models.TournamentParticipant();
+
+        public bool EditEnabled { get; set; }
     }
 
     public class TournamentListViewModel

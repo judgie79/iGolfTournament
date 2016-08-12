@@ -6,10 +6,18 @@
 }
 
 <!-- toolbar with suitable buttons and dialogues -->
-<div id="{0}_toolbar">
-    <a data-wysihtml5-command="bold">bold</a>
-    <a data-wysihtml5-command="italic">italic</a>
+
+<div id="@toolbarId" style="display: none;">
+    <a data-wysihtml-command="bold">bold</a>
+    <a data-wysihtml-command="italic">italic</a>
+
+    <!-- Some wysihtml5 commands require extra parameters -->
+    <a data-wysihtml-command="foreColor" data-wysihtml-command-value="red">red</a>
+    <a data-wysihtml-command="foreColor" data-wysihtml-command-value="green">green</a>
+    <a data-wysihtml-command="foreColor" data-wysihtml-command-value="blue">blue</a>
+
     <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
+    <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h2">H2</a>
     <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
 </div>
 

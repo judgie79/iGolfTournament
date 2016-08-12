@@ -21,7 +21,10 @@ namespace Golf.Tournament.Controllers
 
             tournament.Result.Participants = tournament.Result.Participants ?? new Models.TournamentParticipantCollection();
 
-            return View(new ViewModels.TournamentParticipantListViewModel(tournament.Result, players.Result));
+            return View(new ViewModels.TournamentParticipantListViewModel(tournament.Result, players.Result)
+            {
+                EditEnabled = true
+            });
         }
 
         // GET: Participant/Details/5

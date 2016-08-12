@@ -19,10 +19,13 @@
     )
 
     @Html.Panel("Local Rules",
-    @<div>
-        <p>@Html.Raw(Model.Club.LocalRules)</p>
-    </div>,
-    string.Empty)
-    @Html.Panel("Courses", Html.Partial("CourseEditTablePart", Model.Courses), Html.ActionLink("Create New", "Create", "Course", new { clubId = Model.Club.Id }, new { @class = "btn btn-sm btn-default" }))
+        @<div>
+            <p>@Html.Raw(Model.Club.LocalRules)</p>
+        </div>,
+        string.Empty, isCollapsible: true, isCollapsed: true)
+
+    @Html.Panel("Courses",
+        Html.Partial("CourseEditTablePart", Model.Courses),
+        Html.ActionLink("Create New", "Create", "Course", new { clubId = Model.Club.Id }, new { @class = "btn btn-sm btn-default" }))
 
 </div>

@@ -4,10 +4,25 @@
     ViewBag.ShowHoles = true;
 }
 
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Panel(@<span>@Model.Tournament.Club.Name @Model.Tournament.Course.Name</span>,
+    @<div class="row">
+        <div class="col-md-12">
+            @Html.DisplayFor(model => model.Tournament.Course.TeeBoxes)
+        </div>
+         <div class="col-md-6">
+             @Html.DisplayFor(model => model.Tournament.Club.LocalRules)
+         </div>
+
+    </div>
+            , string.Empty, panelClass: "panel-default", isCollapsible: true, isCollapsed: true)
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-10">
-        @Html.Partial("Club_Panel", Model.Tournament.Club)
-
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -62,13 +77,14 @@
                         {
                             @Html.ActionLink("Show Teams", "Index", "Team", new { tournamentId = Model.Tournament.Id }, new { @class = "btn btn-default" })
                         }
+                        @if (!Model.Tournament.HasStarted)
+                        {
+                            @Html.ActionLink("Start", "Start", new { id = Model.Tournament.Id }, new { @class = "btn btn-success" })
+                        }
                     </div>
                 </div>
             </div>
         }
-    </div>
-    <div class="col-md-8">
-        @Html.Partial("Course_Panel_Display", Model.Tournament.Course)
     </div>
 </div>
 
@@ -76,7 +92,7 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index")
-    @Html.ActionLink("Start", "Start", new { id = Model.Tournament.Id })
+   
 </div>
 
 @section Scripts {
