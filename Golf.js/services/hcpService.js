@@ -26,7 +26,7 @@ module.exports.getHcp = function (player, callback) {
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             // Print out the response body
-            console.log(body)
+            //console.log(body)
 
             var cheerio = require('cheerio');
             var $ = cheerio.load(body);

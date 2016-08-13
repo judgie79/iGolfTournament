@@ -17,24 +17,24 @@ Validator.prototype.validateHcp = function(){
     var me = this;
     return new Promise(function (resolve, reject) {
         
-        if (player.membership) {
-            hcpService.getHcp(player, function(hcp) {
+        if (me.player.membership && !me.player.overrideHcp) {
+            hcpService.getHcp(me.player, function(hcp) {
                 if (hcp) {
-                    player.hcp = hcp;
-                    player.isOfficialHcp = true;
+                    me.player.hcp = hcp;
+                    me.player.isOfficialHcp = true;
                 } else {
-                    player.isOfficialHcp = false;
-                    player.hcp = Number(player.hcp);
+                    me.player.isOfficialHcp = false;
+                    me.player.hcp = Number(player.hcp);
                 }
 
-                resolve(player);
+                resolve(me.player);
             });
         }
         else {
-            player.hcp = Number(player.hcp);
-            player.isOfficialHcp = false;
+            me.player.hcp = Number(me.player.hcp);
+            me.player.isOfficialHcp = false;
 
-            resolve(player);
+            resolve(me.player);
         }
     });
 };

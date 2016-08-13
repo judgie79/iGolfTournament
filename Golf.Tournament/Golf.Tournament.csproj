@@ -299,6 +299,12 @@
     <Content Include="Content\bootstrap-calendar-master\tmpls\year.html" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-switch\css\bootstrap2\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\css\bootstrap2\bootstrap-switch.min.css" />
+    <Content Include="Content\bootstrap-switch\css\bootstrap3\bootstrap-switch.css" />
+    <Content Include="Content\bootstrap-switch\css\bootstrap3\bootstrap-switch.min.css" />
+    <Content Include="Content\bootstrap-switch\js\bootstrap-switch.js" />
+    <Content Include="Content\bootstrap-switch\js\bootstrap-switch.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

@@ -48,6 +48,14 @@
         <hr />
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Player.OverrideHcp, htmlAttributes: new { @class = "control-label col-sm-2" })
+            <div class="col-sm-10">
+                @Html.EditorFor(model => model.Player.OverrideHcp, new { htmlAttributes = new { @class = "form-control switch" } })
+                @Html.ValidationMessageFor(model => model.Player.OverrideHcp, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Player.Hcp, htmlAttributes: new { @class = "control-label col-sm-2" })
             <div class="col-sm-2 controls">
 
@@ -63,7 +71,7 @@
                             htmlAttributes.Add("class", "form-control");
                         }
 
-                        if (Model.Player.IsOfficialHcp)
+                        if (Model.Player.IsOfficialHcp && !Model.Player.OverrideHcp)
                         {
                             htmlAttributes.Add("disabled", "disabled");
                         }
@@ -71,13 +79,13 @@
 
                     @Html.TextBoxFor(model => model.Player.Hcp, htmlAttributes)
                     <span class="input-group-addon">
-                        @if (Model.Player.IsOfficialHcp)
+                        @if (Model.Player.IsOfficialHcp && !Model.Player.OverrideHcp)
                         {
-                            <span class="glyphicon-check glyphicon" title="official"></span>
+                            <span id="officialTag" class="glyphicon-check glyphicon" title="official"></span>
                         }
                         else
                         {
-                            <span class="glyphicon-remove glyphicon" title="unofficial"></span>
+                            <span id="officialTag" class="glyphicon-remove glyphicon" title="unofficial"></span>
                         }
                     </span>
                 </div>
@@ -91,15 +99,42 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-sm-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-primary" />
+                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
-                        }
+}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@using (Html.BeginScripts("end"))
+{
+    <script>
+        var overrideId = "@Html.IdFor(m => Model.Player.OverrideHcp)";
+        var hcpId = "@Html.IdFor(m => Model.Player.Hcp)";
+
+        $("#" + overrideId).bootstrapSwitch();
+        $("#" + overrideId).on('switchChange.bootstrapSwitch', function (event, state) {
+
+            var tag = $("#officialTag");
+
+            if (state) {
+                if (tag.hasClass("glyphicon-check")) {
+                    tag.removeClass("glyphicon-check");
+                    tag.addClass("glyphicon-remove");
+                    tag.attr("title", "unofficial");
+                }
+
+                $("#" + hcpId).removeAttr("disabled");
+            } else {
+                $("#" + hcpId).attr("disabled", "disabled");
+            }
+
+            //console.log(this); // DOM element
+            //console.log(event); // jQuery event
+            //console.log(state); // true | false
+        });
+    </script>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

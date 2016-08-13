@@ -34,6 +34,9 @@ var playerSchema = {
             "type": ["number", "integer"],
             "minimum": 0,
             "maximum": 54
+        },
+        "overrideHcp": {
+            "type": ["null","boolean"]
         }
     },
     "required": ["firstname", "lastname", "homeClub", "hcp"]

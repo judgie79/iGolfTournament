@@ -42,6 +42,9 @@ namespace Golf.Tournament.Models
         [Required]
         public float Hcp { get; set; }
 
+        [JsonProperty("overrideHcp")]
+        public bool OverrideHcp { get; set; }
+
         [JsonProperty("isOfficialHcp")]
         public bool IsOfficialHcp { get; set; }
 

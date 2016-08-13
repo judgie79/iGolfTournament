@@ -41,8 +41,8 @@ jspm_packages
 /Golf.Excel.Tests/Golf.Excel.Tests.csproj.user
 /Golf.Excel.Tests/bin
 /Golf.Excel.Tests/obj
-/Golf.Models/obj
-/Golf.Models/bin
+/Golf.Models/obj/Debug
+/Golf.Models/bin/Debug
 /Golf.Tournament/Golf.Tournament.csproj.user
 /Golf.Tournament/bin
 /Golf.Tournament/obj

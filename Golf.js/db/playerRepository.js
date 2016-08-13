@@ -28,8 +28,8 @@ module.exports.create = function (newplayer, callback) {
     var db = mongoUtil.getDb();
     
 
-    val.validateSchema(function() {
-        return validateHcp();
+    val.validateSchema().then(function() {
+        return val.validateHcp();
     }).then(function(player) {
         return updater.updateHomeClub(db, config.db.collections.clubs, newplayer, true);
 
@@ -46,11 +46,10 @@ module.exports.update = function (id, updatePlayer, callback) {
     var updater = new Updater();
     var db = mongoUtil.getDb();
 
-    val.validateSchema(function() {
-        return validateHcp();
-    }).then(function(player) {
+    val.validateSchema().then(function () {
+        return val.validateHcp();
+    }).then(function (player) {
         return updater.updateHomeClub(db, config.db.collections.clubs, updatePlayer, true);
-
     }).then(function(player) {
         crudRepository.update(id, updatePlayer, callback);
     }).catch(function(err) {
