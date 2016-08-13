@@ -37,6 +37,9 @@ var playerSchema = {
         },
         "overrideHcp": {
             "type": ["null","boolean"]
+        },
+        "avatar": {
+            "type": ["null", "string"]
         }
     },
     "required": ["firstname", "lastname", "homeClub", "hcp"]

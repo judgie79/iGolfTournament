@@ -10,7 +10,10 @@
 
 <div class="row">
     <div class="col-md-4">
-        @Html.Partial("Club_Panel", Model.Club)
+       @Html.Panel(Model.Club.Name,
+            Html.DisplayFor(model => model.Club.Address),
+            ""
+        )
     </div>
     <div class="col-md-8">
         <div class="panel panel-default">

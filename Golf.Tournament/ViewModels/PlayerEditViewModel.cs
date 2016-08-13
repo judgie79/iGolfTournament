@@ -15,6 +15,8 @@ namespace Golf.Tournament.ViewModels
 
         public Player Player { get; set; }
 
+        public HttpPostedFileBase AvatarFile { get; set; }
+
         public IEnumerable<Club> Clubs { get; set; }
     }
 }

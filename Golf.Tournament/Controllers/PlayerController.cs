@@ -1,7 +1,9 @@
 ﻿using Golf.Tournament.Models;
+using Golf.Tournament.Utility;
 using Golf.Tournament.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -81,6 +83,20 @@ namespace Golf.Tournament.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(string id, PlayerEditViewModel playerEditViewModel)
         {
+            if (playerEditViewModel.AvatarFile.HasFile())
+            {
+                //save the file
+                String savePath = ControllerContext.HttpContext.Server.MapPath("~/avatars/");
+                string extension = Path.GetExtension(playerEditViewModel.AvatarFile.FileName);
+
+                string fileName = string.Format("{0}{1}", id, extension);
+                var avatarSaveLocation = Path.Combine(savePath, fileName);
+                playerEditViewModel.AvatarFile.SaveAs(avatarSaveLocation);
+
+                playerEditViewModel.Player.Avatar = string.Format("/avatars/{0}", fileName);
+            }
+
+
             try
             {
                 playerEditViewModel.Player = await loader.PutAsync<Player>("players/" + id, playerEditViewModel.Player);

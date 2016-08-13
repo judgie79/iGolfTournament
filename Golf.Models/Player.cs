@@ -48,6 +48,9 @@ namespace Golf.Tournament.Models
         [JsonProperty("isOfficialHcp")]
         public bool IsOfficialHcp { get; set; }
 
+        [JsonProperty("avatar")]
+        public string Avatar { get; set; }
+
         public string Fullname { get
             {
                 return string.Format("{0} {1}", Firstname, Lastname);

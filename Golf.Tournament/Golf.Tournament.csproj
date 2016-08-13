@@ -171,6 +171,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Utility\FileHelper.cs" />
+    <Compile Include="Utility\HtmlFileUploadHelper.cs" />
     <Compile Include="Utility\HtmlPanelHelper.cs" />
     <Compile Include="Utility\HtmlTeeboxHelper.cs" />
     <Compile Include="Utility\WysiwygEditorHelper.cs" />
@@ -299,6 +301,48 @@
     <Content Include="Content\bootstrap-calendar-master\tmpls\year.html" />
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
+    <Content Include="Content\bootstrap-fileinput\css\fileinput.css" />
+    <Content Include="Content\bootstrap-fileinput\css\fileinput.min.css" />
+    <Content Include="Content\bootstrap-fileinput\img\loading-sm.gif" />
+    <Content Include="Content\bootstrap-fileinput\img\loading.gif" />
+    <Content Include="Content\bootstrap-fileinput\js\fileinput.js" />
+    <Content Include="Content\bootstrap-fileinput\js\fileinput.min.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\ar.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\bg.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\ca.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\cr.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\cz.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\da.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\de.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\el.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\es.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\fa.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\fi.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\fr.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\hu.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\id.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\it.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\ja.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\LANG.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\nl.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\pl.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\pt-BR.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\pt.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\ro.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\ru.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\sk.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\th.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\tr.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\uk.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\vi.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\zh-TW.js" />
+    <Content Include="Content\bootstrap-fileinput\js\locales\zh.js" />
+    <Content Include="Content\bootstrap-fileinput\js\plugins\canvas-to-blob.js" />
+    <Content Include="Content\bootstrap-fileinput\js\plugins\canvas-to-blob.min.js" />
+    <Content Include="Content\bootstrap-fileinput\js\plugins\purify.js" />
+    <Content Include="Content\bootstrap-fileinput\js\plugins\purify.min.js" />
+    <Content Include="Content\bootstrap-fileinput\js\plugins\sortable.js" />
+    <Content Include="Content\bootstrap-fileinput\js\plugins\sortable.min.js" />
     <Content Include="Content\bootstrap-switch\css\bootstrap2\bootstrap-switch.css" />
     <Content Include="Content\bootstrap-switch\css\bootstrap2\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-switch\css\bootstrap3\bootstrap-switch.css" />
@@ -1074,8 +1118,6 @@
     <Content Include="Views\Shared\Map.cshtml" />
     <Content Include="Views\Home\DashboardListPanel.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
-    <Content Include="Views\Shared\Club_Panel.cshtml" />
-    <Content Include="Views\Shared\Course_Panel.cshtml" />
     <Content Include="Views\Shared\Course_Panel_Display.cshtml" />
     <Content Include="Views\Shared\Teeboxes_Table_Edit.cshtml" />
     <Content Include="Views\Shared\Holes_Table_Popup.cshtml" />
@@ -1106,6 +1148,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="avatars\" />
     <Folder Include="Golf\Tournament\ViewModels\" />
     <Folder Include="scorecards\" />
     <Folder Include="ViewModels\Formatter\" />

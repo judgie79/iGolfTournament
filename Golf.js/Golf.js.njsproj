@@ -35,6 +35,8 @@
     <Compile Include="data\tournaments.js" />
     <Compile Include="db\clubValidator.js" />
     <Compile Include="db\courseValidator.js" />
+    <Compile Include="db\holeRepository.js" />
+    <Compile Include="db\holeValidator.js" />
     <Compile Include="db\participantRepository.js" />
     <Compile Include="db\participantValidator.js" />
     <Compile Include="db\playerRepository.js" />

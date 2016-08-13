@@ -4,19 +4,26 @@
     <div class="panel-heading">
         <div class="row">
             <div class="col-xs-3">
-                <i class="fa fa-user fa-5x"></i>
+                @if (!string.IsNullOrWhiteSpace(Model.Avatar))
+                {
+                    <img src="@Model.Avatar" alt="Avatar" class="avatar" />
+                }
+                else
+                {
+                    <i class="fa fa-user fa-5x"></i>
+                }
             </div>
             <div class="col-xs-9 text-right">
                 <div class="huge">
                     @Html.DisplayFor(m => m.Hcp)
-                        @if (Model.IsOfficialHcp)
-                        {
-                            <span class="glyphicon-check glyphicon" style="font-size: 30%; vertical-align:text-top;" title="official"></span>
-                        }
-                        else
-                        {
-                            <span class="small glyphicon-remove glyphicon" style="font-size: 30%; vertical-align:text-top;" title="unofficial"></span>
-                        }
+                    @if (Model.IsOfficialHcp)
+                    {
+                        <span class="glyphicon-check glyphicon" style="font-size: 30%; vertical-align:text-top;" title="official"></span>
+                    }
+                    else
+                    {
+                        <span class="small glyphicon-remove glyphicon" style="font-size: 30%; vertical-align:text-top;" title="unofficial"></span>
+                    }
                 </div>
                 <div>@Html.DisplayFor(m => m.Fullname)</div>
             </div>

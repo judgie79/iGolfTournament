@@ -2,7 +2,7 @@ var config = require("../config.js");
 
 var express = require('express');
 var mongodb = require("mongodb");
-var ObjectID = mongodb.ObjectID;
+var ObjectId = mongodb.ObjectID;
 
 
 var mongoUtil = require('../db/mongoUtil');
@@ -14,7 +14,7 @@ var Validator = require('./teeboxValidator');
 
 module.exports.findAll = function (courseId, callback) {
     var db = mongoUtil.getDb();
-    db.collection(config.db.collections.courses).find({ "_id": new ObjectID(courseId) }).toArray(function (err, docs) {
+    db.collection(config.db.collections.courses).find({ "_id": new ObjectId(courseId) }).toArray(function (err, docs) {
 
         callback(err, docs);
     });
@@ -22,7 +22,7 @@ module.exports.findAll = function (courseId, callback) {
 
 module.exports.findById = function (courseId, id, callback) {
     var db = mongoUtil.getDb();
-    db.collection(config.db.collections.courses).find({ "_id": new ObjectID(courseId), "teeboxes._id": new ObjectID(id) }).toArray(function (err, docs) {
+    db.collection(config.db.collections.courses).find({ "_id": new ObjectId(courseId), "teeboxes._id": new ObjectId(id) }).toArray(function (err, docs) {
 
         callback(err, docs);
     });
@@ -34,7 +34,7 @@ module.exports.create = function (courseId, newTeebox, callback) {
 
     var db = mongoUtil.getDb();
 
-    newTeebox._id = new ObjectID();
+    newTeebox._id = new ObjectId();
 
     var frontLength = 0;
     var frontPar = 0;
@@ -42,7 +42,7 @@ module.exports.create = function (courseId, newTeebox, callback) {
     if (newTeebox.holes && newTeebox.holes.front && newTeebox.holes.front.length > 0) {
         for (var h = 0; h < newTeebox.holes.front.length; h++) {
             var hole = newTeebox.holes.front[h];
-            hole._id = new ObjectID();
+            hole._id = new ObjectId();
             frontLength = frontLength + hole.distance;
             frontPar = frontPar + hole.par;
         }
@@ -54,7 +54,7 @@ module.exports.create = function (courseId, newTeebox, callback) {
     if (newTeebox.holes && newTeebox.holes.back && newTeebox.holes.back.length > 0) {
         for (var h = 0; h < newTeebox.holes.back.length; h++) {
             var hole = newTeebox.holes.back[h];
-            hole._id = new ObjectID();
+            hole._id = new ObjectId();
             backLength = backLength + hole.distance;
             backPar = backPar + hole.par;
         }
@@ -68,14 +68,14 @@ module.exports.create = function (courseId, newTeebox, callback) {
     val.validateSchema().then(function() {
         db.collection(config.db.collections.courses).update(
         {
-            "_id": new ObjectID(courseId)
+            "_id": new ObjectId(courseId)
         },
         {
             "$push": { "teeboxes": newTeebox }
         },
         function (err, part) {
             db.collection(config.db.collections.courses).findOne(
-                { "_id": new ObjectID(courseId) },
+                { "_id": new ObjectId(courseId) },
                 function (err, course) {
                     callback(err, course);
                 }
@@ -93,11 +93,11 @@ module.exports.update = function (courseId, id, updateTeebox, callback) {
 
     var db = mongoUtil.getDb();
 
-    updateTeebox._id = new ObjectID(id);
+    updateTeebox._id = new ObjectId(id);
     val.validateSchema().then(function() {
         db.collection(config.db.collections.courses).update(
         {
-            "_id": new ObjectID(courseId),
+            "_id": new ObjectId(courseId),
             "teeboxes._id": updateTeebox._id,
         },
         {
@@ -105,7 +105,7 @@ module.exports.update = function (courseId, id, updateTeebox, callback) {
         },
         function (err, part) {
             db.collection(config.db.collections.tournaments).findOne(
-                { "_id": new ObjectID(courseId) },
+                { "_id": new ObjectId(courseId) },
                 function (err, course) {
                     callback(err, course);
                 }
@@ -117,10 +117,10 @@ module.exports.update = function (courseId, id, updateTeebox, callback) {
 }
 
 module.exports.delete = function (id, callback) {
-    updateTeebox._id = new ObjectID(id);
+    updateTeebox._id = new ObjectId(id);
     db.collection(config.db.collections.courses).update(
         {
-            "_id": new ObjectID(courseId),
+            "_id": new ObjectId(courseId),
             "teeboxes._id": updateTeebox._id,
         },
         {
@@ -128,7 +128,7 @@ module.exports.delete = function (id, callback) {
         },
         function (err, part) {
             db.collection(config.db.collections.tournaments).findOne(
-                { "_id": new ObjectID(courseId) },
+                { "_id": new ObjectId(courseId) },
                 function (err, course) {
                     callback(err, course);
                 }
