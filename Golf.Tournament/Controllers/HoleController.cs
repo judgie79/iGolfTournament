@@ -44,11 +44,15 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/holes/create")]
         public async Task<ActionResult> Create(string clubId)
         {
-            var clubs = loader.LoadAsync<IEnumerable<Club>>("clubs");
-            await Task.WhenAll(clubs);
+            var club = await loader.LoadAsync<Club>("clubs/" + clubId);
+
             return View(new HoleCreateViewModel()
             {
-                Clubs = clubs.Result
+                Club = club,
+                Hole = new Hole()
+                {
+                    ClubId = clubId
+                }
             });
         }
 
@@ -58,6 +62,7 @@ namespace Golf.Tournament.Controllers
         public async Task<ActionResult> Create(string clubId, HoleCreateViewModel holeCreateViewModel)
         {
             ModelState.Clear();
+            holeCreateViewModel.Hole.ClubId = holeCreateViewModel.Club.Id;
             TryValidateModel(holeCreateViewModel.Hole);
 
             if (ModelState.IsValid)
@@ -67,11 +72,8 @@ namespace Golf.Tournament.Controllers
             }
             else
             {
-                var clubs = loader.LoadAsync<IEnumerable<Club>>("clubs");
-                await Task.WhenAll(clubs);
-
-                holeCreateViewModel.Clubs = clubs.Result;
-
+                var club = await loader.LoadAsync<Club>("clubs/" + clubId);
+                holeCreateViewModel.Club = club;
                 return View(holeCreateViewModel);
             }
         }

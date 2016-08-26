@@ -436,7 +436,7 @@ namespace Golf.Excel
             ((MSExcel.Range)scorecardSheet.Cells[holeStbfPointsBruttoRow, sumIndex]).Font.Bold = true;
         }
 
-        public void SetHole(MSExcel.Worksheet scorecardSheet, string teeboxColor, Hole hole, int holeNumberRow, int index, int holeColIndex, int sumStart, int last, string playHcpCell)
+        public void SetHole(MSExcel.Worksheet scorecardSheet, string teeboxColor, CourseHole hole, int holeNumberRow, int index, int holeColIndex, int sumStart, int last, string playHcpCell)
         {
             ((MSExcel.Range)scorecardSheet.Cells[holeNumberRow, holeColIndex]).EntireColumn.Insert(MSExcel.XlInsertShiftDirection.xlShiftToRight,
                 MSExcel.XlInsertFormatOrigin.xlFormatFromRightOrBelow);

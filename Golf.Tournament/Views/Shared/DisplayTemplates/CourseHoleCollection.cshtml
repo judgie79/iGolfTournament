@@ -1,0 +1,59 @@
+﻿@using Golf.Tournament.Utility
+@model Golf.Tournament.Models.CourseHoleCollection
+@{
+    string teeboxId = "";
+    if (ViewBag.TeeboxId != null)
+    {
+        teeboxId = ViewBag.TeeboxId;
+    }
+}
+
+<table id="scoreSheetEditorTable_@teeboxId" class="table table-hover table-condensed">
+    @{
+        var labelModel = new Golf.Tournament.Models.CourseHole();
+
+        var colCount = Model.Count();
+    }
+    <colgroup id="scoreSheetEditorTableColumns_@teeboxId">
+        <col width="130">
+        @for (int i = 0; i < colCount; i++)
+        {
+            <col width="60" />
+        }
+    </colgroup>
+        
+    <tr id="scoreSheetEditorTableRowNumber_@teeboxId" class="warning">
+        <th>@Html.LabelFor(model => labelModel.Number, htmlAttributes: new { @class = "control-label col-sm-2" })</th>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <th>
+                @Html.HiddenFor(item => Model[i].Id)
+                <div>@Html.DisplayFor(item => Model[i].Number, new { @class = "form-control col-sm-3" })</div>
+            </th>
+        }
+    </tr>
+    <tr id="scoreSheetEditorTableRowPar_@teeboxId">
+        <td>@Html.LabelFor(model => labelModel.Par, htmlAttributes: new { @class = "col-sm-2" })</td>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <td>@Html.DisplayFor(model => Model[i].Par, new { @class = "col-sm-3" })</td>
+        }
+    </tr>
+    <tr id="scoreSheetEditorTableRowHcp_@teeboxId">
+        <td>@Html.LabelFor(model => labelModel.Hcp, htmlAttributes: new { @class = "col-sm-2" })</td>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <td>@Html.DisplayFor(model => Model[i].Hcp, new { @class = "col-sm-3" })</td>
+        }
+    </tr>
+    <tr id="scoreSheetEditorTableRowDistance_@teeboxId">
+        <td>@Html.LabelFor(model => labelModel.Distance, htmlAttributes: new { @class = "col-sm-2" })</td>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <td>@Html.DisplayFor(model => Model[i].Distance, new { @class = "col-sm-3" })</td>
+        }
+    </tr>
+
+
+</table>
+

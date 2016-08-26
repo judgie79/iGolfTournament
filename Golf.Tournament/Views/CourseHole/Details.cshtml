@@ -1,4 +1,4 @@
-﻿@model HoleDetailsViewModel
+﻿@model CourseHoleDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -14,6 +14,14 @@
     <div>
         <img src="@Model.Hole.CourseImage" />
     </div>
+
+    @Model.Hole.Number
+
+    @Model.Hole.Par
+
+    @Model.Hole.Hcp
+
+    @Model.Hole.Distance
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { clubId = Model.Club.Id, id = Model.Hole.Id }) |

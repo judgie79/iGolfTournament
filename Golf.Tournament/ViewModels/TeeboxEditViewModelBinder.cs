@@ -33,8 +33,8 @@ namespace Golf.Tournament.ViewModels
                 Distance = Distance,
                 Holes = new CourseHoles()
                 {
-                    Back = new HoleCollection(),
-                    Front = new HoleCollection()
+                    Back = new CourseHoleCollection(),
+                    Front = new CourseHoleCollection()
                 },
                 Name = Name,
                 Par = Par,
@@ -57,7 +57,7 @@ namespace Golf.Tournament.ViewModels
                     int holePar = Convert.ToInt32(form[holeStr + ".Par"]);
                     int holeDistance = Convert.ToInt32(form[holeStr + ".Distance"]);
 
-                    var hole = new Hole()
+                    var hole = new CourseHole()
                     {
                         Distance = holeDistance,
                         Hcp = holeHcp,
@@ -92,7 +92,7 @@ namespace Golf.Tournament.ViewModels
                     int holePar = Convert.ToInt32(form[holeStr + ".Par"]);
                     int holeDistance = Convert.ToInt32(form[holeStr + ".Distance"]);
 
-                    var hole = new Hole()
+                    var hole = new CourseHole()
                     {
                         Distance = holeDistance,
                         Hcp = holeHcp,
@@ -146,8 +146,8 @@ namespace Golf.Tournament.ViewModels
                 Distance = 0,
                 Holes = new CourseHoles()
                 {
-                    Back = new HoleCollection(),
-                    Front = new HoleCollection()
+                    Back = new CourseHoleCollection(),
+                    Front = new CourseHoleCollection()
                 },
                 Name = Name,
                 Par = 0,
@@ -170,7 +170,7 @@ namespace Golf.Tournament.ViewModels
                     int holePar = Convert.ToInt32(form[holeStr + ".Par"]);
                     int holeDistance = Convert.ToInt32(form[holeStr + ".Distance"]);
 
-                    var hole = new Hole()
+                    var hole = new CourseHole()
                     {
                         Distance = holeDistance,
                         Hcp = holeHcp,
@@ -205,7 +205,7 @@ namespace Golf.Tournament.ViewModels
                     int holePar = Convert.ToInt32(form[holeStr + ".Par"]);
                     int holeDistance = Convert.ToInt32(form[holeStr + ".Distance"]);
 
-                    var hole = new Hole()
+                    var hole = new CourseHole()
                     {
                         Distance = holeDistance,
                         Hcp = holeHcp,

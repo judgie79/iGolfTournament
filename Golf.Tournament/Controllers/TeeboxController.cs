@@ -57,14 +57,11 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/create")]
         public async Task<ActionResult> Create(string clubId, string courseId, [ModelBinder(typeof(TeeboxCreateViewModelBinder))]TeeboxCreateViewModel teeboxCreateViewModel)
         {
-            
-
             ModelState.Clear();
             TryValidateModel(teeboxCreateViewModel.Teebox);
 
             if (ModelState.IsValid)
             {
-
                 await loader.PostAsync<TeeBox, Course>("courses/" + courseId + "/teeboxes", teeboxCreateViewModel.Teebox);
                 return RedirectToAction("Index");
             }
@@ -117,7 +114,6 @@ namespace Golf.Tournament.Controllers
                 teeboxEditViewModel.Course = course.Result;
                 var teebox = teeboxEditViewModel.Course.TeeBoxes.SingleOrDefault(t => t.Id == id);
 
-
                 teeboxEditViewModel.Course.TeeBoxes[teeboxEditViewModel.Course.TeeBoxes.IndexOf(teebox)] = teeboxEditViewModel.Teebox;
 
                 await loader.PutAsync<Course>("courses/" + courseId, teeboxEditViewModel.Course);
@@ -127,7 +123,6 @@ namespace Golf.Tournament.Controllers
             {
                 teeboxEditViewModel.Course = course.Result;
                 teeboxEditViewModel.Club = club.Result;
-
 
                 return View(teeboxEditViewModel);
             }

@@ -52,8 +52,8 @@ namespace Golf.Tournament.ViewModels
                         SlopeRating = float.Parse(SlopeRating),
                         Holes = new CourseHoles()
                         {
-                            Front = new HoleCollection(),
-                            Back = new HoleCollection()
+                            Front = new CourseHoleCollection(),
+                            Back = new CourseHoleCollection()
                         }
                     };
 
@@ -67,7 +67,7 @@ namespace Golf.Tournament.ViewModels
                             string holeNumber = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Front[" + holeCounter + "].Number"];
                             string holeHcp = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Front[" + holeCounter + "].Hcp"];
 
-                            var Hole = new Hole()
+                            var Hole = new CourseHole()
                             {
                                 Par = Convert.ToInt32(holePar),
                                 Distance = Convert.ToInt32(holeDistance),
@@ -86,7 +86,7 @@ namespace Golf.Tournament.ViewModels
                             string holeNumber = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Back[" + holeCounter + "].Number"];
                             string holeHcp = form["Course.TeeBoxes[" + teeBoxCounter + "].Holes.Back[" + holeCounter + "].Hcp"];
 
-                            var Hole = new Hole()
+                            var Hole = new CourseHole()
                             {
                                 Par = Convert.ToInt32(holePar),
                                 Distance = Convert.ToInt32(holeDistance),
@@ -100,8 +100,8 @@ namespace Golf.Tournament.ViewModels
                         }
                         else
                         {
-                            TeeBox.Holes.Front = TeeBox.Holes.Front.OrderBy(h => h.Number).ToHoleCollection();
-                            TeeBox.Holes.Back = TeeBox.Holes.Back.OrderBy(h => h.Number).ToHoleCollection();
+                            TeeBox.Holes.Front = TeeBox.Holes.Front.OrderBy(h => h.Number).ToCourseHoleCollection();
+                            TeeBox.Holes.Back = TeeBox.Holes.Back.OrderBy(h => h.Number).ToCourseHoleCollection();
                             holeCounter = 0;
                             break;
                         }

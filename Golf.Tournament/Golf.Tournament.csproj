@@ -157,6 +157,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CourseHoleController.cs" />
     <Compile Include="Controllers\ExcelController.cs" />
     <Compile Include="Controllers\HoleController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
@@ -1156,6 +1157,13 @@
     <Content Include="Views\Hole\Create.cshtml" />
     <Content Include="Views\Hole\Edit.cshtml" />
     <Content Include="Views\Hole\Delete.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\CourseHoleCollection.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CourseHoleCollection.cshtml" />
+    <Content Include="Views\CourseHole\Create.cshtml" />
+    <Content Include="Views\CourseHole\Delete.cshtml" />
+    <Content Include="Views\CourseHole\Details.cshtml" />
+    <Content Include="Views\CourseHole\Edit.cshtml" />
+    <Content Include="Views\CourseHole\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

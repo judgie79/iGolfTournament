@@ -16,26 +16,8 @@ namespace Golf.Tournament.Models
         [JsonProperty("clubId")]
         public string ClubId { get; set; }
 
-        [JsonProperty("number")]
-        [Required]
-        [MinIntValue(1)]
-        public int Number { get; set; }
-
-        [JsonProperty("distance")]
-        [Required]
-        [MinIntValue(0)]
-        public int Distance { get; set; }
-
-        [JsonProperty("par")]
-        [Required]
-        [MinIntValue(3)]
-        [MaxIntValue(5)]
-        public int Par { get; set; }
-
-        [JsonProperty("hcp")]
-        [Required]
-        [MinIntValue(1)]
-        public int Hcp { get; set; }
+        [JsonProperty("name")]
+        public string Name { get; set; }
 
         [JsonProperty("courseImage")]
         public string CourseImage { get; set; }

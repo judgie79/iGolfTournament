@@ -15,4 +15,12 @@ namespace Golf.Tournament.Models
             return new HoleCollection(holes);
         }
     }
+
+    public static class CourseHoleCollectionExtensions
+    {
+        public static CourseHoleCollection ToCourseHoleCollection(this IEnumerable<CourseHole> holes)
+        {
+            return new CourseHoleCollection(holes);
+        }
+    }
 }

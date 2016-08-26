@@ -23,13 +23,52 @@ namespace Golf.Tournament.Models
         }
     }
 
+    [JsonArray]
+    public class CourseHoleCollection : List<CourseHole>
+    {
+        public CourseHoleCollection()
+            : base()
+        {
+        }
+
+        public CourseHoleCollection(IEnumerable<CourseHole> holeCollection)
+            : base(holeCollection)
+        {
+
+        }
+    }
+
+    public class CourseHole : Hole
+    {
+        [JsonProperty("distance")]
+        [Required]
+        [MinIntValue(0)]
+        public int Distance { get; set; }
+
+        [JsonProperty("number")]
+        [Required]
+        [MinIntValue(0)]
+        public int Number { get; set; }
+
+        [JsonProperty("par")]
+        [Required]
+        [MinIntValue(3)]
+        [MaxIntValue(5)]
+        public int Par { get; set; }
+
+        [JsonProperty("hcp")]
+        [Required]
+        [MinIntValue(1)]
+        public int Hcp { get; set; }
+    }
+
     public class CourseHoles
     {
-        private HoleCollection front = new HoleCollection();
-        private HoleCollection back = new HoleCollection();
+        private CourseHoleCollection front = new CourseHoleCollection();
+        private CourseHoleCollection back = new CourseHoleCollection();
 
         [JsonProperty("front")]
-        public HoleCollection Front
+        public CourseHoleCollection Front
         {
             get
             {
@@ -37,12 +76,12 @@ namespace Golf.Tournament.Models
             }
             set
             {
-                front = value ?? new HoleCollection();
+                front = value ?? new CourseHoleCollection();
             }
         }
 
         [JsonProperty("back")]
-        public HoleCollection Back
+        public CourseHoleCollection Back
         {
             get
             {
@@ -50,7 +89,7 @@ namespace Golf.Tournament.Models
             }
             set
             {
-                back = value ?? new HoleCollection();
+                back = value ?? new CourseHoleCollection();
             }
         }
 

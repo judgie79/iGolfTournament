@@ -10,22 +10,8 @@ var holeSchema = {
         "clubId": {
             "type": ["string", "object"]
         },
-        "number": {
-            "type": "number",
-            "minimum": 1
-        },
-        "distance": {
-            "type": "number",
-            "minimum": 1
-        },
-        "par": {
-            "type": "number",
-            "minimum": 1,
-            "maximum": 6
-        },
-        "hcp": {
-            "type": "number",
-            "minimum": 1
+        "name": {
+            "type": ["string", "null"]
         },
         "courseImage": {
             "type" : ["null", "string"]

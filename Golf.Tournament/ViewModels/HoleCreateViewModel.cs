@@ -8,8 +8,7 @@ namespace Golf.Tournament.ViewModels
 {
     public class HoleCreateViewModel
     {
-        public IEnumerable<Club> Clubs { get; set; }
-
+        public Club Club { get; internal set; }
         public Hole Hole { get; set; }
     }
 }

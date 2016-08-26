@@ -1,0 +1,122 @@
+﻿@using Golf.Tournament.Utility
+@model Golf.Tournament.Models.CourseHoleCollection
+@{
+    string holeGroup = "";
+    if(ViewBag.holeGroup != null)
+    {
+        holeGroup = ViewBag.holeGroup;
+    }
+
+    int countOffset = 0;
+    if (ViewBag.countOffset != null)
+    {
+        countOffset = ViewBag.countOffset;
+    }
+
+    string teeName = "";
+    if (ViewBag.teeName != null)
+    {
+        teeName = ViewBag.teeName;
+        teeName = teeName.Replace(" ", "_");
+
+        if (!string.IsNullOrWhiteSpace(holeGroup))
+        {
+            teeName += "_";
+        }
+    }
+
+    if (!string.IsNullOrWhiteSpace(holeGroup))
+    {
+        teeName += holeGroup;
+    }
+
+    int teeIndex = 0;
+    if (ViewBag.teeIndex != null)
+    {
+        teeIndex = ViewBag.teeIndex;
+    }
+}
+
+
+<a href="#" id="btnAddHole_@(teeName)" class="btn btn-sm btn-default">Add Hole</a>
+<a href="#" id="btnDelHole_@(teeName)" class="btn btn-sm btn-danger">Remove last Hole</a>
+<div class="control-group container">
+
+   
+
+    <table id="scoreSheetEditorTable_@teeName" class="">
+        @{
+            var labelModel = new Golf.Tournament.Models.CourseHole();
+
+            var colCount = Model.Count();
+        }
+        <colgroup id="scoreSheetEditorTableColumns_@teeName">
+            <col width="130">
+            @for (int i = 0; i < colCount; i++)
+            {
+                <col width="60" />
+            }
+        </colgroup>
+        
+        <tr id="scoreSheetEditorTableRowNumber_@teeName">
+            <th>@Html.LabelFor(model => labelModel.Number, htmlAttributes: new { @class = "control-label col-sm-2" })</th>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <th>
+                    @Html.HiddenFor(item => Model[i].Id)
+                    <div>@Html.TextBoxFor(item => Model[i].Number, new { @class = "form-control col-sm-3" })</div>
+                </th>
+            }
+        </tr>
+        <tr id="scoreSheetEditorTableRowPar_@teeName">
+            <td>@Html.LabelFor(model => labelModel.Par, htmlAttributes: new { @class = "control-label col-sm-2" })</td>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <td>@Html.TextBoxFor(model => Model[i].Par, new { @class = "form-control col-sm-3" })</td>
+            }
+        </tr>
+        <tr id="scoreSheetEditorTableRowHcp_@teeName">
+            <td>@Html.LabelFor(model => labelModel.Hcp, htmlAttributes: new { @class = "control-label col-sm-2" })</td>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <td>@Html.TextBoxFor(model => Model[i].Hcp, new { @class = "form-control col-sm-3" })</td>
+            }
+        </tr>
+        <tr id="scoreSheetEditorTableRowDistance_@teeName">
+            <td>@Html.LabelFor(model => labelModel.Distance, htmlAttributes: new { @class = "control-label col-sm-2" })</td>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <td>@Html.TextBoxFor(model => Model[i].Distance, new { @class = "form-control col-sm-3" })</td>
+            }
+        </tr>
+
+
+    </table>
+</div>
+
+@*@using (Html.BeginScripts("end"))
+{
+    <script type="text/javascript">
+
+    $(function() {
+
+        var holeCollectionController@(teeName) = new HoleCollectionController("@(teeName)", "@(holeGroup)", @teeIndex, @(Model.Count), @(countOffset));
+
+        $("#btnAddHole_@teeName").click(function (evt) {
+            evt.preventDefault();
+
+            holeCollectionController@(teeName).addHole();
+        });
+
+        $("#btnDelHole_@teeName").click(function (evt) {
+            evt.preventDefault();
+
+            holeCollectionController@(teeName).removeLastHole();
+        });
+    });
+
+
+
+    </script>
+}*@
+

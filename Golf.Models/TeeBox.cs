@@ -9,7 +9,6 @@ namespace Golf.Tournament.Models
 {
     public class TeeBox
     {
-
         public TeeBox()
         {
             Holes = new CourseHoles();
