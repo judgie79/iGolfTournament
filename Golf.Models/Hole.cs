@@ -11,7 +11,10 @@ namespace Golf.Tournament.Models
     public class Hole
     {
         [JsonProperty("_id")]
-        public string HoleId { get; set; }
+        public string Id { get; set; }
+
+        [JsonProperty("clubId")]
+        public string ClubId { get; set; }
 
         [JsonProperty("number")]
         [Required]
@@ -33,5 +36,8 @@ namespace Golf.Tournament.Models
         [Required]
         [MinIntValue(1)]
         public int Hcp { get; set; }
+
+        [JsonProperty("courseImage")]
+        public string CourseImage { get; set; }
     }
 }

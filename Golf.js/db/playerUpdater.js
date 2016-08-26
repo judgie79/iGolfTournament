@@ -16,14 +16,14 @@ Updater.prototype.updateHomeClub = function (db, collection, player, update) {
     return new Promise(function (resolve, reject) {
         var db = mongoUtil.getDb();
 
-        db.collection(collection).findOne({ "_id": ObjectID(player.homeClub._id) }, function (err, doc) {
+        db.collection(collection).findOne({ "_id": new ObjectID(player.homeClub._id) }, function (err, doc) {
             if (err) {
                 reject(err);
             }
 
             delete player.homeClub._id;
             if (update)
-                player.homeClub._id = ObjectID(doc._id);
+                player.homeClub._id = new ObjectID(doc._id);
             else 
                 player.homeClub._id = doc._id;
             

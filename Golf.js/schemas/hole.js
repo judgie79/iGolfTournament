@@ -4,7 +4,10 @@ var holeSchema = {
     "title": "Hole Schema",
     "type": "object",
     "properties": {
-        "holeId": {
+        "_id": {
+            "type": ["string", "object"]
+        },
+        "clubId": {
             "type": ["string", "object"]
         },
         "number": {

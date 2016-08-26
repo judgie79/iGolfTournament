@@ -1,0 +1,58 @@
+﻿@model HoleDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Hole</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Hole.ClubId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hole.ClubId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hole.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hole.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hole.Distance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hole.Distance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hole.Par)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hole.Par)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hole.Hcp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hole.Hcp)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

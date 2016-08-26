@@ -85,17 +85,10 @@ namespace Golf.Tournament.Controllers
         {
             if (playerEditViewModel.AvatarFile.HasFile())
             {
-                //save the file
-                String savePath = ControllerContext.HttpContext.Server.MapPath("~/avatars/");
-                string extension = Path.GetExtension(playerEditViewModel.AvatarFile.FileName);
+                string avatar = HtmlFileUploadHelper.StoreFile("~/avatars/", "/holes", id, playerEditViewModel.AvatarFile);
 
-                string fileName = string.Format("{0}{1}", id, extension);
-                var avatarSaveLocation = Path.Combine(savePath, fileName);
-                playerEditViewModel.AvatarFile.SaveAs(avatarSaveLocation);
-
-                playerEditViewModel.Player.Avatar = string.Format("/avatars/{0}", fileName);
+                playerEditViewModel.Player.Avatar = avatar;
             }
-
 
             try
             {

@@ -158,6 +158,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ExcelController.cs" />
+    <Compile Include="Controllers\HoleController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
@@ -177,6 +178,11 @@
     <Compile Include="Utility\HtmlTeeboxHelper.cs" />
     <Compile Include="Utility\WysiwygEditorHelper.cs" />
     <Compile Include="ViewModels\FileUploadViewModel.cs" />
+    <Compile Include="ViewModels\HoleCreateViewModel.cs" />
+    <Compile Include="ViewModels\HoleDeleteViewModel.cs" />
+    <Compile Include="ViewModels\HoleDetailsViewModel.cs" />
+    <Compile Include="ViewModels\HoleEditViewModel.cs" />
+    <Compile Include="ViewModels\HoleListViewModel.cs" />
     <Compile Include="ViewModels\HtmlEditorViewModel.cs" />
     <Compile Include="ViewModels\MemberCreateViewModel.cs" />
     <Compile Include="ViewModels\MemberListViewModel.cs" />
@@ -1145,11 +1151,17 @@
     <Content Include="Views\Shared\HtmlEditor.cshtml" />
     <Content Include="Views\Shared\FileUpload.cshtml" />
     <Content Include="Views\Shared\ParticipantTable.cshtml" />
+    <Content Include="Views\Hole\Index.cshtml" />
+    <Content Include="Views\Hole\Details.cshtml" />
+    <Content Include="Views\Hole\Create.cshtml" />
+    <Content Include="Views\Hole\Edit.cshtml" />
+    <Content Include="Views\Hole\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="avatars\" />
     <Folder Include="Golf\Tournament\ViewModels\" />
+    <Folder Include="holes\" />
     <Folder Include="scorecards\" />
     <Folder Include="ViewModels\Formatter\" />
     <Folder Include="Views\Base\" />

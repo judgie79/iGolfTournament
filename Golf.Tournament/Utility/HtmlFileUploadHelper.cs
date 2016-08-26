@@ -1,6 +1,7 @@
 ﻿using Golf.Tournament.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -25,6 +26,22 @@ namespace Golf.Tournament.Utility
             };
 
             return helper.Partial("FileUpload", editor);
+        }
+
+        public static string StoreFile(string savePath, string loadPath, string id, HttpPostedFileBase file)
+        {
+            //save the file
+            if (!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
+            string extension = Path.GetExtension(file.FileName);
+
+            string fileNameForStorage = string.Format("{0}{1}", id, extension);
+            var avatarSaveLocation = Path.Combine(savePath, fileNameForStorage);
+            file.SaveAs(avatarSaveLocation);
+
+            return string.Format( "{0}/{1}", loadPath, fileNameForStorage);
         }
     }
 }

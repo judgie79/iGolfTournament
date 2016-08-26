@@ -62,7 +62,7 @@ namespace Golf.Tournament.ViewModels
                         Distance = holeDistance,
                         Hcp = holeHcp,
                         Par = holePar,
-                        HoleId = holeId,
+                        Id = holeId,
                         Number = holeNumber
                     };
 
@@ -97,7 +97,7 @@ namespace Golf.Tournament.ViewModels
                         Distance = holeDistance,
                         Hcp = holeHcp,
                         Par = holePar,
-                        HoleId = holeId,
+                        Id = holeId,
                         Number = holeNumber
                     };
 
@@ -175,7 +175,7 @@ namespace Golf.Tournament.ViewModels
                         Distance = holeDistance,
                         Hcp = holeHcp,
                         Par = holePar,
-                        HoleId = holeId,
+                        Id = holeId,
                         Number = holeNumber
                     };
 
@@ -210,7 +210,7 @@ namespace Golf.Tournament.ViewModels
                         Distance = holeDistance,
                         Hcp = holeHcp,
                         Par = holePar,
-                        HoleId = holeId,
+                        Id = holeId,
                         Number = holeNumber
                     };
 

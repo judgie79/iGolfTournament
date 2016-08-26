@@ -1,0 +1,64 @@
+﻿@model HoleDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Hole</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Hole.ClubId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hole.ClubId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hole.Number)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hole.Number)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hole.Distance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hole.Distance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hole.Par)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hole.Par)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hole.Hcp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hole.Hcp)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

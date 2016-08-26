@@ -58,6 +58,7 @@
     <Compile Include="db\userRepository.js" />
     <Compile Include="db\userValidator.js" />
     <Compile Include="routes\error.js" />
+    <Compile Include="routes\holes.js" />
     <Compile Include="routes\participants.js" />
     <Compile Include="routes\scorecards.js" />
     <Compile Include="routes\teams.js" />

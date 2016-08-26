@@ -72,7 +72,7 @@ namespace Golf.Tournament.ViewModels
                                 Par = Convert.ToInt32(holePar),
                                 Distance = Convert.ToInt32(holeDistance),
                                 Hcp = Convert.ToInt32(holeHcp),
-                                HoleId = holeId,
+                                Id = holeId,
                                 Number = Convert.ToInt32(holeNumber)
                             };
 
@@ -91,7 +91,7 @@ namespace Golf.Tournament.ViewModels
                                 Par = Convert.ToInt32(holePar),
                                 Distance = Convert.ToInt32(holeDistance),
                                 Hcp = Convert.ToInt32(holeHcp),
-                                HoleId = holeId,
+                                Id = holeId,
                                 Number = Convert.ToInt32(holeNumber)
                             };
 

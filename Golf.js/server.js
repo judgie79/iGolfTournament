@@ -12,6 +12,7 @@ var courseRouter = require('./routes/courses');
 var teeboxRouter = require('./routes/teeboxes');
 var playerRouter = require('./routes/players');
 var userRouter = require('./routes/users');
+var holeRouter = require('./routes/holes');
 var tournamentRouter = require('./routes/tournaments');
 var participantRouter = require('./routes/participants');
 var teamRouter = require('./routes/teams');
@@ -31,6 +32,7 @@ app.use(passport.session()); // persistent login sessions
 
 // API ROUTES BELOW
 app.use('/' + config.rest.apiPrefix + '/clubs', clubRouter);
+app.use('/' + config.rest.apiPrefix + '/clubs', holeRouter);
 app.use('/' + config.rest.apiPrefix + '/courses', courseRouter);
 app.use('/' + config.rest.apiPrefix + '/courses', teeboxRouter);
 app.use('/' + config.rest.apiPrefix + '/players', playerRouter);

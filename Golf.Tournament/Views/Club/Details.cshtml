@@ -15,14 +15,19 @@
         </div>
     </div>,
         Html.ActionLink("Edit", "Edit", new { id = Model.Club.Id }, new { @class = "btn btn-sm btn-default" }).ToHtmlString() + "\n" +
-        Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-sm btn-default" }).ToHtmlString()
+        Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-sm btn-default" }).ToHtmlString() + "\n" +
+        Html.ActionLink("Show Holes", "Index", "Hole", new { clubId = Model.Club.Id }, new { @class = "btn btn-sm btn-default" }).ToHtmlString()
     )
+
+
 
     @Html.Panel("Local Rules",
         @<div>
             <p>@Html.Raw(Model.Club.LocalRules)</p>
         </div>,
         string.Empty, isCollapsible: true, isCollapsed: true)
+
+
 
     @Html.Panel("Courses",
         Html.Partial("CourseEditTablePart", Model.Courses),
