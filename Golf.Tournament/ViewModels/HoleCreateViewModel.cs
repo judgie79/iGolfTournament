@@ -8,7 +8,13 @@ namespace Golf.Tournament.ViewModels
 {
     public class HoleCreateViewModel
     {
-        public Club Club { get; internal set; }
+        public HoleCreateViewModel()
+        {
+            Hole = new Hole();
+        }
+
+        public Club Club { get; set; }
+
         public Hole Hole { get; set; }
     }
 }

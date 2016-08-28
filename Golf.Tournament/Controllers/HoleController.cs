@@ -101,7 +101,7 @@ namespace Golf.Tournament.Controllers
         {
             if (holeEditViewModel.CourseImageFile.HasFile())
             {
-                string courseImage = HtmlFileUploadHelper.StoreFile("~/holes/" + clubId, "/holes", id, holeEditViewModel.CourseImageFile);
+                string courseImage = HtmlFileUploadHelper.StoreFile(ControllerContext.HttpContext, "~/avatars/holes/" + clubId, "/avatars/holes/" + clubId + "/", id, holeEditViewModel.CourseImageFile);
 
                 holeEditViewModel.Hole.CourseImage = courseImage;
             }

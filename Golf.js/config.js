@@ -9,7 +9,8 @@ var config = {
             users: "users",
             tournaments: "tournaments",
             scorecards: "scorecards",
-            holes: "holes"
+            holes: "holes",
+            courseHoles: "courseHoles"
         }
     },
     rest: {

@@ -17,11 +17,13 @@ namespace Golf.Tournament.Utility
             var metaData = ModelMetadata.FromLambdaExpression(expression, helper.ViewData);
             string id = helper.IdFor(expression).ToHtmlString();
             string name = helper.NameFor(expression).ToHtmlString();
+
+            var text = metaData.Model == null ? string.Empty : metaData.Model.ToString();
             var editor = new HtmlEditorViewModel()
             {
                 Id = id,
                 Name = name,
-                Text = metaData.Model.ToString(),
+                Text = text,
                 HtmlAttributes = htmlAttributes
             };
 

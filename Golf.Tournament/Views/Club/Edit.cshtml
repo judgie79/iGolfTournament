@@ -43,11 +43,20 @@
     </div>
 }
 
+<h4>Holes</h4>
+<hr />
+<p>
+    @Html.ActionLink("Create New", "Create", "Hole", new { clubId = Model.Club.Id }, new { })
+</p>
+
+@Html.Partial("HoleEditTablePart", Model.Holes)
+
 <h4>Courses</h4>
 <hr />
 <p>
     @Html.ActionLink("Create New", "Create", "Course", new { clubId = Model.Club.Id }, new { })
 </p>
+
 @Html.Partial("CourseEditTablePart", Model.Courses)
 
 <div>

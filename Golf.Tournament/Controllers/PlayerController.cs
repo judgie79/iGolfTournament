@@ -85,7 +85,7 @@ namespace Golf.Tournament.Controllers
         {
             if (playerEditViewModel.AvatarFile.HasFile())
             {
-                string avatar = HtmlFileUploadHelper.StoreFile("~/avatars/", "/holes", id, playerEditViewModel.AvatarFile);
+                string avatar = HtmlFileUploadHelper.StoreFile(ControllerContext.HttpContext, "~/avatars/", "/avatars", id, playerEditViewModel.AvatarFile);
 
                 playerEditViewModel.Player.Avatar = avatar;
             }

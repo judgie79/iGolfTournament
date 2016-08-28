@@ -70,13 +70,15 @@ namespace Golf.Tournament.Controllers
             var club = loader.LoadAsync<Club>("clubs/" + id);
 
             var courses = loader.LoadAsync<IEnumerable<Course>>("clubs/" + id + "/courses");
+            var holes = loader.LoadAsync<HoleCollection>("clubs/" + id + "/holes");
 
-            await Task.WhenAll(club, courses);
+            await Task.WhenAll(club, courses, holes);
 
             return View(new ClubEditViewModel()
             {
                 Club = club.Result,
-                Courses = courses.Result
+                Courses = courses.Result,
+                Holes = holes.Result
             });
         }
 

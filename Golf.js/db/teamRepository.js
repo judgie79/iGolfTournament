@@ -189,12 +189,8 @@ module.exports.deleteTeamMember = function (tournamentId, teamId, participantId,
                         false, function (err, tourn) {
                             callback(err, null);
                         });
-
                 });
         }).catch(function (err) {
-
-
-
             callback(err, updateTournament);
         });
     });

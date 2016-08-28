@@ -49,9 +49,9 @@ module.exports.update = function (id, updatePlayer, callback) {
     val.validateSchema().then(function () {
         return val.validateHcp();
     }).then(function (player) {
-        return updater.updateHomeClub(db, config.db.collections.clubs, updatePlayer, true);
+        return updater.updateHomeClub(db, config.db.collections.clubs, player, true);
     }).then(function(player) {
-        crudRepository.update(id, updatePlayer, callback);
+        crudRepository.update(id, player, callback);
     }).catch(function(err) {
         callback(err, null);
     });

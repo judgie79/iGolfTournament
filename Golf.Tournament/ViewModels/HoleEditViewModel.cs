@@ -8,8 +8,14 @@ namespace Golf.Tournament.ViewModels
 {
     public class HoleEditViewModel
     {
-        public Club Club { get; internal set; }
-        public Hole Hole { get; internal set; }
+        public HoleEditViewModel()
+        {
+            Hole = new Hole();
+        }
+
+        public Club Club { get; set; }
+
+        public Hole Hole { get; set; }
 
         public HttpPostedFileBase CourseImageFile { get; set; }
     }

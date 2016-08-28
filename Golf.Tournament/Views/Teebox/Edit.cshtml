@@ -27,7 +27,7 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="col-md-4">
+        <div class="col-md-8">
             <div class="form-horizontal">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -43,13 +43,14 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                @Html.EditorFor(model => model.Teebox.Holes, new { teeName = Model.Teebox.Name })
+                @Html.DisplayFor(model => model.Teebox.Holes, new { teeName = Model.Teebox.Name })
             </div>
         </div>
     }
 </div>
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class="btn btn-sm btn-default" })
+    @Html.ActionLink("Edit Holes", "Index", "CourseHole", new { clubId = Model.Club.Id, courseId = Model.Course.Id, teeboxId = Model.Teebox.Id }, new { @class = "btn btn-sm btn-default" })
 </div>
 
 @section Scripts {

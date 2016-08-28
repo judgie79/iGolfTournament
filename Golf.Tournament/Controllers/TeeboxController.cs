@@ -63,6 +63,7 @@ namespace Golf.Tournament.Controllers
             if (ModelState.IsValid)
             {
                 await loader.PostAsync<TeeBox, Course>("courses/" + courseId + "/teeboxes", teeboxCreateViewModel.Teebox);
+
                 return RedirectToAction("Index");
             }
             else
@@ -101,26 +102,21 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{id}/edit")]
         public async Task<ActionResult> Edit(string clubId, string courseId, string id, [ModelBinder(typeof(TeeboxEditViewModelBinder))]TeeboxEditViewModel teeboxEditViewModel)
         {
-            var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var course = loader.LoadAsync<Course>("courses/" + courseId);
-
-            await Task.WhenAll(club, course);
-
             ModelState.Clear();
             TryValidateModel(teeboxEditViewModel.Teebox);
 
             if (ModelState.IsValid)
             {
-                teeboxEditViewModel.Course = course.Result;
-                var teebox = teeboxEditViewModel.Course.TeeBoxes.SingleOrDefault(t => t.Id == id);
-
-                teeboxEditViewModel.Course.TeeBoxes[teeboxEditViewModel.Course.TeeBoxes.IndexOf(teebox)] = teeboxEditViewModel.Teebox;
-
-                await loader.PutAsync<Course>("courses/" + courseId, teeboxEditViewModel.Course);
+                await loader.PutAsync<TeeBox>("courses/" + courseId + "/teeboxes/" + teeboxEditViewModel.Teebox.Id, teeboxEditViewModel.Teebox);
                 return RedirectToAction("Index");
             }
             else
             {
+                var club = loader.LoadAsync<Club>("clubs/" + clubId);
+                var course = loader.LoadAsync<Course>("courses/" + courseId);
+
+                await Task.WhenAll(club, course);
+
                 teeboxEditViewModel.Course = course.Result;
                 teeboxEditViewModel.Club = club.Result;
 
@@ -151,14 +147,9 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{id}/delete")]
         public async Task<ActionResult> Delete(string clubId, string courseId, string id, FormCollection form)
         {
-            var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var course = loader.LoadAsync<Course>("courses/" + courseId);
-            await Task.WhenAll(club, course);
-
             try
             {
-                course.Result.TeeBoxes.Remove(course.Result.TeeBoxes.First(t => t.Id == id));
-                await loader.PutAsync<Course>("courses/" + courseId, course.Result);
+                await loader.Delete<TeeBox>("courses/" + courseId + "/teeboxes/" + id);
                 return RedirectToAction("Index");
             }
             catch

@@ -28,8 +28,10 @@ namespace Golf.Tournament.Utility
             return helper.Partial("FileUpload", editor);
         }
 
-        public static string StoreFile(string savePath, string loadPath, string id, HttpPostedFileBase file)
+        public static string StoreFile(HttpContextBase context, string savePath, string loadPath, string id, HttpPostedFileBase file)
         {
+            savePath = context.Server.MapPath(savePath);
+
             //save the file
             if (!Directory.Exists(savePath))
             {

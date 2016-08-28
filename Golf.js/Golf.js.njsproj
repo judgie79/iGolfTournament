@@ -35,7 +35,9 @@
     <Compile Include="data\tournaments.js" />
     <Compile Include="db\clubValidator.js" />
     <Compile Include="db\courseValidator.js" />
+    <Compile Include="db\courseHoleRepository.js" />
     <Compile Include="db\holeRepository.js" />
+    <Compile Include="db\courseHoleValidator.js" />
     <Compile Include="db\holeValidator.js" />
     <Compile Include="db\participantRepository.js" />
     <Compile Include="db\participantValidator.js" />
@@ -58,6 +60,7 @@
     <Compile Include="db\userRepository.js" />
     <Compile Include="db\userValidator.js" />
     <Compile Include="routes\error.js" />
+    <Compile Include="routes\courseHoles.js" />
     <Compile Include="routes\holes.js" />
     <Compile Include="routes\participants.js" />
     <Compile Include="routes\scorecards.js" />
@@ -67,6 +70,7 @@
     <Compile Include="routes\users.js" />
     <Compile Include="schemas\address.js" />
     <Compile Include="schemas\course.js" />
+    <Compile Include="schemas\courseHole.js" />
     <Compile Include="schemas\hole.js" />
     <Compile Include="schemas\participant.js" />
     <Compile Include="schemas\player.js" />

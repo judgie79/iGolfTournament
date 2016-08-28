@@ -87,6 +87,11 @@
     <Compile Include="Color.cs" />
     <Compile Include="ColorSerializer.cs" />
     <Compile Include="Course.cs" />
+    <Compile Include="CourseHole.cs" />
+    <Compile Include="CourseHoleCollection.cs" />
+    <Compile Include="CourseHoleCollectionExtensions.cs" />
+    <Compile Include="CourseHoles.cs" />
+    <Compile Include="FrontOrBack.cs" />
     <Compile Include="GolfLoader.cs" />
     <Compile Include="Hole.cs" />
     <Compile Include="HoleCollection.cs" />
@@ -107,6 +112,7 @@
     <Compile Include="TeeBox.cs" />
     <Compile Include="TeeboxCollection.cs" />
     <Compile Include="Tournament.cs" />
+    <Compile Include="TournamentConverter.cs" />
     <Compile Include="TournamentParticipant.cs" />
     <Compile Include="TournamentParticipantCollection.cs" />
   </ItemGroup>

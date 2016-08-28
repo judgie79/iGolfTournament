@@ -5,7 +5,7 @@ var holeSchema = {
     "type": "object",
     "properties": {
         "_id": {
-            "type": ["string", "object"]
+            "type": ["string", "object", "null"]
         },
         "clubId": {
             "type": ["string", "object"]
@@ -17,7 +17,7 @@ var holeSchema = {
             "type" : ["null", "string"]
         }
     },
-    "required": ["number", "distance", "par", "hcp"]
+    "required": ["clubId"]
 }
 
 

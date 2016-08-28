@@ -16,11 +16,16 @@ namespace Golf.Tournament.Controllers
         {
             var club = loader.LoadAsync<Club>("clubs/" + clubId);
             var course = loader.LoadAsync<Course>("courses/" + courseId);
-            await Task.WhenAll(club, course);
+            var holes = loader.LoadAsync<CourseHoleCollection>("courses/" + courseId + "/teeboxes/" + teeboxId + "/holes");
+            await Task.WhenAll(club, course, holes);
+
+            var teebox = course.Result.TeeBoxes.Single(t => t.Id == teeboxId);
+            teebox.Holes.Front = new CourseHoleCollection(holes.Result.Where(h => h.FrontOrBack == FrontOrBack.Front));
+            teebox.Holes.Back = new CourseHoleCollection(holes.Result.Where(h => h.FrontOrBack == FrontOrBack.Back));
 
             return View(new CourseHoleListViewModel(club.Result,
                 course.Result,
-                course.Result.TeeBoxes.Single(t => t.Id == teeboxId)
+                teebox
                 ));
         }
 
@@ -58,35 +63,76 @@ namespace Golf.Tournament.Controllers
         }
 
         // GET: Club/Create
-        [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{teeboxId}/{frontOrBack}/holes/create")]
-        public async Task<ActionResult> Create(string clubId, string courseId, string teeboxId, FrontOrBack frontOrBack)
+        [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{teeboxId}/holes/create")]
+        public async Task<ActionResult> Create(string clubId, string courseId, string teeboxId, int holeFrontCount, int holeBackCount)
         {
             var club = loader.LoadAsync<Club>("clubs/" + clubId);
+            var holes = loader.LoadAsync<HoleCollection>("clubs/" + clubId + "/holes");
             var course = loader.LoadAsync<Course>("courses/" + courseId);
-            await Task.WhenAll(club, course);
+
+            await Task.WhenAll(club, course, holes);
 
             var teebox = course.Result.TeeBoxes.SingleOrDefault(t => t.Id == teeboxId);
-            CourseHoleCollection holes = (frontOrBack == FrontOrBack.Front) ? teebox.Holes.Front : teebox.Holes.Back;
 
-            return View(new CourseHoleCreateViewModel()
+            var viewModel = new CourseHoleCreateViewModel()
             {
                 Club = club.Result,
-                Course = course.Result
-            });
+                Course = course.Result,
+                Holes = holes.Result,
+                Teebox = teebox,
+                CourseHoles = new CourseHoles()
+            };
+
+            int holeCounter = 1;
+            for (int i = 0; i < holeFrontCount; i++)
+            {
+                viewModel.CourseHoles.Front.Add(new CourseHole()
+                {
+                    ClubId = clubId,
+                    Number = holeCounter,
+                    FrontOrBack = FrontOrBack.Front
+                });
+                holeCounter++;
+            }
+
+            for (int i = 0; i < holeBackCount; i++)
+            {
+                viewModel.CourseHoles.Front.Add(new CourseHole()
+                {
+                    ClubId = clubId,
+                    Number = holeCounter,
+                    FrontOrBack = FrontOrBack.Back
+                });
+                holeCounter++;
+            }
+
+            return View(viewModel);
         }
 
         // POST: Club/Create
         [HttpPost]
-        [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{teeboxId}/{frontOrBack}/holes/create")]
-        public async Task<ActionResult> Create(string clubId, string courseId, string teeboxId, FrontOrBack frontOrBack, CourseHoleCreateViewModel courseHoleCreateViewModel)
+        [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{teeboxId}/holes/create")]
+        public async Task<ActionResult> Create(string clubId, string courseId, string teeboxId, CourseHoleCreateViewModel courseHoleCreateViewModel)
         {
             ModelState.Clear();
-            TryValidateModel(courseHoleCreateViewModel.Teebox);
+            TryValidateModel(courseHoleCreateViewModel.CourseHoles);
 
             if (ModelState.IsValid)
             {
+                int holeCounter = 1;
+                int frontHoleCount = courseHoleCreateViewModel.CourseHoles.Front.Count;
 
-                await loader.PostAsync<TeeBox, Course>("courses/" + courseId + "/teeboxes", courseHoleCreateViewModel.Teebox);
+                for (int i = 0; i < frontHoleCount; i++)
+                {
+                    await loader.PostAsync<CourseHole>("courses/" + courseId + "/teeboxes/" + teeboxId + "/holes", courseHoleCreateViewModel.CourseHoles.Front[i]);
+                }
+                int backHoleCount = courseHoleCreateViewModel.CourseHoles.Back.Count;
+
+                for (int i = 0; i < backHoleCount; i++)
+                {
+                    await loader.PostAsync<CourseHole>("courses/" + courseId + "/teeboxes/" + teeboxId + "/holes", courseHoleCreateViewModel.CourseHoles.Back[i]);
+                }
+
                 return RedirectToAction("Index");
             }
             else
@@ -108,15 +154,15 @@ namespace Golf.Tournament.Controllers
         {
             var club = loader.LoadAsync<Club>("clubs/" + clubId);
             var course = loader.LoadAsync<Course>("courses/" + courseId);
-            var courses = loader.LoadAsync<IEnumerable<Course>>("clubs/" + clubId + "/courses");
-
-            await Task.WhenAll(club, course, courses);
+            var hole = loader.LoadAsync<CourseHole>("courses/" + courseId + "/teeboxes/" + teeboxId + "/holes/" + id);
+            await Task.WhenAll(club, course, hole);
 
             return View(new CourseHoleEditViewModel()
             {
                 Club = club.Result,
                 Course = course.Result,
-                Teebox = course.Result.TeeBoxes.SingleOrDefault(t => t.Id == id)
+                Teebox = course.Result.TeeBoxes.SingleOrDefault(t => t.Id == id),
+                Hole = hole.Result
             });
         }
 

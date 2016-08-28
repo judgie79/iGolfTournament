@@ -178,6 +178,10 @@
     <Compile Include="Utility\HtmlPanelHelper.cs" />
     <Compile Include="Utility\HtmlTeeboxHelper.cs" />
     <Compile Include="Utility\WysiwygEditorHelper.cs" />
+    <Compile Include="ViewModels\CourseHoleCreateViewModel.cs" />
+    <Compile Include="ViewModels\CourseHoleDeleteViewModel.cs" />
+    <Compile Include="ViewModels\CourseHoleDetailsViewModel.cs" />
+    <Compile Include="ViewModels\CourseHoleEditViewModel.cs" />
     <Compile Include="ViewModels\FileUploadViewModel.cs" />
     <Compile Include="ViewModels\HoleCreateViewModel.cs" />
     <Compile Include="ViewModels\HoleDeleteViewModel.cs" />
@@ -201,6 +205,7 @@
     <Compile Include="ViewModels\ScoresheetEditModel.cs" />
     <Compile Include="ViewModels\TeamListViewModel.cs" />
     <Compile Include="ViewModels\TeeboxCreateViewModel.cs" />
+    <Compile Include="ViewModels\TeeboxDeleteViewModel.cs" />
     <Compile Include="ViewModels\TeeboxDetailsViewModel.cs" />
     <Compile Include="ViewModels\TeeboxEditViewModel.cs" />
     <Compile Include="ViewModels\TeeboxEditViewModelBinder.cs" />
@@ -309,10 +314,16 @@
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-fileinput\css\fileinput.css" />
+    <Content Include="Content\bootstrap-fileinput\css\fileinput.css" />
+    <Content Include="Content\bootstrap-fileinput\css\fileinput.min.css" />
     <Content Include="Content\bootstrap-fileinput\css\fileinput.min.css" />
     <Content Include="Content\bootstrap-fileinput\img\loading-sm.gif" />
+    <Content Include="Content\bootstrap-fileinput\img\loading-sm.gif" />
+    <Content Include="Content\bootstrap-fileinput\img\loading.gif" />
     <Content Include="Content\bootstrap-fileinput\img\loading.gif" />
     <Content Include="Content\bootstrap-fileinput\js\fileinput.js" />
+    <Content Include="Content\bootstrap-fileinput\js\fileinput.js" />
+    <Content Include="Content\bootstrap-fileinput\js\fileinput.min.js" />
     <Content Include="Content\bootstrap-fileinput\js\fileinput.min.js" />
     <Content Include="Content\bootstrap-fileinput\js\locales\ar.js" />
     <Content Include="Content\bootstrap-fileinput\js\locales\bg.js" />
@@ -350,6 +361,10 @@
     <Content Include="Content\bootstrap-fileinput\js\plugins\purify.min.js" />
     <Content Include="Content\bootstrap-fileinput\js\plugins\sortable.js" />
     <Content Include="Content\bootstrap-fileinput\js\plugins\sortable.min.js" />
+    <Content Include="Content\bootstrap-popover-x-master\css\bootstrap-popover-x.css" />
+    <Content Include="Content\bootstrap-popover-x-master\css\bootstrap-popover-x.min.css" />
+    <Content Include="Content\bootstrap-popover-x-master\js\bootstrap-popover-x.js" />
+    <Content Include="Content\bootstrap-popover-x-master\js\bootstrap-popover-x.min.js" />
     <Content Include="Content\bootstrap-switch\css\bootstrap2\bootstrap-switch.css" />
     <Content Include="Content\bootstrap-switch\css\bootstrap2\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap-switch\css\bootstrap3\bootstrap-switch.css" />
@@ -1164,6 +1179,7 @@
     <Content Include="Views\CourseHole\Details.cshtml" />
     <Content Include="Views\CourseHole\Edit.cshtml" />
     <Content Include="Views\CourseHole\Index.cshtml" />
+    <Content Include="Views\Shared\HoleEditTablePart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
