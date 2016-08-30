@@ -24,7 +24,7 @@ Validator.prototype.validateHcp = function(){
                     me.player.isOfficialHcp = true;
                 } else {
                     me.player.isOfficialHcp = false;
-                    me.player.hcp = Number(player.hcp);
+                    me.player.hcp = Number(me.player.hcp);
                 }
 
                 resolve(me.player);

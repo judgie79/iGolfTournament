@@ -15,21 +15,26 @@ namespace Golf.Tournament.ViewModels
 
         }
 
-        public CourseHoleEditViewModel(Club club, Course course, TeeBox teebox, CourseHole hole)
+        public CourseHoleEditViewModel(Club club, Course course, TeeBox teebox, CourseHoles courseHoles, HoleCollection holes)
             : this()
         {
             this.Course = course;
             this.Club = club;
             this.Teebox = teebox;
-            this.Hole = hole;
+            this.CourseHoles = courseHoles;
+            Holes = holes;
         }
 
         public Club Club { get; set; }
 
         public Course Course { get; set; }
 
-        public CourseHole Hole { get; set; }
-
         public TeeBox Teebox { get; set; }
+
+        public CourseHoles CourseHoles { get; set; }
+
+        public HoleCollection Holes { get; set; }
+
+        public CourseHole ViewModel { get; set; }
     }
 }

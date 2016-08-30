@@ -149,52 +149,65 @@ namespace Golf.Tournament.Controllers
         }
 
         // GET: Club/Edit/5
-        [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{teeboxId}/{frontOrBack}/holes/{id}/edit")]
-        public async Task<ActionResult> Edit(string clubId, string courseId, string teeboxId, FrontOrBack frontOrBack, string id)
+        [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{teeboxId}/holes/edit")]
+        public async Task<ActionResult> Edit(string clubId, string courseId, string teeboxId)
         {
             var club = loader.LoadAsync<Club>("clubs/" + clubId);
+            var holes = loader.LoadAsync<HoleCollection>("clubs/" + clubId + "/holes");
             var course = loader.LoadAsync<Course>("courses/" + courseId);
-            var hole = loader.LoadAsync<CourseHole>("courses/" + courseId + "/teeboxes/" + teeboxId + "/holes/" + id);
-            await Task.WhenAll(club, course, hole);
+            var courseHolesCol = loader.LoadAsync<CourseHoleCollection>("courses/" + courseId + "/teeboxes/" + teeboxId + "/holes");
+            await Task.WhenAll(club, course, holes, courseHolesCol);
+
+            var courseHoles = new CourseHoles()
+            {
+                Front = new CourseHoleCollection(courseHolesCol.Result.Where(c => c.FrontOrBack == FrontOrBack.Front)),
+                Back = new CourseHoleCollection(courseHolesCol.Result.Where(c => c.FrontOrBack == FrontOrBack.Back))
+            };
 
             return View(new CourseHoleEditViewModel()
             {
                 Club = club.Result,
                 Course = course.Result,
-                Teebox = course.Result.TeeBoxes.SingleOrDefault(t => t.Id == id),
-                Hole = hole.Result
+                Teebox = course.Result.TeeBoxes.SingleOrDefault(t => t.Id == teeboxId),
+                Holes = holes.Result,
+                CourseHoles = courseHoles
             });
         }
 
         // POST: Club/Edit/5
         [HttpPost]
-        [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{teeboxId}/{frontOrBack}/holes/{id}/edit")]
-        public async Task<ActionResult> Edit(string clubId, string courseId, string teeboxId, FrontOrBack frontOrBack, string id, CourseHoleEditViewModel courseHoleEditViewModel)
+        [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{teeboxId}/holes/edit")]
+        public async Task<ActionResult> Edit(string clubId, string courseId, string teeboxId, CourseHoleEditViewModel courseHoleEditViewModel)
         {
-            var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var course = loader.LoadAsync<Course>("courses/" + courseId);
-
-            await Task.WhenAll(club, course);
-
             ModelState.Clear();
-            TryValidateModel(courseHoleEditViewModel.Teebox);
+            TryValidateModel(courseHoleEditViewModel.CourseHoles);
 
             if (ModelState.IsValid)
             {
-                courseHoleEditViewModel.Course = course.Result;
-                var teebox = courseHoleEditViewModel.Course.TeeBoxes.SingleOrDefault(t => t.Id == id);
+                int holeCounter = 1;
+                int frontHoleCount = courseHoleEditViewModel.CourseHoles.Front.Count;
 
+                for (int i = 0; i < frontHoleCount; i++)
+                {
+                    await loader.PutAsync<CourseHole>("courses/" + courseId + "/teeboxes/" + teeboxId + "/holes/" + courseHoleEditViewModel.CourseHoles.Front[i].Id, courseHoleEditViewModel.CourseHoles.Front[i]);
+                }
+                int backHoleCount = courseHoleEditViewModel.CourseHoles.Back.Count;
 
-                courseHoleEditViewModel.Course.TeeBoxes[courseHoleEditViewModel.Course.TeeBoxes.IndexOf(teebox)] = courseHoleEditViewModel.Teebox;
+                for (int i = 0; i < backHoleCount; i++)
+                {
+                    await loader.PutAsync<CourseHole>("courses/" + courseId + "/teeboxes/" + teeboxId + "/holes/" + courseHoleEditViewModel.CourseHoles.Back[i].Id, courseHoleEditViewModel.CourseHoles.Back[i]);
+                }
 
-                await loader.PutAsync<Course>("courses/" + courseId, courseHoleEditViewModel.Course);
                 return RedirectToAction("Index");
             }
             else
             {
-                courseHoleEditViewModel.Course = course.Result;
-                courseHoleEditViewModel.Club = club.Result;
+                var club = loader.LoadAsync<Club>("clubs/" + clubId);
+                var course = loader.LoadAsync<Course>("courses/" + courseId);
+                await Task.WhenAll(club, course);
 
+                courseHoleEditViewModel.Club = club.Result;
+                courseHoleEditViewModel.Course = course.Result;
 
                 return View(courseHoleEditViewModel);
             }

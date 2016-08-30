@@ -12,6 +12,14 @@ namespace Golf.Tournament.Models
 {
     public class CourseHole : Hole
     {
+        [JsonProperty("_id")]
+        [Required]
+        public new string Id { get; set; }
+
+        [JsonProperty("holeId")]
+        [Required]
+        public string HoleId { get; set; }
+
         [JsonProperty("courseId")]
         [Required]
         public string CourseId { get; set; }

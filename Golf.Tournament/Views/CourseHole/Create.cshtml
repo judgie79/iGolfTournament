@@ -30,7 +30,7 @@
                     @for (var i = 0; i < Model.CourseHoles.Front.Count; i++)
                     {
                         <td>
-                            @Html.DropDownListFor(model => Model.CourseHoles.Front[i].Id, Model.Holes.Select(hole => new SelectListItem() { Text = hole.Name, Value = hole.Id }), new { @class = "form-control" })
+                            @Html.DropDownListFor(model => Model.CourseHoles.Front[i].HoleId, Model.Holes.Select(hole => new SelectListItem() { Text = hole.Name, Value = hole.Id }), new { @class = "form-control" })
                         </td>
                     }
                 </tr>
@@ -77,7 +77,7 @@
                     @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
                     {
                         <td>
-                            @Html.DropDownListFor(model => Model.CourseHoles.Back[i].Id, Model.Holes.Select(hole => new SelectListItem() { Text = hole.Name, Value = hole.Id }), new { @class = "form-control" })
+                            @Html.DropDownListFor(model => Model.CourseHoles.Back[i].HoleId, Model.Holes.Select(hole => new SelectListItem() { Text = hole.Name, Value = hole.Id }), new { @class = "form-control" })
                         </td>
                     }
                 </tr>

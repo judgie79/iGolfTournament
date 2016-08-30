@@ -27,7 +27,7 @@ module.exports.create = function (courseId, teeboxId, newhole, callback) {
 
 
     db.collection(config.db.collections.holes).findOne({
-        "_id": new ObjectId(newhole._id)
+        "_id": new ObjectId(newhole.holeId)
     }, function (err, hole) {
         newhole.clubId = hole.clubId;
         newhole.name = hole.name;
@@ -53,11 +53,15 @@ module.exports.update = function (courseId, teeboxId, id, updateHole, callback) 
     var db = mongoUtil.getDb();
 
     db.collection(config.db.collections.holes).findOne({
-        "_id": new ObjectId(updateHole._id)
+        "_id": new ObjectId(updateHole.holeId)
     }, function (err, hole) {
         updateHole.clubId = hole.clubId;
         updateHole.name = hole.name;
-        updateHole.courseImage = hole.courseImage;
+        updateHole.courseId = courseId;
+        updateHole.teeboxId = teeboxId;
+        if (hole.courseImage) {
+            updateHole.courseImage = hole.courseImage;
+        }
         updateHole.frontOrBack = updateHole.frontOrBack.toLowerCase();
         val.validateSchema().then(function () {
             crudRepository.update(id, updateHole, callback);

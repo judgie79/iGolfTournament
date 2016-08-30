@@ -174,7 +174,7 @@ module.exports.deleteTeamMember = function (tournamentId, teamId, participantId,
                     "teams._id": new ObjectId(teamId)
                 },
                 {
-                    "$pull": { "teams.$.members": { "_id": participantId } }
+                    "$pull": { "teams.$.members": { "_id": new ObjectId(participantId) } }
                 },
                 false, function (err, tourn) {
                     if (err) {

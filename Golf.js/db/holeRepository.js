@@ -43,7 +43,7 @@ module.exports.update = function (clubId, id, updateHole, callback) {
             if (!err) {
                 db.collection(config.db.collections.courseHoles).update(
                     {
-                        "_id": new ObjectId(id)
+                        "holeId": id
                     },
                     {
                         "$set": {

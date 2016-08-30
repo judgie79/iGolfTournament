@@ -17,51 +17,111 @@
         @Html.HiddenFor(model => model.Club.Id)
         @Html.HiddenFor(model => model.Course.Id)
         @Html.HiddenFor(model => model.Teebox.Id)
-        @Html.HiddenFor(model => model.Hole.Id)
-        @Html.HiddenFor(model => model.Hole.FrontOrBack)
+        
 
-        <div class="form-group">
-            <img src="@Model.Hole.CourseImage" />
-        </div>
+        <table class="table table-condensed holeEditTable">
+            <colgroup>
+                <col width="10%" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="@(Model.CourseHoles.Front.Count +1)">Front</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Id)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Front.Count; i++)
+                    {
+                        <td>
+                            @Html.HiddenFor(model => model.CourseHoles.Front[i].Id)
+                            @Html.HiddenFor(model => model.CourseHoles.Front[i].FrontOrBack)
+                            @Html.DropDownListFor(model => Model.CourseHoles.Front[i].HoleId, Model.Holes.Select(hole => new SelectListItem() { Text = hole.Name, Value = hole.Id, Selected = hole.Id == Model.CourseHoles.Front[i].HoleId }), new { @class = "form-control input-sm" })
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Number)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Front.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Number, new { @class = "form-control input-sm" })</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Par)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Front.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Par, new { @class = "form-control input-sm" })</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Hcp)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Front.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Hcp, new { @class = "form-control input-sm" })</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Distance)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Front.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Distance, new { @class = "form-control input-sm" })</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Hole.Name, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.DisplayFor(model => model.Hole.Name, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Hole.Number, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.EditorFor(model => model.Hole.Number, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Hole.Number, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Hole.Par, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.EditorFor(model => model.Hole.Par, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Hole.Par, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Hole.Hcp, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.EditorFor(model => model.Hole.Hcp, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Hole.Hcp, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Hole.Distance, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.EditorFor(model => model.Hole.Distance, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Hole.Distance, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        <table class="table table-condensed holeEditTable">
+            <colgroup>
+                <col width="10%" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th colspan="@(Model.CourseHoles.Back.Count +1)">Back</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Id)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
+                    {
+                        <td>
+                            @Html.HiddenFor(model => model.CourseHoles.Back[i].Id)
+                            @Html.HiddenFor(model => model.CourseHoles.Back[i].FrontOrBack)
+                            @Html.DropDownListFor(model => Model.CourseHoles.Back[i].HoleId, Model.Holes.Select(hole => new SelectListItem() { Text = hole.Name, Value = hole.Id, Selected = hole.Id == Model.CourseHoles.Back[i].HoleId }), new { @class = "form-control input-sm" })
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Number)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Number, new { @class = "form-control input-sm" })</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Par)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Par, new { @class = "form-control input-sm" })</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Hcp)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Hcp, new { @class = "form-control input-sm" })</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Distance)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Distance, new { @class = "form-control input-sm" })</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

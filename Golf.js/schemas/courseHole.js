@@ -11,6 +11,9 @@ var courseHoleSchema = {
         // address
         {
             "properties": {
+                "holeId": {
+                    "type": ["string", "object"]
+                },
                 "courseId": {
                     "type": ["string", "object"]
                 },

@@ -4,7 +4,7 @@
 
     <tr>
         <th>Hole</th>
-        @foreach (var item in Model.TeeBox.Holes)
+        @foreach (var item in Model.TeeBox.Holes.Front)
         {
 
             <th>@item.Number</th>
@@ -12,7 +12,7 @@
     </tr>
     <tr>
         <th>Par</th>
-        @foreach (var item in Model.TeeBox.Holes)
+        @foreach (var item in Model.TeeBox.Holes.Front)
         {
 
             <td>@item.Par</td>
@@ -20,7 +20,7 @@
     </tr>
     <tr>
         <th>Hcp</th>
-        @foreach (var item in Model.TeeBox.Holes)
+        @foreach (var item in Model.TeeBox.Holes.Front)
         {
 
             <td>@item.Hcp</td>
@@ -28,7 +28,7 @@
     </tr>
     <tr>
         <th>Distance</th>
-        @foreach (var item in Model.TeeBox.Holes)
+        @foreach (var item in Model.TeeBox.Holes.Front)
         {
 
             <td>@item.Distance</td>
