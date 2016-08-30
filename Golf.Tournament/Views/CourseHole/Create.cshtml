@@ -65,6 +65,53 @@
             </tbody>
         </table>
 
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="@(Model.CourseHoles.Back.Count +1)">Back</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Id)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
+                    {
+                        <td>
+                            @Html.DropDownListFor(model => Model.CourseHoles.Back[i].Id, Model.Holes.Select(hole => new SelectListItem() { Text = hole.Name, Value = hole.Id }), new { @class = "form-control" })
+                        </td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Number)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Number)</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Par)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Par)</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Hcp)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Hcp)</td>
+                    }
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Distance)</td>
+                    @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
+                    {
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Distance)</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

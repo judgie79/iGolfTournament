@@ -16,10 +16,13 @@ namespace Golf.Tournament.Controllers
         public async Task<ActionResult> Index(string clubId, string courseId)
         {
             var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var course = loader.LoadAsync<Course>("courses/" + courseId);
-            await Task.WhenAll(club, course);
+            var courseTask = loader.LoadAsync<Course>("courses/" + courseId);
+            await Task.WhenAll(club, courseTask);
 
-            return View(new TeeboxListViewModel(club.Result, course.Result));
+            var course = courseTask.Result;
+            course = await loader.SetHoles(course);
+
+            return View(new TeeboxListViewModel(club.Result, course));
         }
 
         // GET: Club/Details/5
@@ -27,14 +30,17 @@ namespace Golf.Tournament.Controllers
         public async Task<ActionResult> Details(string clubId, string courseId, string id)
         {
             var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var course = loader.LoadAsync<Course>("courses/" + courseId);
-            await Task.WhenAll(club, course);
+            var courseTask = loader.LoadAsync<Course>("courses/" + courseId);
+            await Task.WhenAll(club, courseTask);
+
+            var course = courseTask.Result;
+            course = await loader.SetHoles(course);
 
             return View(new TeeboxDetailsViewModel()
             {
                 Club = club.Result,
-                Course = course.Result,
-                Teebox = course.Result.TeeBoxes.SingleOrDefault(t => t.Id == id)
+                Course = course,
+                Teebox = course.TeeBoxes.SingleOrDefault(t => t.Id == id)
             });
         }
 
@@ -43,12 +49,16 @@ namespace Golf.Tournament.Controllers
         public async Task<ActionResult> Create(string clubId, string courseId)
         {
             var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var course = loader.LoadAsync<Course>("courses/" + courseId);
-            await Task.WhenAll(club, course);
+            var courseTask = loader.LoadAsync<Course>("courses/" + courseId);
+            await Task.WhenAll(club, courseTask);
+
+            var course = courseTask.Result;
+            course = await loader.SetHoles(course);
+
             return View(new TeeboxCreateViewModel()
             {
                 Club = club.Result,
-                Course = course.Result
+                Course = course
             });
         }
 
@@ -69,11 +79,15 @@ namespace Golf.Tournament.Controllers
             else
             {
                 var club = loader.LoadAsync<Club>("clubs/" + clubId);
-                var course = loader.LoadAsync<Course>("courses/" + courseId);
-                await Task.WhenAll(club, course);
+
+                var courseTask = loader.LoadAsync<Course>("courses/" + courseId);
+                await Task.WhenAll(club, courseTask);
+
+                var course = courseTask.Result;
+                course = await loader.SetHoles(course);
 
                 teeboxCreateViewModel.Club = club.Result;
-                teeboxCreateViewModel.Course = course.Result;
+                teeboxCreateViewModel.Course = course;
 
                 return View(teeboxCreateViewModel);
             }
@@ -84,16 +98,19 @@ namespace Golf.Tournament.Controllers
         public async Task<ActionResult> Edit(string clubId, string courseId, string id)
         {
             var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var course = loader.LoadAsync<Course>("courses/" + courseId);
-            var courses = loader.LoadAsync<IEnumerable<Course>>("clubs/" + clubId + "/courses");
+            var courseTask = loader.LoadAsync<Course>("courses/" + courseId);
 
-            await Task.WhenAll(club, course, courses);
+            await Task.WhenAll(club, courseTask);
+
+            var course = courseTask.Result;
+            course = await loader.SetHoles(course);
 
             return View(new TeeboxEditViewModel()
             {
                 Club = club.Result,
-                Course = course.Result,
-                Teebox = course.Result.TeeBoxes.SingleOrDefault(t => t.Id == id)
+                Course = course,
+                Teebox = course.TeeBoxes.SingleOrDefault(t => t.Id == id),
+                
             });
         }
 
@@ -113,11 +130,14 @@ namespace Golf.Tournament.Controllers
             else
             {
                 var club = loader.LoadAsync<Club>("clubs/" + clubId);
-                var course = loader.LoadAsync<Course>("courses/" + courseId);
+                var courseTask = loader.LoadAsync<Course>("courses/" + courseId);
 
-                await Task.WhenAll(club, course);
+                await Task.WhenAll(club, courseTask);
 
-                teeboxEditViewModel.Course = course.Result;
+                var course = courseTask.Result;
+                course = await loader.SetHoles(course);
+
+                teeboxEditViewModel.Course = course;
                 teeboxEditViewModel.Club = club.Result;
 
                 return View(teeboxEditViewModel);
@@ -129,16 +149,18 @@ namespace Golf.Tournament.Controllers
         public async Task<ActionResult> Delete(string clubId, string courseId, string id)
         {
             var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var course = loader.LoadAsync<Course>("courses/" + courseId);
-            var courses = loader.LoadAsync<IEnumerable<Course>>("clubs/" + clubId + "/courses");
+            var courseTask = loader.LoadAsync<Course>("courses/" + courseId);
 
-            await Task.WhenAll(club, course, courses);
+            await Task.WhenAll(club, courseTask);
+
+            var course = courseTask.Result;
+            course = await loader.SetHoles(course);
 
             return View(new TeeboxDeleteViewModel()
             {
                 Club = club.Result,
-                Course = course.Result,
-                Teebox = course.Result.TeeBoxes.SingleOrDefault(t => t.Id == id)
+                Course = course,
+                Teebox = course.TeeBoxes.SingleOrDefault(t => t.Id == id)
             });
         }
 
@@ -149,7 +171,7 @@ namespace Golf.Tournament.Controllers
         {
             try
             {
-                await loader.Delete<TeeBox>("courses/" + courseId + "/teeboxes/" + id);
+                await loader.DeleteAsync<TeeBox>("courses/" + courseId + "/teeboxes/" + id);
                 return RedirectToAction("Index");
             }
             catch

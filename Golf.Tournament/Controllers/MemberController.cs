@@ -98,7 +98,7 @@ namespace Golf.Tournament.Controllers
             {
                 if (!string.IsNullOrWhiteSpace(tournamentId) && !string.IsNullOrWhiteSpace(id))
                 {
-                    await loader.Delete<Models.TeamTournament>("tournaments/" + tournamentId + "/teams/" + teamId + "/members/" + id);
+                    await loader.DeleteAsync<Models.TeamTournament>("tournaments/" + tournamentId + "/teams/" + teamId + "/members/" + id);
                 }
 
                 return RedirectToAction("Index");

@@ -97,7 +97,7 @@ namespace Golf.Tournament.Controllers
 
             for (int i = 0; i < holeBackCount; i++)
             {
-                viewModel.CourseHoles.Front.Add(new CourseHole()
+                viewModel.CourseHoles.Back.Add(new CourseHole()
                 {
                     ClubId = clubId,
                     Number = holeCounter,

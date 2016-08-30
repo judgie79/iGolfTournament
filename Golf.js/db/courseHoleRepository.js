@@ -31,7 +31,9 @@ module.exports.create = function (courseId, teeboxId, newhole, callback) {
     }, function (err, hole) {
         newhole.clubId = hole.clubId;
         newhole.name = hole.name;
-        newhole.courseImage = hole.courseImage;
+        if (hole.courseImage) {
+            newhole.courseImage = hole.courseImage;
+        }
         newhole.frontOrBack = newhole.frontOrBack.toLowerCase();
         newhole.teeboxId = teeboxId;
         newhole.courseId = courseId;

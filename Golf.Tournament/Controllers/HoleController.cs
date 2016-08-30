@@ -148,7 +148,7 @@ namespace Golf.Tournament.Controllers
         {
             try
             {
-                await loader.Delete<Hole>("clubs/" + clubId + "/holes/" + id);
+                await loader.DeleteAsync<Hole>("clubs/" + clubId + "/holes/" + id);
                 return RedirectToAction("Index");
             }
             catch

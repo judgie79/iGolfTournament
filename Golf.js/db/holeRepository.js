@@ -37,7 +37,25 @@ module.exports.update = function (clubId, id, updateHole, callback) {
     var db = mongoUtil.getDb();
 
     val.validateSchema().then(function () {
-         crudRepository.update(id, updateHole, callback);
+        crudRepository.update(id, updateHole, function (err, result) {
+            
+
+            if (!err) {
+                db.collection(config.db.collections.courseHoles).update(
+                    {
+                        "_id": new ObjectId(id)
+                    },
+                    {
+                        "$set": {
+                            "name": updateHole.name,
+                            "courseImage": updateHole.courseImage
+                        }
+                    },
+                    function (err, part) {
+                        callback(err, part);
+                    });
+            }
+        });
     }).catch(function (err) {
         callback(err, null);
     });

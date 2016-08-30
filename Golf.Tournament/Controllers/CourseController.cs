@@ -17,38 +17,20 @@ namespace Golf.Tournament.Controllers
         {
             var courses = await loader.LoadAsync<IEnumerable<Course>>("courses");
 
-            SetHoles(courses);
+            courses = await loader.SetHoles(courses);
             
             return View(courses);
         }
 
-        private void SetHoles(IEnumerable<Course> courses)
-        {
-            foreach (var course in courses)
-            {
-                SetHoles(course);
-            }
-        }
+        
 
-        private async void SetHoles(Course course)
-        {
-            foreach (var teebox in course.TeeBoxes)
-            {
-                var holes = await loader.LoadAsync<CourseHoleCollection>("courses/" + course.Id + "/teeboxes/" + teebox.Id + "/holes");
-
-                teebox.Holes = new CourseHoles()
-                {
-                    Back = new CourseHoleCollection(holes.Where(h => h.FrontOrBack == FrontOrBack.Back)),
-                    Front = new CourseHoleCollection(holes.Where(h => h.FrontOrBack == FrontOrBack.Front))
-                };
-            }
-        }
+        
 
         [Route("clubs/{id}/courses")]
         public async Task<ActionResult> GetCoursesFromClub(string id)
         {
             var courses = await loader.LoadAsync<IEnumerable<Course>>("clubs/" + id + "/courses");
-            SetHoles(courses);
+            courses = await loader.SetHoles(courses);
             return View("Index", courses);
         }
 
@@ -58,7 +40,9 @@ namespace Golf.Tournament.Controllers
         {
             var course = await loader.LoadAsync<Course>("courses/" + id);
             var club = await loader.LoadAsync<Club>("clubs/" + course.ClubId);
-            SetHoles(course);
+
+            course = await loader.SetHoles(course);
+
             return View(new CourseDetailsViewModel()
             {
                 Course = course,
@@ -109,7 +93,7 @@ namespace Golf.Tournament.Controllers
             var courseEditViewModel = new CourseEditViewModel();
 
             courseEditViewModel.Course = await loader.LoadAsync<Course>("courses/" + id);
-            SetHoles(courseEditViewModel.Course);
+            await loader.SetHoles(courseEditViewModel.Course);
             courseEditViewModel.Club = await loader.LoadAsync<Club>("clubs/" + courseEditViewModel.Course.ClubId);
 
             return View(courseEditViewModel);
@@ -150,7 +134,7 @@ namespace Golf.Tournament.Controllers
         [Route("courses/{id}/delete")]
         public async Task<ActionResult> Delete(string id, FormCollection form)
         {
-            await loader.Delete<Course>("courses/" + id);
+            await loader.DeleteAsync<Course>("courses/" + id);
             return RedirectToAction("Index");
 
         }

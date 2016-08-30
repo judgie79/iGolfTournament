@@ -42,7 +42,7 @@ namespace Golf.Tournament.Controllers
             var courses = loader.LoadAsync<IEnumerable<Models.Course>>("courses");
 
             await Task.WhenAll(clubs, courses);
-
+            await loader.SetHoles(courses.Result);
             var viewModel = new TournamentCreateViewModel<Models.Tournament>()
             {
                 Clubs = clubs.Result,
@@ -68,7 +68,7 @@ namespace Golf.Tournament.Controllers
             var courses = loader.LoadAsync<IEnumerable<Models.Course>>("courses");
 
             await Task.WhenAll(clubs, courses);
-
+            await loader.SetHoles(courses.Result);
             tournament.Clubs = clubs.Result;
             tournament.Courses = courses.Result;
 

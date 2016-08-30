@@ -113,7 +113,7 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{id}/delete")]
         public async Task<ActionResult> Delete(string id, FormCollection form)
         {
-            var success = await loader.Delete<Club>("clubs/" + id);
+            var success = await loader.DeleteAsync<Club>("clubs/" + id);
 
             return RedirectToAction("Index");
         }

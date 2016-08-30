@@ -5,118 +5,118 @@
 }
 
 <h2>Index</h2>
-
-Front
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ViewModel.ClubId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ViewModel.Number)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ViewModel.Distance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ViewModel.Par)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ViewModel.Hcp)
-            </th>
-            <th></th>
-        </tr>
-</thead>
-    <tbody>
-        @foreach (var item in Model.Holes.Front)
-        {
+<div class="row">
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClubId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Number)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Distance)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Par)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hcp)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewModel.ClubId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewModel.Number)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewModel.Distance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewModel.Par)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewModel.Hcp)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="6"></td>
-        </tr>
-    </tfoot>
-</table>
-
-Back
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ViewModel.ClubId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ViewModel.Number)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ViewModel.Distance)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ViewModel.Par)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ViewModel.Hcp)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Holes.Back)
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Holes.Front)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClubId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Number)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Distance)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Par)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hcp)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClubId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Distance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Par)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hcp)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
         }
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="6"></td>
-        </tr>
-    </tfoot>
-</table>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewModel.ClubId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewModel.Number)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewModel.Distance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewModel.Par)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ViewModel.Hcp)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Holes.Back)
+        {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClubId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Number)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Distance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Par)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hcp)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+        }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6"></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 
 <div>
     <a id="createHoles" href="@Url.Action("Create", "CourseHole", new { clubId = Model.Club.Id, courseId = Model.Course.Id, teeboxId = Model.Teebox.Id })" class="btn btn-default">Create New</a> Front: <input id="createFrontHolesCount" type="number" step="1" max="9" /> Back: <input id="createBackHolesCount" type="number" step="1" max="9" />

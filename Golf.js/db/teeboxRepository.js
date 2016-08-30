@@ -36,10 +36,6 @@ module.exports.create = function (courseId, newTeebox, callback) {
 
     newTeebox._id = new ObjectId();
 
-    var parAndDistance = getParAndDistance(newTeebox);
-    newTeebox.distance = parAndDistance.front.distance + parAndDistance.back.distance;
-    newTeebox.par = parAndDistance.front.par + parAndDistance.back.par;
-
     val.validateSchema().then(function() {
         db.collection(config.db.collections.courses).update(
         {
@@ -112,34 +108,34 @@ module.exports.update = function (courseId, id, updateTeebox, callback) {
         db.collection(config.db.collections.courses).findOne(
             { "_id": new ObjectId(courseId) },
             function (err, course) {
-                callback(err, course);
 
-                var teebox = course.teeboxes.find(function (t) {
-                    return t._id == id;
-                });
+                var holes = db.collection(config.db.collections.courseHoles).find({ "teeboxId": id }).toArray(function (err, holes) {
 
-                updateTeebox.holes = teebox.holes;
+                    updateTeebox.holes.front = holes.filter(function (hole) { return hole.frontOrBack.toLowerCase() === "front" });
+                    updateTeebox.holes.back = holes.filter(function (hole) { return hole.frontOrBack.toLowerCase() === "back" });
 
-                var parAndDistance = getParAndDistance(updateTeebox);
-                updateTeebox.distance = parAndDistance.front.distance + parAndDistance.back.distance;
-                updateTeebox.par = parAndDistance.front.par + parAndDistance.back.par;
-
-                db.collection(config.db.collections.courses).update(
-                    {
-                        "_id": new ObjectId(courseId),
-                        "teeboxes._id": updateTeebox._id,
-                    },
-                    {
-                        "$set": { "teeboxes.$": updateTeebox }
-                    },
-                    function (err, part) {
-                        db.collection(config.db.collections.tournaments).findOne(
-                            { "_id": new ObjectId(courseId) },
-                            function (err, course) {
-                                callback(err, course);
-                            }
-                        );
-                    });
+                    var parAndDistance = getParAndDistance(updateTeebox);
+                        updateTeebox.distance = parAndDistance.front.distance + parAndDistance.back.distance;
+                        updateTeebox.par = parAndDistance.front.par + parAndDistance.back.par;
+                        delete updateTeebox.holes;
+                        db.collection(config.db.collections.courses).update(
+                            {
+                                "_id": new ObjectId(courseId),
+                                "teeboxes._id": updateTeebox._id,
+                            },
+                            {
+                                "$set": { "teeboxes.$": updateTeebox }
+                            },
+                            function (err, part) {
+                                db.collection(config.db.collections.tournaments).findOne(
+                                    { "_id": new ObjectId(courseId) },
+                                    function (err, course) {
+                                        callback(err, course);
+                                    }
+                                );
+                            });
+                    }
+                );
             });
     }).catch(function (err) {
         callback(err, updateTeebox);

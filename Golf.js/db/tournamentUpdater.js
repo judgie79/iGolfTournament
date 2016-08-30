@@ -16,23 +16,27 @@ Updater.prototype.updateTournament = function (tournament, update) {
         var db = mongoUtil.getDb();
 
         me.updateCourse(db, config.db.collections.courses, tournament, update)
-        .then(function (updatedTournament) {
-            return me.updateClub(db, config.db.collections.clubs, updatedTournament, update)
-        })
-        .then(function (updatedTournament) {
+            .then(function (updatedTournament) {
+                return me.updateClub(db, config.db.collections.clubs, updatedTournament, update)
+            })
+            .then(function (updatedTournament) {
             
-            if(tournament.type === "single") {
-                return me.updatePlayers(db, config.db.collections.players, updatedTournament, update);
-            }
-            else if(tournament.type === "team") {
-                return me.updateTeams(db, config.db.collections.players, updatedTournament, update);
-            }
+                if(tournament.type === "single") {
+                    return me.updatePlayers(db, config.db.collections.players, updatedTournament, update);
+                }
+                else if(tournament.type === "team") {
+                    return me.updateTeams(db, config.db.collections.players, updatedTournament, update);
+                }
             
-        }).then(function (updatedTournament) {
-            resolve(updatedTournament);
-        }).catch(function (err) {
-            reject(err);
-        });
+            })
+            .then(function (updatedTournament) {
+                return me.updateCourseHoles(db, config.db.collections.courseHoles, updatedTournament, update)
+            })
+            .then(function (updatedTournament) {
+                resolve(updatedTournament);
+            }).catch(function (err) {
+                reject(err);
+            });
     });
 
     
@@ -51,6 +55,37 @@ Updater.prototype.updateCourse = function (db, collection, tournament, update) {
 
             resolve(tournament);
         });
+    });
+};
+
+Updater.prototype.updateCourseHoles = function (db, collection, tournament, update) {
+
+    return new Promise(function (resolve, reject) {
+        var count = 0;
+        for (var i = 0; i < tournament.course.teeboxes.length; i++) {
+            var teebox = tournament.course.teeboxes[i];
+            db.collection(collection).find({ "teeboxId": teebox._id.toHexString() }).toArray(function (err, courseHoles) {
+
+                if (err) {
+                    reject(err);
+                }
+                teebox.holes = {
+                    front: courseHoles.filter(function (ch) {
+                        return ch.frontOrBack.toLowerCase() === "front";
+                    }),
+                    back: courseHoles.filter(function (ch) {
+                        return ch.frontOrBack.toLowerCase() === "back";
+                    })
+                };
+                count++;
+
+                if (count == tournament.course.teeboxes.length) {
+                    resolve(tournament);
+                }
+            });
+        }
+
+        
     });
 };
 

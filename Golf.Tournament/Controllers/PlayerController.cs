@@ -117,7 +117,7 @@ namespace Golf.Tournament.Controllers
         {
             try
             {
-                await loader.Delete<Player>("players/" + id);
+                await loader.DeleteAsync<Player>("players/" + id);
 
                 return RedirectToAction("Index");
             }
