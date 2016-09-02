@@ -37,12 +37,13 @@ namespace Golf.Tournament.ViewModels
 
         }
 
-        public CourseHoleListViewModel(Club club, Course course, TeeBox teebox)
+        public CourseHoleListViewModel(Club club, Course course, TeeBox teebox, HoleCollection clubHoles)
         {
             this.Course = course;
             this.Club = club;
             this.Teebox = teebox;
-            this.Holes = teebox.Holes;
+            this.CourseHoles = teebox.Holes;
+            this.Holes = clubHoles;
         }
         public TeeBox Teebox { get; set; }
 
@@ -50,7 +51,9 @@ namespace Golf.Tournament.ViewModels
 
         public Course Course { get; set; }
 
-        public CourseHoles Holes { get; set; }
+        public CourseHoles CourseHoles { get; set; }
+
+        public HoleCollection Holes { get; set; }
 
         public CourseHole ViewModel = new CourseHole();
     }

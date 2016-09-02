@@ -23,10 +23,10 @@
         <button data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</button>
     </div>
 </div>
-
-<!-- element to edit -->
-<textarea id="@Model.Id" name="@Model.Name" style="width: 100%; height: 100%;" placeholder="Enter your text ..." autofocus>@Model.Text</textarea>
-
+<div style="height:500px;">
+    <!-- element to edit -->
+    <textarea id="@Model.Id" name="@Model.Name" style="width: 100%; height: 100%;" rows="50" placeholder="Enter your text ..." autofocus>@Model.Text</textarea>
+</div>
 @using (Html.BeginScripts("end"))
 {
     <script>

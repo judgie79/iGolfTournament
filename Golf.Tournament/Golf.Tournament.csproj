@@ -1180,6 +1180,8 @@
     <Content Include="Views\CourseHole\Edit.cshtml" />
     <Content Include="Views\CourseHole\Index.cshtml" />
     <Content Include="Views\Shared\HoleEditTablePart.cshtml" />
+    <Content Include="Views\Shared\TeamTables.cshtml" />
+    <Content Include="Views\Tournament\DetailsTeam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

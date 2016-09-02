@@ -5,13 +5,22 @@ using System.Web;
 
 namespace Golf.Tournament.ViewModels
 {
-    public class TournamentDetailsViewModel
+    public class TournamentDetailsViewModel : TournamentDetailsViewModel<Models.Tournament>
+    {
+    }
+
+    public class TeamTournamentDetailsViewModel : TournamentDetailsViewModel<Models.TeamTournament>
+    {
+    }
+
+    public class TournamentDetailsViewModel<TTournament>
+        where TTournament : Models.Tournament, new()
     {
         public TournamentDetailsViewModel()
         {
-            Tournament = new Models.Tournament();
+            Tournament = new TTournament();
         }
 
-        public Models.Tournament Tournament { get; set; }
+        public TTournament Tournament { get; set; }
     }
 }

@@ -1,0 +1,69 @@
+﻿@model Golf.Tournament.ViewModels.TeamListViewModel
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.Label("Teebox")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewModel.Teetime)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.ViewModel.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.ViewModel.Hcp)</th>
+            <th>@Html.DisplayNameFor(model => model.ViewModel.Members)</th>
+            @if (Model.EditEnabled)
+            {
+                <th class="sorter-false filter-false"></th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Tournament.Teams)
+        {
+            var teeBox = Model.Teeboxes.FirstOrDefault(m => m.Key == item.TeeboxId).Value;
+            var fontColor = "#ffffff";
+
+            if (teeBox.Color.Value.ToLower() == "#ffffff")
+            {
+                fontColor = "#000000";
+            }
+            <tr>
+                <td><span style="background-color: @teeBox.Color.ToHtml(); width: 30px; height: 10px; display: inline-block; vertival-align: middle;">&nbsp;</span> @Html.DisplayFor(model => teeBox.Name)</td>
+                <td>@Html.DisplayFor(model => item.Teetime)</td>
+                <td>@Html.DisplayFor(model => item.Name)</td>
+                <td>@Html.DisplayFor(model => item.Hcp)</td>
+                <td>@string.Join("; ", item.Members.Select(t => t.Player.Fullname)</td>
+
+                @if (Model.EditEnabled)
+                {
+                <td>
+                    @if (!Model.Tournament.HasStarted)
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { tournamentId = Model.Tournament.Id, id = item.Id }, new { @class = "btn btn-xs btn-default" })
+                    }
+                    @Html.ActionLink("Details", "Details", new { tournamentId = Model.Tournament.Id, id = item.Id }, new { @class = "btn btn-xs btn-default" })
+                    @if (!Model.Tournament.HasStarted)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { tournamentId = Model.Tournament.Id, id = item.Id }, new { @class = "btn btn-xs btn-danger" })
+                    }
+                </td>
+                }
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                @Html.Label("Teebox")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ViewModel.Teetime)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.ViewModel.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.ViewModel.Hcp)</th>
+            <th>@Html.DisplayNameFor(model => model.ViewModel.Members)</th>
+            <th></th>
+        </tr>
+    </tfoot>
+
+</table>

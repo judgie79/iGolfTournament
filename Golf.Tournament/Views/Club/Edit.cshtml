@@ -10,31 +10,39 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Club</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Club.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Club.Name, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.EditorFor(model => model.Club.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Club.Name, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Club.Name, htmlAttributes: new { @class = "control-label col-sm-2" })
+                    <div class="col-sm-10">
+                        @Html.EditorFor(model => model.Club.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Club.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @Html.EditorFor(model => model.Club.Address)
+            </div>
+            <div class="col-md-7">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Club.LocalRules, htmlAttributes: new { @class = "control-label col-sm-2" })
+                    <div class="col-sm-10">
+                        @Html.WysiwygFor(model => model.Club.LocalRules, htmlAttributes: new { @class = "form-control html" })
+                        @Html.ValidationMessageFor(model => model.Club.LocalRules, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
         </div>
 
-        @Html.EditorFor(model => model.Club.Address)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Club.LocalRules, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.WysiwygFor(model => model.Club.LocalRules, htmlAttributes: new { @class = "form-control html" })
-                @Html.ValidationMessageFor(model => model.Club.LocalRules, "", new { @class = "text-danger" })
-            </div>
+        <div class="row">
+            
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-sm-10">
                 <input type="submit" value="Save" class="btn btn-default" />

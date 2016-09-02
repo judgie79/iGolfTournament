@@ -34,6 +34,5 @@ D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\de\System.Web.Razor
 D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\de\System.Web.WebPages.resources.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\de\System.Web.WebPages.Deployment.resources.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Models\bin\Debug\de\System.Web.WebPages.Razor.resources.dll
-D:\theju\Documents\Git\iGolfTournament\Golf.Models\obj\Debug\Golf.Models.csprojResolveAssemblyReference.cache
 D:\theju\Documents\Git\iGolfTournament\Golf.Models\obj\Debug\Golf.Models.dll
 D:\theju\Documents\Git\iGolfTournament\Golf.Models\obj\Debug\Golf.Models.pdb

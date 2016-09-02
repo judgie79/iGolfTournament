@@ -26,6 +26,29 @@ namespace Golf.Tournament.Controllers
         {
             var tournament = await loader.LoadAsync<Models.Tournament>("tournaments/" + id);
 
+            if (tournament.TournamentType == Models.TournamentType.Single)
+            {
+                var viewModelSingleTournament = new TournamentDetailsViewModel()
+                {
+                    Tournament = tournament
+                };
+
+                return View("Details", viewModelSingleTournament);
+            } else if (tournament.TournamentType == Models.TournamentType.Team)
+            {
+                var viewModelTeamTournament = new TeamTournamentDetailsViewModel()
+                {
+                    Tournament = (Models.TeamTournament)tournament
+                };
+
+                return View("DetailsTeam", viewModelTeamTournament);
+            }
+
+
+
+
+            
+
             var viewModel = new ViewModels.TournamentDetailsViewModel()
             {
                 Tournament = tournament

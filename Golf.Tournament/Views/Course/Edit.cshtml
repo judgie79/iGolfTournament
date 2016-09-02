@@ -2,6 +2,10 @@
 
 @{
     ViewBag.Title = "Edit";
+
+    var viewData = ViewData;
+    viewData.Add("Course", Model.Course);
+    viewData.Add("Club", Model.Club);
 }
 
 <div class="row">
@@ -46,13 +50,13 @@
     <div class="col-md-8">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="panel-title">Teeboxes</h4>
+                <h2 class="panel-title">Teeboxes - Course @Model.Course.Name</h2>
             </div>
             <div class="panel-body">
-                @Html.DisplayFor(model => model.Course.TeeBoxes)
+                @Html.Partial("Teeboxes_Table_Edit", Model.Course.TeeBoxes, viewData)
             </div>
             <div class="panel-footer">
-                @Html.ActionLink("Edit Teeboxes", "Index", "Teebox", new { clubId = Model.Course.ClubId, courseId = Model.Course.Id }, new { @class = "btn btn-sm btn-default" })
+                @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-sm btn-default" })
             </div>
         </div>
     </div>

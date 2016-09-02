@@ -17,7 +17,8 @@ namespace Golf.Tournament.Controllers
             var club = loader.LoadAsync<Club>("clubs/" + clubId);
             var course = loader.LoadAsync<Course>("courses/" + courseId);
             var holes = loader.LoadAsync<CourseHoleCollection>("courses/" + courseId + "/teeboxes/" + teeboxId + "/holes");
-            await Task.WhenAll(club, course, holes);
+            var clubHoles = loader.LoadAsync<HoleCollection>("clubs/" + clubId + "/holes");
+            await Task.WhenAll(club, course, holes, clubHoles);
 
             var teebox = course.Result.TeeBoxes.Single(t => t.Id == teeboxId);
             teebox.Holes.Front = new CourseHoleCollection(holes.Result.Where(h => h.FrontOrBack == FrontOrBack.Front));
@@ -25,20 +26,8 @@ namespace Golf.Tournament.Controllers
 
             return View(new CourseHoleListViewModel(club.Result,
                 course.Result,
-                teebox
-                ));
-        }
-
-        [Route("clubs/{clubId}/courses/{courseId}/teeboxes/{teeboxId}/{frontOrBack}/holes")]
-        public async Task<ActionResult> Select(string clubId, string courseId, string teeboxId, FrontOrBack frontOrBack)
-        {
-            var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var course = loader.LoadAsync<Course>("courses/" + courseId);
-            await Task.WhenAll(club, course);
-
-            return View(new CourseHoleListViewModel(club.Result,
-                course.Result,
-                course.Result.TeeBoxes.Single(t => t.Id == teeboxId)
+                teebox,
+                clubHoles.Result
                 ));
         }
 

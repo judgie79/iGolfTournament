@@ -1,4 +1,4 @@
-﻿@model Golf.Tournament.ViewModels.TournamentDetailsViewModel
+﻿@model Golf.Tournament.ViewModels.TeamTournamentDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -47,6 +47,8 @@
             , string.Empty, panelClass: "panel-default", isCollapsible: true, isCollapsed: true)
     </div>
 </div>
+
+
 
 <p>
     @if (!Model.Tournament.HasStarted)
