@@ -9,7 +9,7 @@ namespace Golf.Tournament.ViewModels
 {
     public class CourseCreateViewModel : CourseViewModel
     {
-
+        public Club Club { get; set; }
         public IEnumerable<Club> Clubs { get; set; }
     }
 }

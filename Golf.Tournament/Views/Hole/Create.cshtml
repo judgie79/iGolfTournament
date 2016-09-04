@@ -4,34 +4,39 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h1>Create Hole</h1>
+<h2>@Model.Club.Name</h2>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Hole</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Club.Id, htmlAttributes: new { @class = "control-label col-md-2" })
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Hole.Name, htmlAttributes: new { @class = "control-label col-sm-2" })
-            <div class="col-sm-10">
-                @Html.EditorFor(model => model.Hole.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Hole.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
+<hr />
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(Model.Club.Name, "Details", "Club", new { id = Model.Club.Id }, new { @class = "btn btn-default" })
 </div>
+
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+        @Html.DisplayFor(model => model.Club)
+        <hr />
+        @Html.DisplayFor(model => model.Club.Address)
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+        @using (Html.BeginForm("Create", "Hole", new { clubId = Model.Club.Id }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Hole.Id)
+                @Html.HiddenFor(model => model.Hole.ClubId)
+                @Html.EditorFor(model => model.Hole)
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        @Html.ActionLink("Cancel", "Index", "Hole", new { clubId = Model.Club.Id }, new { @class = "btn btn-warning" })
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

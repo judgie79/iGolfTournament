@@ -1,0 +1,25 @@
+﻿@model Golf.Tournament.Models.Hole
+@{ 
+    var showEdit = false;
+
+    if (ViewBag.editEnabled != null)
+    {
+        showEdit = ViewBag.editEnabled;
+    }
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">@Model.Name</h3>
+    </div>
+
+    <div class="panel-body">
+        <img src="@Model.CourseImage" style="width: 100%;" />
+    </div>
+    @if (showEdit)
+    {
+    <div class="panel-footer">
+        @Html.ActionLink("Edit", "Edit", "Hole", new { clubId = Model.ClubId, id = Model.Id }, new { @class = "btn btn-xs btn-default" })
+        @Html.ActionLink("Delete", "Delete", "Hole", new { clubId = Model.ClubId, id = Model.Id }, new { @class = "btn btn-xs btn-danger" })
+    </div>
+    }
+</div>

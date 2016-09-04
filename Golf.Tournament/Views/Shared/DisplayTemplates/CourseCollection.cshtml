@@ -1,0 +1,10 @@
+﻿@model CourseCollection
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            @Html.DisplayFor(model => item)
+        </div>
+    }
+</div>

@@ -15,7 +15,7 @@ namespace Golf.Tournament.Controllers
         public async Task<ActionResult> Index(string tournamentId)
         {
             var tournament = loader.LoadAsync<Models.Tournament>("tournaments/" + tournamentId);
-            var players = loader.LoadAsync<Models.PlayerCollection>("players");
+            var players = loader.LoadPlayers();
 
             await Task.WhenAll(tournament, players);
 
@@ -52,7 +52,7 @@ namespace Golf.Tournament.Controllers
 
             if (ModelState.IsValid)
             {
-                var player = await loader.LoadAsync<Models.Player>("players/" + createViewModel.PlayerId);
+                var player = await loader.LoadPlayer(createViewModel.PlayerId);
                 Models.Tournament tournamentResult = await loader.PostAsync<Models.TournamentParticipant, Models.Tournament>("tournaments/" + tournamentId + "/participants", new Models.TournamentParticipant()
                 {
                     Player = player,
@@ -64,7 +64,7 @@ namespace Golf.Tournament.Controllers
 
 
             var tournament = loader.LoadAsync<Models.Tournament>("tournaments/" + tournamentId);
-            var players = loader.LoadAsync<Models.PlayerCollection>("players");
+            var players = loader.LoadPlayers();
             await Task.WhenAll(tournament, players);
 
             createViewModel.Teeboxes = tournament.Result.Course.TeeBoxes;
@@ -97,7 +97,7 @@ namespace Golf.Tournament.Controllers
 
             if (ModelState.IsValid)
             {
-                var player = await loader.LoadAsync<Models.Player>("players/" + editViewModel.Participant.Player.Id);
+                var player = await loader.LoadPlayer(editViewModel.Participant.Player.Id);
                 var tournamentResult = await loader.PutAsync<Models.TournamentParticipant, Models.Tournament>("tournaments/" + tournamentId + "/" + "participants/" + editViewModel.Participant.Id, editViewModel.Participant);
 
                 return RedirectToAction("Index");

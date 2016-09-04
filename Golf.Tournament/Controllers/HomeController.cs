@@ -14,7 +14,7 @@ namespace Golf.Tournament.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var clubs = loader.LoadAsync<IEnumerable<Club>>("clubs");
+            var clubs = loader.LoadClubs();
             var players = loader.LoadAsync<PlayerCollection>("players");
             var tournaments = loader.LoadAsync<IEnumerable<Models.Tournament>>("tournaments");
             var clubReports =  loader.LoadAsync<IEnumerable<ClubReport>>("clubs/report");

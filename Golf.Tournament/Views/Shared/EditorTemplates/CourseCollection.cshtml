@@ -1,0 +1,59 @@
+﻿@model CourseCollection
+@{ 
+    var viewModel = new Course();
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            @Html.DisplayFor(modelItem => item.Name)
+            @foreach (var teebox in item.TeeBoxes)
+            {
+                @teebox.Draw(true)<span>&nbsp;</span>
+            }
+
+            <div>
+                @Html.ActionLink("Edit", "Edit", "Course", new { clubId = item.ClubId, id = item.Id }, new { @class = "btn btn-xs btn-default" })
+                @Html.ActionLink("Details", "Details", "Course", new { clubId = item.ClubId, id = item.Id }, new { @class = "btn btn-xs btn-primary" })
+                @Html.ActionLink("Delete", "Delete", "Course", new { clubId = item.ClubId, id = item.Id }, new { @class = "btn btn-xs btn-warning" })
+            </div>
+        </div>
+    }
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.ClubId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.Name)
+        </th>
+        <th>Teeboxes</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClubId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @foreach (var teebox in item.TeeBoxes)
+                {
+                    @teebox.Draw(true)<span>&nbsp;</span>
+                }
+            </td>
+
+            <td>
+                
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,27 +1,11 @@
-﻿@using Golf.Tournament.Utility
-@model Golf.Tournament.Models.HoleCollection
-@{
-    string teeboxId = "";
-    if (ViewBag.TeeboxId != null)
+﻿@model Golf.Tournament.Models.HoleCollection
+
+<div class="row">
+    @foreach (var item in Model)
     {
-        teeboxId = ViewBag.TeeboxId;
+        <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+            @Html.DisplayFor(model => item)
+        </div>
     }
-}
-
-<table id="scoreSheetEditorTable_@teeboxId" class="table table-hover table-condensed">
-    @{
-        var labelModel = new Golf.Tournament.Models.Hole();
-
-        var colCount = Model.Count();
-    }
-    <colgroup id="scoreSheetEditorTableColumns_@teeboxId">
-        <col width="130">
-        @for (int i = 0; i < colCount; i++)
-        {
-            <col width="60" />
-        }
-    </colgroup>
-    
-
-</table>
+</div>
 

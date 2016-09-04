@@ -6,71 +6,54 @@
 
 <h2>Edit</h2>
 
+@Html.Panel(Html.DisplayFor(model => model.Club.Name).ToHtmlString(),
+    @<div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+            <div class="form-horizontal row">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Club.Id)
+                <hr />
+                <div class="col-lg-4 col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Club.Name, htmlAttributes: new { @class = "control-label col-sm-2" })
+                        <div class="col-sm-10">
+                            @Html.EditorFor(model => model.Club.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Club.Name, "", new { @class = "text-danger" })
 
-    <div class="form-horizontal">
-        <h4>Club</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Club.Id)
-
-        <div class="row">
-            <div class="col-md-5">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Club.Name, htmlAttributes: new { @class = "control-label col-sm-2" })
-                    <div class="col-sm-10">
-                        @Html.EditorFor(model => model.Club.Name, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Club.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    @Html.EditorFor(model => model.Club.Address)
+                    <div id="map-outer" style="width: 100%; height: 200px">
+                        @Html.Partial("Map", new Golf.Tournament.ViewModels.MapViewModel(Model.Club.Address))
                     </div>
                 </div>
-
-                @Html.EditorFor(model => model.Club.Address)
-            </div>
-            <div class="col-md-7">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Club.LocalRules, htmlAttributes: new { @class = "control-label col-sm-2" })
-                    <div class="col-sm-10">
-                        @Html.WysiwygFor(model => model.Club.LocalRules, htmlAttributes: new { @class = "form-control html" })
-                        @Html.ValidationMessageFor(model => model.Club.LocalRules, "", new { @class = "text-danger" })
+                <div class="col-lg-8 col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">@Html.DisplayNameFor(model => model.Club.LocalRules)</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-horizontal">
+                                @Html.WysiwygFor(model => model.Club.LocalRules, htmlAttributes: new { @class = "form-control html" })
+                                
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            @Html.ValidationMessageFor(model => model.Club.LocalRules, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-sm-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+        }
+    </div>,
+    @<div>
+        <input type="submit" value="Save" class="btn btn-primary" />
+        @Html.ActionLink("Cancel", "Index", new { }, new { @class = "btn btn-sm btn-warning" })
+        @Html.ActionLink("Show Holes", "Index", "Hole", new { clubId = Model.Club.Id }, new { @class = "btn btn-sm btn-default" })
+        @Html.ActionLink("Show Courses", "Index", "Course", new { clubId = Model.Club.Id }, new { @class = "btn btn-sm btn-default" })
     </div>
-}
+        )
 
-<h4>Holes</h4>
-<hr />
-<p>
-    @Html.ActionLink("Create New", "Create", "Hole", new { clubId = Model.Club.Id }, new { })
-</p>
-
-@Html.Partial("HoleEditTablePart", Model.Holes)
-
-<h4>Courses</h4>
-<hr />
-<p>
-    @Html.ActionLink("Create New", "Create", "Course", new { clubId = Model.Club.Id }, new { })
-</p>
-
-@Html.Partial("CourseEditTablePart", Model.Courses)
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

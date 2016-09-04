@@ -4,15 +4,43 @@
     ViewBag.Title = "Index";
 }
 
-@Html.DisplayFor(model => model.Course)
+@Html.DisplayFor(model => model.Club)
 
 @Html.DisplayFor(model => model.Teebox)
 
 
 @Html.DisplayFor(model => model.CourseHoles, new { holes = Model.Holes })
 
+<p>
+    <form class="form-inline">
+        <div class="form-group">
+            @Html.ActionLink(Model.Club.Name, "Details", "Club", new { id = Model.Club.Id }, new { @class = "btn btn-default" })
+        </div>
+        <div class="form-group">
+            @Html.ActionLink("Edit", "Edit", "CourseHole", new { clubId = Model.Club.Id, courseId = Model.Course.Id, teeboxId = Model.Teebox.Id }, new { @class = "btn btn-primary" })
+        </div>
+
+
+        <div class="form-group">
+            <label class="" for="createFrontHolesCount">Front</label>
+            <input type="text" class="form-control" id="createFrontHolesCount" />
+        </div>
+        <div class="form-group">
+            <label class="" for="createBackHolesCount">Back</label>
+            <input type="text" class="form-control" id="createBackHolesCount" />
+        </div>
+        <div class="form-group">
+            <a class="btn btn-default" href="@Url.Action("Create", "CourseHole", new { clubId = Model.Club.Id, courseId = Model.Course.Id, teeboxId = Model.Teebox.Id })" id="createHoles">Create</a>
+        </div>
+    </form>
+    
+</p>
+
 <div>
-    @Html.ActionLink("Edit", "Edit", "CourseHole", new { clubId = Model.Club.Id, courseId = Model.Course.Id, teeboxId = Model.Teebox.Id })
+   
+
+    
+
 </div>
 
 @using (Html.BeginScripts("end"))

@@ -96,7 +96,7 @@ module.exports.update = function (id, updateCourse, callback) {
             },
             function (err, part) {
                 db.collection(config.db.collections.courses).findOne(
-                    { "_id": new ObjectId(courseId) },
+                    { "_id": new ObjectId(id) },
                     function (err, course) {
                         callback(err, course);
                     }

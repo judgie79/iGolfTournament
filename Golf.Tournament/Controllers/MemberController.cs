@@ -49,7 +49,7 @@ namespace Golf.Tournament.Controllers
 
             if (ModelState.IsValid)
             {
-                //var player = await loader.LoadAsync<Models.Player>("players/" + createViewModel.PlayerId);
+                //var player = await loader.LoadPlayer(createViewModel.PlayerId);
                 await loader.PostAsync<Models.TournamentParticipant, Models.TeamTournament>("tournaments/" + tournamentId + "/teams/" + teamId + "/members", new Models.TournamentParticipant()
                 {
                     Id = createViewModel.ParticipantId,

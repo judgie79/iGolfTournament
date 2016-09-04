@@ -18,6 +18,10 @@ namespace Golf.Tournament.Models
         [JsonProperty("_id")]
         public string Id { get; set; }
 
+        public string ClubId { get; set; }
+
+        public string CourseId { get; set; }
+
         [JsonProperty("color")]
         [Required]
         public Color Color { get; set; }

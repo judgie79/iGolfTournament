@@ -16,7 +16,5 @@ namespace Golf.Tournament.ViewModels
         public Club Club { get; set; }
 
         public Hole Hole { get; set; }
-
-        public HttpPostedFileBase CourseImageFile { get; set; }
     }
 }

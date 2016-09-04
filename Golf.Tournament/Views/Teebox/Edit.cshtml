@@ -6,51 +6,48 @@
 <div class="row">
     <div class="col-md-4">
         @Html.Panel(Model.Club.Name,
-            Html.DisplayFor(model => model.Club.Address),
+    @<div>
+        @Html.DisplayFor(model => model.Club.Address)
+    </div>,
             ""
         )
     </div>
     <div class="col-md-8">
-        @Html.Panel(Model.Course.Name,
-            @<div class="row">
-                <div class="col-md-12">
-                    @Html.DisplayFor(model => model.Course.TeeBoxes)
-                </div>
-            </div>,
-            ""
-        )
-    </div>
-</div>
+        @using (Html.BeginForm())
+        {
+            <div>
+                @Html.Panel(Model.Course.Name,
+                @<div>
+                    @Html.AntiForgeryToken()
+                    <div class="row">
 
-<div class="row">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="col-md-8">
-            <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Teebox)
+                            </div>
+                        </div>
 
-                @Html.EditorFor(model => model.Teebox)
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @Html.DisplayFor(model => model.Teebox.Holes, new
+                           {
+                               teeName = Model.Teebox.Name
+                           })
+                            </div>
+                        </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-default" />
                     </div>
-                </div>
+                </div>,
+                @<div>
+                    @Html.ActionLink("Cancel", "Edit", "Course", new { clubId = Model.Club.Id, id = Model.Course.Id }, new { @class = "btn btn-sm btn-warning" })
+                    @Html.ActionLink("Edit Holes", "Edit", "CourseHole", new { clubId = Model.Club.Id, courseId = Model.Course.Id, teeboxId = Model.Teebox.Id }, new { @class = "btn btn-sm btn-default" })
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>)
             </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="form-group">
-                @Html.DisplayFor(model => model.Teebox.Holes, new { teeName = Model.Teebox.Name })
-            </div>
-        </div>
-    }
-</div>
-<div>
-    @Html.ActionLink("Back to List", "Index", new { }, new { @class="btn btn-sm btn-default" })
-    @Html.ActionLink("Edit Holes", "Index", "CourseHole", new { clubId = Model.Club.Id, courseId = Model.Course.Id, teeboxId = Model.Teebox.Id }, new { @class = "btn btn-sm btn-default" })
+        }
+    </div>
 </div>
 
 @section Scripts {

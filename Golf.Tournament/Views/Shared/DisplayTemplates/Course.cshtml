@@ -1,40 +1,28 @@
 ﻿@model Golf.Tournament.Models.Course
 
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
+@{
+    var showEdit = false;
 
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
+    if (ViewBag.editEnabled != null)
+    {
+        showEdit = ViewBag.editEnabled;
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+        ViewBag.editEnabled = false;
+    }
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">@Model.Name</h3>
+    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-    </dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <div class="panel-body">
+        <div class="container">@Html.DisplayFor(model => model.TeeBoxes)</div>
+    </div>
+    @if (showEdit)
+    {
+        <div class="panel-footer">
+            @Html.ActionLink("Edit", "Edit", "Course", new { clubId = Model.ClubId, id = Model.Id }, new { @class = "btn btn-xs btn-default" })
+            @Html.ActionLink("Delete", "Delete", "Course", new { clubId = Model.ClubId, id = Model.Id }, new { @class = "btn btn-xs btn-danger" })
+        </div>
+    }
 </div>

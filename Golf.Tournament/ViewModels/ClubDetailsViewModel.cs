@@ -10,12 +10,16 @@ namespace Golf.Tournament.ViewModels
     {
         public ClubDetailsViewModel()
         {
-            Courses = new List<Course>();
+            Courses = new CourseCollection();
+            Holes = new HoleCollection();
+            Club = new Club();
         }
 
         public Club Club { get; set; }
 
-        public IEnumerable<Course> Courses { get; set; }
+        public CourseCollection Courses { get; set; }
+        
+        public HoleCollection Holes { get; set; }
     }
 
     

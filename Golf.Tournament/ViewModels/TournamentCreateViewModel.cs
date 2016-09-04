@@ -22,7 +22,7 @@ namespace Golf.Tournament.ViewModels
 
         public string ClubId { get; set; }
 
-        public IEnumerable<Course> Courses { get; set; }
+        public CourseCollection Courses { get; set; }
 
         public string CourseId { get; set; }
 

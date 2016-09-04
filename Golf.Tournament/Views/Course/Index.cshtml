@@ -1,9 +1,20 @@
-﻿@model IEnumerable<Golf.Tournament.Models.Course>
+﻿@model CourseListViewModel
 
 @{
     ViewBag.Title = "Index";
+
+    ViewBag.editEnabled = true;
 }
 
-<h2>Index</h2>
+<h1>Courses</h1>
+<h2>@Model.Club.Name</h2>
 
-@Html.Partial("CourseEditTablePart", Model)
+<hr />
+<p>
+    @Html.ActionLink(Model.Club.Name, "Details", "Club", new { id = Model.Club.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Create New Course", "Create", "Course", new { clubId = Model.Club.Id }, new { @class = "btn btn-primary" })
+</p>
+
+<div class="container">
+    @Html.DisplayFor(model => model.Courses, new { editEnabled = true })
+</div>

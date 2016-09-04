@@ -1,42 +1,7 @@
 ﻿@model Golf.Tournament.Models.Address
-<dl class="dl-horizontal">
-    <dt>
-        @Html.DisplayNameFor(model => model.Street)
-    </dt>
 
-    <dd>
-        @Html.DisplayFor(model => model.Street)
-    </dd>
+<address>
+    <div>@Html.DisplayFor(model => model.Street) @Html.DisplayFor(model => model.HouseNo)</div>
+    <div>@Html.DisplayFor(model => model.Country) @Html.DisplayFor(model => model.Zip) @Html.DisplayFor(model => model.City)</div>
+</address>
 
-    <dt>
-        @Html.DisplayNameFor(model => model.HouseNo)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.HouseNo)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.Zip)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.Zip)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.City)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.City)
-    </dd>
-
-    <dt>
-        @Html.DisplayNameFor(model => model.Country)
-    </dt>
-
-    <dd>
-        @Html.DisplayFor(model => model.Country)
-    </dd>
-</dl>

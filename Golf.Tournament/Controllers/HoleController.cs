@@ -17,34 +17,19 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/holes")]
         public async Task<ActionResult> Index(string clubId)
         {
-            var club = loader.LoadAsync<Club>("clubs/" + clubId);
+            var club = loader.LoadClub(clubId);
 
-            var holes = loader.LoadAsync<HoleCollection>("clubs/" + clubId + "/holes");
+            var holes = loader.LoadHolesOfClub(clubId);
             await Task.WhenAll(club, holes);
 
             return View(new HoleListViewModel(club.Result, holes.Result));
-        }
-
-        // GET: Club/Details/5
-        [Route("clubs/{clubId}/holes/{id}")]
-        public async Task<ActionResult> Details(string clubId, string id)
-        {
-            var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var hole = loader.LoadAsync<Hole>("clubs/" + clubId + "/holes/" + id);
-            await Task.WhenAll(club, hole);
-
-            return View(new HoleDetailsViewModel()
-            {
-                Club = club.Result,
-                Hole = hole.Result
-            });
         }
 
         // GET: Club/Create
         [Route("clubs/{clubId}/holes/create")]
         public async Task<ActionResult> Create(string clubId)
         {
-            var club = await loader.LoadAsync<Club>("clubs/" + clubId);
+            var club = await loader.LoadClub(clubId);
 
             return View(new HoleCreateViewModel()
             {
@@ -62,17 +47,28 @@ namespace Golf.Tournament.Controllers
         public async Task<ActionResult> Create(string clubId, HoleCreateViewModel holeCreateViewModel)
         {
             ModelState.Clear();
-            holeCreateViewModel.Hole.ClubId = holeCreateViewModel.Club.Id;
+            holeCreateViewModel.Hole.ClubId = clubId;
             TryValidateModel(holeCreateViewModel.Hole);
 
             if (ModelState.IsValid)
             {
-                await loader.PostAsync<Hole, Hole>("clubs/" + clubId + "/holes", holeCreateViewModel.Hole);
+                var holeId = await loader.CreateHole(clubId, holeCreateViewModel.Hole);
+
+                if (holeCreateViewModel.Hole.CourseImageFile.HasFile())
+                {
+                    string courseImage = HtmlFileUploadHelper.StoreFile(ControllerContext.HttpContext, "~/avatars/holes/" + clubId, "/avatars/holes/" + clubId + "/", holeId, holeCreateViewModel.Hole.CourseImageFile);
+
+                    holeCreateViewModel.Hole.Id = holeId;
+                    holeCreateViewModel.Hole.CourseImage = courseImage;
+                    await loader.UpdateHole(clubId, holeCreateViewModel.Hole);
+                    
+                }
+
                 return RedirectToAction("Index");
             }
             else
             {
-                var club = await loader.LoadAsync<Club>("clubs/" + clubId);
+                var club = await loader.LoadClub(clubId);
                 holeCreateViewModel.Club = club;
                 return View(holeCreateViewModel);
             }
@@ -82,8 +78,8 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/holes/{id}/edit")]
         public async Task<ActionResult> Edit(string clubId, string id)
         {
-            var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var hole = loader.LoadAsync<Hole>("clubs/" + clubId + "/holes/" + id);
+            var club = loader.LoadClub(clubId);
+            var hole = loader.LoadHole(clubId, id);
 
             await Task.WhenAll(club, hole);
 
@@ -99,9 +95,9 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/holes/{id}/edit")]
         public async Task<ActionResult> Edit(string clubId, string id, HoleEditViewModel holeEditViewModel)
         {
-            if (holeEditViewModel.CourseImageFile.HasFile())
+            if (holeEditViewModel.Hole.CourseImageFile.HasFile())
             {
-                string courseImage = HtmlFileUploadHelper.StoreFile(ControllerContext.HttpContext, "~/avatars/holes/" + clubId, "/avatars/holes/" + clubId + "/", id, holeEditViewModel.CourseImageFile);
+                string courseImage = HtmlFileUploadHelper.StoreFile(ControllerContext.HttpContext, "~/avatars/holes/" + clubId, "/avatars/holes/" + clubId + "/", id, holeEditViewModel.Hole.CourseImageFile);
 
                 holeEditViewModel.Hole.CourseImage = courseImage;
             }
@@ -111,12 +107,12 @@ namespace Golf.Tournament.Controllers
 
             if (ModelState.IsValid)
             {
-                await loader.PutAsync<Hole>("clubs/" + clubId + "/holes/" + id, holeEditViewModel.Hole);
+                await loader.UpdateHole(clubId, holeEditViewModel.Hole);
                 return RedirectToAction("Index");
             }
             else
             {
-                var club = loader.LoadAsync<Club>("clubs/" + clubId);
+                var club = loader.LoadClub(clubId);
                 await Task.WhenAll(club);
                 
                 holeEditViewModel.Club = club.Result;
@@ -129,8 +125,8 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{clubId}/holes/{id}/delete")]
         public async Task<ActionResult> Delete(string clubId, string id)
         {
-            var club = loader.LoadAsync<Club>("clubs/" + clubId);
-            var hole = loader.LoadAsync<Hole>("clubs/" + clubId + "/holes/" + id);
+            var club = loader.LoadClub(clubId);
+            var hole = loader.LoadHole(clubId, id);
 
             await Task.WhenAll(club, hole);
 
@@ -148,7 +144,7 @@ namespace Golf.Tournament.Controllers
         {
             try
             {
-                await loader.DeleteAsync<Hole>("clubs/" + clubId + "/holes/" + id);
+                await loader.DeleteHole(clubId, id);
                 return RedirectToAction("Index");
             }
             catch

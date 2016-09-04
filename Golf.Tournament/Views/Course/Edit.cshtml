@@ -1,59 +1,62 @@
 ﻿@model Golf.Tournament.ViewModels.CourseEditViewModel
 
-@{
-    ViewBag.Title = "Edit";
+<h1>Edit Course @Model.Course.Name</h1>
+@if (Model.Club != null)
+{
+    <h2>@Model.Club.Name</h2>
+}
 
-    var viewData = ViewData;
-    viewData.Add("Course", Model.Course);
-    viewData.Add("Club", Model.Club);
+
+<hr />
+@if (Model.Club != null)
+{
+    <div>
+        @Html.ActionLink(Model.Club.Name, "Details", "Club", new { id = Model.Club.Id }, new { @class = "btn btn-default" })
+    </div>
 }
 
 <div class="row">
-    <div class="col-md-4">
-        @Html.Panel(Model.Club.Name,
-            Html.DisplayFor(model => model.Club.Address),
-            ""
-        )
-</div>
-<div class="col-md-8">
-    @using (Html.BeginForm())
+    @if (Model.Club != null)
     {
-        @Html.AntiForgeryToken()
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2 class="panel-title">Edit Course @Model.Course.Name</h2>
-            </div>
-            <div class="panel-body">
-                <div class="form-horizontal">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.Club.Id)
-                    @Html.HiddenFor(model => model.Course.Id)
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Course.Name, htmlAttributes: new { @class = "control-label col-sm-2" })
-                        <div class="col-sm-10">
-                            @Html.EditorFor(model => model.Course.Name, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Course.Name, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-footer">
-                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-sm btn-default" })
-                <input type="submit" value="Save" class="btn btn-sm btn-primary" />
-            </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            @Html.DisplayFor(model => model.Club)
+            <hr />
+            @Html.DisplayFor(model => model.Club.Address)
         </div>
     }
+    <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Edit Course @Model.Course.Name</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Club.Id)
+
+                        @Html.EditorFor(model => model.Course)
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-sm btn-default" })
+                    <input type="submit" value="Save" class="btn btn-sm btn-primary" />
+                </div>
+            </div>
+        }
+    </div>
 </div>
-</div>
+
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h2 class="panel-title">Teeboxes - Course @Model.Course.Name</h2>
             </div>
             <div class="panel-body">
-                @Html.Partial("Teeboxes_Table_Edit", Model.Course.TeeBoxes, viewData)
+                @Html.DisplayFor(model => model.Course.TeeBoxes, new { editEnabled = true })
             </div>
             <div class="panel-footer">
                 @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-sm btn-default" })
@@ -61,9 +64,3 @@
         </div>
     </div>
 </div>
-
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

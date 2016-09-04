@@ -3,12 +3,13 @@
 @{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
+<h1>Holes</h1>
+<h2>@Model.Club.Name</h2>
 
 <hr />
 <p>
-    @Html.ActionLink("Create New", "Create", "Hole", new { clubId = Model.Club.Id }, new { })
+    @Html.ActionLink(Model.Club.Name, "Details", "Club", new { id = Model.Club.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Create New Hole", "Create", "Hole", new { clubId = Model.Club.Id }, new { @class = "btn btn-primary" })
 </p>
 
-@Html.Partial("HoleEditTablePart", Model.Holes)
+@Html.DisplayFor(model => model.Holes, new { editEnabled = true })

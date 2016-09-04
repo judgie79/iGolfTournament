@@ -15,7 +15,7 @@ namespace Golf.Tournament.Controllers
         [Route("clubs")]
         public async Task<ActionResult> Index()
         {
-            var clubs = await loader.LoadAsync<IEnumerable<Club>>("clubs");
+            var clubs = await loader.LoadClubs();
             
             return View(clubs);
         }
@@ -24,16 +24,18 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{id}")]
         public async Task<ActionResult> Details(string id)
         {
-            var club = loader.LoadAsync<Club>("clubs/" + id);
+            var club = loader.LoadClub(id);
 
-            var courses = loader.LoadAsync<IEnumerable<Course>>("clubs/" + id + "/courses");
+            var courses = loader.LoadCoursesOfClub(id);
+            var holes = loader.LoadHolesOfClub(id);
 
-            await Task.WhenAll(club, courses);
+            await Task.WhenAll(club, courses, holes);
 
             return View(new ClubDetailsViewModel()
             {
                 Club = club.Result,
-                Courses = courses.Result
+                Courses = courses.Result,
+                Holes = holes.Result
             });
         }
 
@@ -51,10 +53,8 @@ namespace Golf.Tournament.Controllers
         {
             if (ModelState.IsValid)
             {
-                var club = await loader.PostAsync<Club>("clubs/", clubCreateViewModel.Club);
+                var clubId = await loader.CreateClub(clubCreateViewModel.Club);
 
-
-                clubCreateViewModel.Club = club;
                 return RedirectToAction("Index");
             }
             else
@@ -67,10 +67,10 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{id}/edit")]
         public async Task<ActionResult> Edit(string id)
         {
-            var club = loader.LoadAsync<Club>("clubs/" + id);
+            var club = loader.LoadClub(id);
 
-            var courses = loader.LoadAsync<IEnumerable<Course>>("clubs/" + id + "/courses");
-            var holes = loader.LoadAsync<HoleCollection>("clubs/" + id + "/holes");
+            var courses = loader.LoadCoursesOfClub(id);
+            var holes = loader.LoadHolesOfClub(id);
 
             await Task.WhenAll(club, courses, holes);
 
@@ -89,7 +89,7 @@ namespace Golf.Tournament.Controllers
         {
             if (ModelState.IsValid)
             {
-                var club = await loader.PutAsync<Club>("clubs/" + id, clubEditViewModel.Club);
+                var club = await loader.UpdateClub(clubEditViewModel.Club);
                 clubEditViewModel.Club = club;
                 return RedirectToAction("Index");
             }
@@ -103,7 +103,7 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{id}/delete")]
         public async Task<ActionResult> Delete(string id)
         {
-            var club = await loader.LoadAsync<Club>("clubs/" + id);
+            var club = await loader.LoadClub(id);
 
             return View(club);
         }
@@ -113,7 +113,7 @@ namespace Golf.Tournament.Controllers
         [Route("clubs/{id}/delete")]
         public async Task<ActionResult> Delete(string id, FormCollection form)
         {
-            var success = await loader.DeleteAsync<Club>("clubs/" + id);
+            var success = await loader.DeleteClub(id);
 
             return RedirectToAction("Index");
         }

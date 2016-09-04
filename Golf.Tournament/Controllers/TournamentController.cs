@@ -62,7 +62,7 @@ namespace Golf.Tournament.Controllers
         public async Task<ActionResult> Create(string clubId = null, string courseId = null)
         {
             var clubs = loader.LoadAsync<IEnumerable<Models.Club>>("clubs");
-            var courses = loader.LoadAsync<IEnumerable<Models.Course>>("courses");
+            var courses = loader.LoadAsync<Models.CourseCollection>("courses");
 
             await Task.WhenAll(clubs, courses);
             await loader.SetHoles(courses.Result);
@@ -88,7 +88,7 @@ namespace Golf.Tournament.Controllers
         {
 
             var clubs = loader.LoadAsync<IEnumerable<Models.Club>>("clubs");
-            var courses = loader.LoadAsync<IEnumerable<Models.Course>>("courses");
+            var courses = loader.LoadAsync<Models.CourseCollection>("courses");
 
             await Task.WhenAll(clubs, courses);
             await loader.SetHoles(courses.Result);

@@ -25,11 +25,11 @@ router.post("/:clubId/holes", function (req, res) {
 
     var newhole = req.body;
 
-    holeRepository.create(req.params.clubId, newhole, function (err, course) {
+    holeRepository.create(req.params.clubId, newhole, function (err, holeId) {
         if (err) {
             error.handleError(res, err.message, "Failed to create new hole.");
         } else {
-            res.status(201).json(course);
+            res.status(201).json(holeId);
         }
     });
 });

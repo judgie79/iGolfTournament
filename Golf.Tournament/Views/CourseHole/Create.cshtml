@@ -2,6 +2,9 @@
 
 @{
     ViewBag.Title = "Create";
+
+    var frontColCount = Model.CourseHoles.Front.Count();
+    var backColCount = Model.CourseHoles.Back.Count();
 }
 
 <h2>Create</h2>
@@ -18,7 +21,14 @@
         @Html.HiddenFor(model => model.Course.Id)
         @Html.HiddenFor(model => model.Teebox.Id)
 
-        <table>
+        <table class="table table-condensed">
+            <colgroup>
+                <col width="130">
+                @for (int i = 0; i < frontColCount; i++)
+                {
+                    <col width="60" />
+                }
+            </colgroup>
             <thead>
                 <tr>
                     <th colspan="@(Model.CourseHoles.Front.Count +1)">Front</th>
@@ -30,6 +40,7 @@
                     @for (var i = 0; i < Model.CourseHoles.Front.Count; i++)
                     {
                         <td>
+                            @Html.HiddenFor(model => Model.CourseHoles.Front[i].FrontOrBack)
                             @Html.DropDownListFor(model => Model.CourseHoles.Front[i].HoleId, Model.Holes.Select(hole => new SelectListItem() { Text = hole.Name, Value = hole.Id }), new { @class = "form-control" })
                         </td>
                     }
@@ -38,34 +49,41 @@
                     <td>@Html.DisplayNameFor(model => Model.ViewModel.Number)</td>
                     @for (var i = 0; i < Model.CourseHoles.Front.Count; i++)
                     {
-                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Number)</td>
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Number, new { @class = "form-control" })</td>
                     }
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => Model.ViewModel.Par)</td>
                     @for (var i = 0; i < Model.CourseHoles.Front.Count; i++)
                     {
-                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Par)</td>
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Par, new { @class = "form-control" })</td>
                     }
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => Model.ViewModel.Hcp)</td>
                     @for (var i = 0; i < Model.CourseHoles.Front.Count; i++)
                     {
-                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Hcp)</td>
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Hcp, new { @class = "form-control" })</td>
                     }
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => Model.ViewModel.Distance)</td>
                     @for (var i = 0; i < Model.CourseHoles.Front.Count; i++)
                     {
-                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Distance)</td>
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Front[i].Distance, new { @class = "form-control" })</td>
                     }
                 </tr>
             </tbody>
         </table>
 
-        <table>
+        <table class="table table-condensed">
+            <colgroup>
+                <col width="130">
+                @for (int i = 0; i < backColCount; i++)
+                {
+                    <col width="60" />
+                }
+            </colgroup>
             <thead>
                 <tr>
                     <th colspan="@(Model.CourseHoles.Back.Count +1)">Back</th>
@@ -73,10 +91,11 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>@Html.DisplayNameFor(model => Model.ViewModel.Id)</td>
+                    <td>@Html.DisplayNameFor(model => Model.ViewModel.HoleId)</td>
                     @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
                     {
                         <td>
+                            @Html.HiddenFor(model => Model.CourseHoles.Back[i].FrontOrBack)
                             @Html.DropDownListFor(model => Model.CourseHoles.Back[i].HoleId, Model.Holes.Select(hole => new SelectListItem() { Text = hole.Name, Value = hole.Id }), new { @class = "form-control" })
                         </td>
                     }
@@ -85,28 +104,28 @@
                     <td>@Html.DisplayNameFor(model => Model.ViewModel.Number)</td>
                     @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
                     {
-                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Number)</td>
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Number, new { @class = "form-control" })</td>
                     }
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => Model.ViewModel.Par)</td>
                     @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
                     {
-                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Par)</td>
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Par, new { @class = "form-control" })</td>
                     }
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => Model.ViewModel.Hcp)</td>
                     @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
                     {
-                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Hcp)</td>
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Hcp, new { @class = "form-control" })</td>
                     }
                 </tr>
                 <tr>
                     <td>@Html.DisplayNameFor(model => Model.ViewModel.Distance)</td>
                     @for (var i = 0; i < Model.CourseHoles.Back.Count; i++)
                     {
-                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Distance)</td>
+                        <td>@Html.TextBoxFor(model => Model.CourseHoles.Back[i].Distance, new { @class = "form-control" })</td>
                     }
                 </tr>
             </tbody>

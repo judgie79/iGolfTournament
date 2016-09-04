@@ -21,17 +21,41 @@
 
         @Html.EditorFor(model => model.CourseHoles, new { holes = Model.Holes })
 
+        <div class="form-inline">
+            <div class="form-group">
+            <label class="" for="createFrontHolesCount">Front</label>
+            <input type="text" class="form-control" id="createFrontHolesCount" />
+            </div>
+            <div class="form-group">
+                <label class="" for="createBackHolesCount">Back</label>
+                <input type="text" class="form-control" id="createBackHolesCount" />
+            </div>
+            <div class="form-group">
+                <a class="btn btn-default" href="@Url.Action("Create", "CourseHole", new { clubId = Model.Club.Id, courseId = Model.Course.Id, teeboxId = Model.Teebox.Id })" id="createHoles">Create</a>
+            </div>
+        </div>
+
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="">
+                @Html.ActionLink(Model.Club.Name, "Details", "Club", new { id = Model.Club.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink(Model.Course.Name, "Details", "Course", new { id = Model.Course.Id, clubId = Model.Club.Id }, new { @class = "btn btn-default" })
+                @Html.ActionLink(Model.Teebox.Name, "Edit", "Teebox", new { id = Model.Teebox.Id, clubId = Model.Club.Id, courseId = Model.Course.Id }, new { @class = "btn btn-default", style = "background-color:" + Model.Teebox.Color + ";" })
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink(Model.Club.Name, "Details", "Club", new { id = Model.Club.Id }, new { @class = "btn btn-default" })
-    @Html.ActionLink(Model.Course.Name, "Details", "Course", new { id = Model.Course.Id, clubId = Model.Club.Id }, new { @class = "btn btn-default" })
-    @Html.ActionLink(Model.Teebox.Name, "Details", "Teebox", new { id = Model.Teebox.Id, clubId = Model.Club.Id, courseId = Model.Course.Id }, new { @class = "btn btn-default", style = "background-color:" + Model.Teebox.Color + ";" })
-    @Html.ActionLink("Holes", "Index", new { }, new { @class = "btn btn-default" })
-</div>
+@using (Html.BeginScripts("end"))
+{
+    <script>
+        $(function () {
+
+            $("#createHoles").click(function (event) {
+                event.preventDefault();
+                var url = $("#createHoles").attr("href") + "?holeFrontCount=" + $("#createFrontHolesCount").val() + "&holeBackCount=" + $("#createBackHolesCount").val()
+                window.location = url;
+            });
+        });
+    </script>
+}

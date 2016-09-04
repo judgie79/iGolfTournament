@@ -10,13 +10,13 @@ namespace Golf.Tournament.ViewModels
     {
         public ClubEditViewModel()
         {
-            Courses = new List<Course>();
+            Courses = new CourseCollection();
             Holes = new HoleCollection();
         }
 
         public Club Club { get; set; }
 
-        public IEnumerable<Course> Courses { get; set; }
+        public CourseCollection Courses { get; set; }
         public HoleCollection Holes { get; set; }
     }
 }

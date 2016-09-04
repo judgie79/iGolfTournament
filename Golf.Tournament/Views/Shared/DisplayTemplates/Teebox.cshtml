@@ -1,112 +1,30 @@
 ﻿@model Golf.Tournament.Models.TeeBox
 @{
-    string teeName = "";
-    if (Model.Name != null)
+    var showEdit = false;
+
+    if (ViewBag.editEnabled != null)
     {
-        teeName = Model.Name;
-        teeName = teeName.Replace(" ", "_");
+        showEdit = ViewBag.editEnabled;
     }
-
-    int teeIndex = 0;
-    if (ViewBag.teeIndex != null)
-    {
-        teeIndex = ViewBag.teeIndex;
-    }
-
-    var fontColor = "#ffffff";
-
-    if (Model.Color.Value.ToLower() == "#ffffff")
-    {
-        fontColor = "#000000";
-    }
-
-    bool showPopup = false;
-    if (ViewBag.ShowHolesWithPopup != null && ViewBag.ShowHolesWithPopup == true)
-    {
-        showPopup = true;
-    }
-
-    bool showHoles = false;
-    if (ViewBag.ShowHoles != null && ViewBag.ShowHoles == true)
-    {
-        showHoles = true;
-    }
-
-    
 }
-<div>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            <span>@Model.Name</span><span class="label label-default" style="background-color: @Model.Color.ToHtml(); display: block; width: 20px; height: 10px;">&nbsp;</span>
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Distance)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Distance)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Par)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Par)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CourseRating)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CourseRating)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SlopeRating)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SlopeRating)
-        </dd>
-    </dl>
-</div>
-@if (showPopup)
-{
-            <!-- Button trigger modal -->
-    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal_@teeName">
-        Show Holes
-    </button>
-
-    <div class="modal fade" id="myModal_@teeName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">@Model.Name - Holes</h4>
-                </div>
-                <div class="modal-body">
-                    @Html.DisplayFor(model => model.Holes, new { teeName = Model.Name })
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">@Model.Name @Model.Draw(true)</h3> 
     </div>
-}
-else
-{
-    if (showHoles)
+
+    <div class="panel-body">
+
+        <div>@Html.DisplayFor(model => model.Distance) m</div>
+
+        <div>CR/SL: @Html.DisplayFor(model => model.CourseRating)/@Html.DisplayFor(model => model.SlopeRating)</div>
+
+        <div>@Model.Holes.Count Holes</div>
+    </div>
+    @if (showEdit)
     {
-        <div>
-            @Html.DisplayFor(model => model.Holes, new { teeName = Model.Name })
+        <div class="panel-footer">
+            @Html.ActionLink("Edit", "Edit", "Teebox", new { clubId = Model.ClubId, courseId = Model.CourseId, id = Model.Id }, new { @class = "btn btn-xs btn-default" })
+            @Html.ActionLink("Delete", "Delete", "Teebox", new { clubId = Model.ClubId, courseId = Model.CourseId, id = Model.Id }, new { @class = "btn btn-xs btn-danger" })
         </div>
     }
-}
+</div>

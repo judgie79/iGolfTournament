@@ -11,8 +11,15 @@ namespace Golf.Tournament.Models
     public class TeeboxCollection : List<TeeBox>
     {
         public TeeboxCollection()
+            : base()
         {
            
+        }
+
+        public TeeboxCollection(IEnumerable<TeeBox> teeboxes)
+            : base(teeboxes)
+        {
+
         }
     }
 }

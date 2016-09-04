@@ -21,5 +21,8 @@ namespace Golf.Tournament.Models
 
         [JsonProperty("courseImage")]
         public string CourseImage { get; set; }
+
+        [JsonIgnore]
+        public HttpPostedFileBase CourseImageFile { get; set; }
     }
 }

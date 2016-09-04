@@ -38,8 +38,14 @@ CrudRepository.prototype.create = function (newdoc, callback) {
     var db = mongoUtil.getDb();
     newdoc._id = new ObjectID();
     //newdoc.createDate = new Date();
-    db.collection(this.collection).insertOne(newdoc, function (err, doc) {
-        callback(err, doc);
+    db.collection(this.collection).insertOne(newdoc, function (err, result) {
+
+        if (result.result.ok) {
+            callback(err, result.insertedId);
+        }
+        else {
+            callback(err, false);
+        }
     });
 }
 
